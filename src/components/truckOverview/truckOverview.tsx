@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { GetTrucksQuery, Truck } from '../../generated/graphql';
-import './styles.css';
+import './styles.scss';
 
 interface Props {
   data: GetTrucksQuery;
