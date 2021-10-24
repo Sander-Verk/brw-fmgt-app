@@ -1,4 +1,6 @@
+import { Card, Col, Row } from 'antd';
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 import { GetTrucksQuery, Truck } from '../../generated/graphql';
 import './styles.scss';
 
@@ -10,18 +12,26 @@ const className = 'TruckOverview';
 
 const TruckOverview: React.FC<Props> = ({ data }) => (
   <div className={className}>
-    <h3>Trucks</h3>
-    <ol className={`${className}__list`}>
+    <h1>Trucks</h1>
+
+    <Row gutter={[16, 16]}>
       {!!data.trucks &&
         data.trucks.items.map(
           (truck: Partial<Truck>, i: number) =>
-            !!truck && (
-              <li key={i} className={`${className}__item`}>
-                {truck.name} - ({truck.code})
-              </li>
+            !!truck && !!truck.id && (
+              <Col key={i}>
+                <Link to={"trucks/" + truck.id}>
+                  <Card
+                    title={`${truck.name} - (${truck.code})`}
+                    bodyStyle={{ display: 'none' }}
+                    hoverable
+                    cover={<img alt="example" src="https://place-hold.it/300" />}
+                  />
+                </Link>
+              </Col>
             ),
         )}
-    </ol>
+    </Row>
   </div>
 );
 

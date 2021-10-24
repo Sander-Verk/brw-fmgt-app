@@ -231,12 +231,74 @@ export type UpdateMaterialInput = {
   serial?: Maybe<Scalars['String']>;
 };
 
+export type GetTruckQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type GetTruckQuery = { __typename?: 'Query', truck: { __typename?: 'Truck', id: string, code: string, name: string, compartments: Array<{ __typename?: 'Compartment', id: string, code: string, name: string, sections: Array<{ __typename?: 'Section', id: string, name?: string | null | undefined, imageUrl?: string | null | undefined, materials: Array<{ __typename?: 'TruckMaterial', amount: number, material: { __typename?: 'Material', id: string, name: string, code: string } }> }> }> } };
+
 export type GetTrucksQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetTrucksQuery = { __typename?: 'Query', trucks: { __typename?: 'TruckResult', count: number, items: Array<{ __typename?: 'Truck', id: string, code: string, name: string }> } };
 
 
+export const GetTruckDocument = gql`
+    query GetTruck($id: ID!) {
+  truck(id: $id) {
+    id
+    code
+    name
+    compartments {
+      id
+      code
+      name
+      sections {
+        id
+        name
+        imageUrl
+        materials {
+          amount
+          material {
+            id
+            name
+            code
+          }
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetTruckQuery__
+ *
+ * To run a query within a React component, call `useGetTruckQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetTruckQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetTruckQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useGetTruckQuery(baseOptions: Apollo.QueryHookOptions<GetTruckQuery, GetTruckQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetTruckQuery, GetTruckQueryVariables>(GetTruckDocument, options);
+      }
+export function useGetTruckLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetTruckQuery, GetTruckQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetTruckQuery, GetTruckQueryVariables>(GetTruckDocument, options);
+        }
+export type GetTruckQueryHookResult = ReturnType<typeof useGetTruckQuery>;
+export type GetTruckLazyQueryHookResult = ReturnType<typeof useGetTruckLazyQuery>;
+export type GetTruckQueryResult = Apollo.QueryResult<GetTruckQuery, GetTruckQueryVariables>;
 export const GetTrucksDocument = gql`
     query GetTrucks {
   trucks {

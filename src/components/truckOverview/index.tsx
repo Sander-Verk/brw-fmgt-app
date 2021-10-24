@@ -1,11 +1,12 @@
 import { useGetTrucksQuery } from "../../generated/graphql";
+import LoadingContainer from "../loader";
 import TruckOverview from "./truckOverview";
 
 const TruckOverviewContainer = () => {
   const { data, error, loading } = useGetTrucksQuery();
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <LoadingContainer></LoadingContainer>;
   }
 
   if (error || !data) {

@@ -3,36 +3,52 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
+  Redirect
 } from "react-router-dom";
 import TruckOverviewContainer from './components/truckOverview';
+import { Layout, Menu } from 'antd';
+import { PieChartOutlined, DesktopOutlined } from '@ant-design/icons';
+import { Footer } from 'antd/lib/layout/layout';
+import TruckDetailContainer from './components/truckDetail';
+
+const { Header, Content } = Layout;
 
 function App() {
   return (
     <Router>
-      <div className="App">
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
+      <Layout>
+        <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
+          <div className="logo" />
+          <Menu theme="dark" mode="horizontal">
+            <Menu.Item key="1" icon={<PieChartOutlined />}>
+              <Link to="/">Trucks</Link>
+            </Menu.Item>
+            <Menu.Item key="2" icon={<DesktopOutlined />}>
               <Link to="/about">About</Link>
-            </li>
-          </ul>
-        </nav>
-
-        <Switch>
-          <Route path="/about">
-            <div>
-              <h1>About</h1>
-            </div>
-          </Route>
-          <Route path="/">
-            <TruckOverviewContainer />
-          </Route>
-        </Switch>
-      </div>
+            </Menu.Item>
+          </Menu>
+        </Header>
+        <Content className="site-layout" style={{ padding: '0 50px', marginTop: 64 }}>
+          <div className="container" style={{ padding: 24 }}>
+            <Switch>
+              <Route path="/trucks" exact={true}>
+                <TruckOverviewContainer />
+              </Route>
+              <Route path="/trucks/:id" children={<TruckDetailContainer />} />
+              <Route path="/about" exact={true}>
+                <div>
+                  <h1>About</h1>
+                </div>
+              </Route>
+              <Route path="/" exact={true}>
+                <Redirect to="/trucks" />
+              </Route>
+            </Switch>
+          </div>
+        </Content>
+        <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
+      </Layout>
     </Router>
   );
 }
