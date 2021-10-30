@@ -1,6 +1,7 @@
 import { Table } from 'antd';
 import dayjs from 'dayjs'
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import { GetMaterialsQuery } from '../../generated/graphql';
 import './styles.scss';
 
@@ -47,6 +48,7 @@ const columns = [
 ];
 
 const MaterialOverview: React.FC<Props> = ({ data }) => {
+  const { t } = useTranslation();
   const dataSource: TableItem[] = data?.materials?.items.map(material => ({
     code: material.code,
   name: material.name,
@@ -57,7 +59,7 @@ const MaterialOverview: React.FC<Props> = ({ data }) => {
   
   return (
   <div className={className}>
-    <h1>Materials</h1>
+    <h1>{ t("materialsOverview.title") }</h1>
 
     <Table dataSource={dataSource} columns={columns} pagination={false}/>
   </div>
