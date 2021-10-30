@@ -8,9 +8,10 @@ import {
 } from "react-router-dom";
 import TruckOverviewContainer from './components/truckOverview';
 import { Layout, Menu } from 'antd';
-import { PieChartOutlined, DesktopOutlined } from '@ant-design/icons';
+import { ToolOutlined, InfoCircleOutlined, CarOutlined } from '@ant-design/icons';
 import { Footer } from 'antd/lib/layout/layout';
 import TruckDetailContainer from './components/truckDetail';
+import MaterialOverviewContainer from './components/materialsOverview';
 
 const { Header, Content } = Layout;
 
@@ -21,10 +22,13 @@ function App() {
         <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
           <div className="logo" />
           <Menu theme="dark" mode="horizontal">
-            <Menu.Item key="1" icon={<PieChartOutlined />}>
+            <Menu.Item key="1" icon={<CarOutlined />}>
               <Link to="/">Trucks</Link>
             </Menu.Item>
-            <Menu.Item key="2" icon={<DesktopOutlined />}>
+            <Menu.Item key="2" icon={<ToolOutlined />}>
+              <Link to="/materials">Materials</Link>
+            </Menu.Item>
+            <Menu.Item key="3" icon={<InfoCircleOutlined />}>
               <Link to="/about">About</Link>
             </Menu.Item>
           </Menu>
@@ -36,6 +40,9 @@ function App() {
                 <TruckOverviewContainer />
               </Route>
               <Route path="/trucks/:id" children={<TruckDetailContainer />} />
+              <Route path="/materials">
+                <MaterialOverviewContainer></MaterialOverviewContainer>
+              </Route>
               <Route path="/about" exact={true}>
                 <div>
                   <h1>About</h1>

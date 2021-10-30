@@ -231,6 +231,11 @@ export type UpdateMaterialInput = {
   serial?: Maybe<Scalars['String']>;
 };
 
+export type GetMaterialsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetMaterialsQuery = { __typename?: 'Query', materials: { __typename?: 'MaterialResult', count: number, items: Array<{ __typename?: 'Material', id: string, code: string, name: string, description: string, serial: string, codeFiche: string, date: any }> } };
+
 export type GetTruckQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
@@ -244,6 +249,49 @@ export type GetTrucksQueryVariables = Exact<{ [key: string]: never; }>;
 export type GetTrucksQuery = { __typename?: 'Query', trucks: { __typename?: 'TruckResult', count: number, items: Array<{ __typename?: 'Truck', id: string, code: string, name: string }> } };
 
 
+export const GetMaterialsDocument = gql`
+    query getMaterials {
+  materials(filter: {}) {
+    count
+    items {
+      id
+      code
+      name
+      description
+      serial
+      codeFiche
+      date
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetMaterialsQuery__
+ *
+ * To run a query within a React component, call `useGetMaterialsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetMaterialsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetMaterialsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetMaterialsQuery(baseOptions?: Apollo.QueryHookOptions<GetMaterialsQuery, GetMaterialsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetMaterialsQuery, GetMaterialsQueryVariables>(GetMaterialsDocument, options);
+      }
+export function useGetMaterialsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetMaterialsQuery, GetMaterialsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetMaterialsQuery, GetMaterialsQueryVariables>(GetMaterialsDocument, options);
+        }
+export type GetMaterialsQueryHookResult = ReturnType<typeof useGetMaterialsQuery>;
+export type GetMaterialsLazyQueryHookResult = ReturnType<typeof useGetMaterialsLazyQuery>;
+export type GetMaterialsQueryResult = Apollo.QueryResult<GetMaterialsQuery, GetMaterialsQueryVariables>;
 export const GetTruckDocument = gql`
     query GetTruck($id: ID!) {
   truck(id: $id) {
