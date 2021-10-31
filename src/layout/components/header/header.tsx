@@ -15,7 +15,7 @@ interface Props {
 const AppHeader: React.FC<Props> = () => {
   const { instance, accounts } = useMsal();
   const { t } = useTranslation();
-  
+
   const [userName, setUserName] = useState<string>();
   const requestProfileData = (): any => {
     instance.acquireTokenSilent({
@@ -40,17 +40,17 @@ const AppHeader: React.FC<Props> = () => {
       <div className="logo" />
       <Menu theme="dark" mode="horizontal">
         <Menu.Item key="1" icon={<CarOutlined />}>
-          <Link to="/">{ t("navigation.trucks") }</Link>
+          <Link to="/">{t("navigation.trucks")}</Link>
         </Menu.Item>
         <Menu.Item key="2" icon={<ToolOutlined />}>
-          <Link to="/materials">{ t("navigation.materials") }</Link>
+          <Link to="/materials">{t("navigation.materials")}</Link>
         </Menu.Item>
         <SubMenu key="3" icon={<UserOutlined />} title={userName}>
           <Menu.Item key="3:1" icon={<InfoCircleOutlined />}>
-            <Link to="/about">{ t("navigation.about") }</Link>
+            <Link to="/about">{t("navigation.about")}</Link>
           </Menu.Item>
           <Menu.Item key="3:2" icon={<LogoutOutlined />} onClick={logout}>
-            { t("navigation.logout") }
+            {t("navigation.logout")}
           </Menu.Item>
         </SubMenu>
       </Menu>

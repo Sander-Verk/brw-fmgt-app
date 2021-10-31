@@ -13,8 +13,8 @@ const Loading: React.FC<Props> = () => {
 
   return (
     <div className={className}>
-      <img src={Gif as any} alt='Loading Animation' width={75}/>
-      <h3>{ t("loading") }</h3>
+      <img src={Gif as any} alt='Loading Animation' width={75} />
+      <h3>{t("loading")}</h3>
     </div>
   );
 };

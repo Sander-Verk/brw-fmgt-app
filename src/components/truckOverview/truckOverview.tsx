@@ -16,7 +16,7 @@ const TruckOverview: React.FC<Props> = ({ data }) => {
 
   return (
     <div className={className}>
-      <h1>{ t("truckOverview.title") }</h1>
+      <h1>{t("truckOverview.title")}</h1>
 
       <Row gutter={[16, 16]}>
         {!!data.trucks &&

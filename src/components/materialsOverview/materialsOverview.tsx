@@ -51,19 +51,20 @@ const MaterialOverview: React.FC<Props> = ({ data }) => {
   const { t } = useTranslation();
   const dataSource: TableItem[] = data?.materials?.items.map(material => ({
     code: material.type.code,
-  name: material.type.name,
-  serial: material.serial,
-  codeFiche: material.type.codeFiche,
-  date: dayjs(material.date).format('DD/MM/YYYY'),
-  key: material.type.code
+    name: material.type.name,
+    serial: material.serial,
+    codeFiche: material.type.codeFiche,
+    date: dayjs(material.date).format('DD/MM/YYYY'),
+    key: material.type.code
   }) || [])
-  
-  return (
-  <div className={className}>
-    <h1>{ t("materialsOverview.title") }</h1>
 
-    <Table dataSource={dataSource} columns={columns} pagination={false}/>
-  </div>
-)};
+  return (
+    <div className={className}>
+      <h1>{t("materialsOverview.title")}</h1>
+
+      <Table dataSource={dataSource} columns={columns} pagination={false} />
+    </div>
+  )
+};
 
 export default MaterialOverview;

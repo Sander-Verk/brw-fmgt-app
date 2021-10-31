@@ -1,25 +1,21 @@
 import { gql } from "@apollo/client";
 
 export const QUERY_GET_MATERIALS = gql`
-  query getMaterials{
-  materials (
-    filter: {
-    }
-  ) {
-    count
-    items {
-      id
-      type {
+  query getMaterials {
+    materials(filter: {}) {
+      count
+      items {
         id
-        code
-        name
-        description
-        codeFiche
+        type {
+          id
+          code
+          name
+          description
+          codeFiche
+        }
+        serial
+        date
       }
-      serial
-      date
     }
   }
-}
-
 `;

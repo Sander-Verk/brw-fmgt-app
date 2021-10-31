@@ -1,29 +1,29 @@
 export const en = {
-  "authentication": {
-    "login": "Login"
+  authentication: {
+    login: "Login",
   },
-  "landingPage": {
-    "title": "Firefighter Tool Manager",
-    "description": "Please login"
+  landingPage: {
+    title: "Firefighter Tool Manager",
+    description: "Please login",
   },
-  "footer": {
-    "mainText": "Firefighter Tool Manager by Sander Verkaemer"
+  footer: {
+    mainText: "Firefighter Tool Manager by Sander Verkaemer",
   },
-  "navigation": {
-    "trucks": "Trucks",
-    "materials": "Materials",
-    "about": "About",
-    "logout": "Logout",
+  navigation: {
+    trucks: "Trucks",
+    materials: "Materials",
+    about: "About",
+    logout: "Logout",
   },
-  "loading": "Loading...",
-  "materialsOverview": {
-    "title": "Materials"
+  loading: "Loading...",
+  materialsOverview: {
+    title: "Materials",
   },
-  "truckDetail": {
-    "noImage": "No image",
-    "noCompartment": "No compartment"
+  truckDetail: {
+    noImage: "No image",
+    noCompartment: "No compartment",
   },
-  "truckOverview": {
-    "title": "Trucks"
-  }
-}
+  truckOverview: {
+    title: "Trucks",
+  },
+};

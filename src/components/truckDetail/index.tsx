@@ -4,7 +4,7 @@ import LoadingContainer from "../loader";
 import TruckDetail from "./truckDetail";
 
 const TruckDetailContainer = () => {
-  let { id } = useParams<{ id: string}>();
+  let { id } = useParams<{ id: string }>();
   const { data, error, loading } = useGetTruckQuery({
     variables: { id },
   });
@@ -17,7 +17,7 @@ const TruckDetailContainer = () => {
     return <div>ERROR</div>;
   }
 
-  return <TruckDetail data={data}/>;
+  return <TruckDetail data={data} />;
 };
 
 export default TruckDetailContainer;
