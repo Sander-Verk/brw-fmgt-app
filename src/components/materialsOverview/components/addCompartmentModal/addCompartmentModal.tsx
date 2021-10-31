@@ -2,6 +2,7 @@ import { useMutation } from '@apollo/client';
 import { Button, Form, Input, Modal } from 'antd';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
+import ErrorMessage from '../../../errorMessage/errorMessage';
 import { MUTATION_CREATE_COMPARTMENT } from './mutation';
 import './styles.scss';
 
@@ -12,6 +13,7 @@ interface Props {
 const AddCompartmentModal: React.FC<Props> = ({ truckId }) => {
   const { t } = useTranslation();
   const [isModalVisible, setIsModalVisible] = React.useState(false);
+  const [graphqlError, setGraphqlError] = React.useState<string>();
   const [form] = Form.useForm();
   const [createCompartment] = useMutation(MUTATION_CREATE_COMPARTMENT);
 
@@ -20,20 +22,26 @@ const AddCompartmentModal: React.FC<Props> = ({ truckId }) => {
   };
 
   const onFinish = async (values: any) => {
-    const result = await createCompartment({ variables: {
-      truckId,
-      compartment: {
-        code: values.code,
-        name: values.name
+    try {
+      const result = await createCompartment({ variables: {
+        truckId,
+        compartment: {
+          code: values.code,
+          name: values.name
+        }
+      }});
+      if (result.data) {
+        form.resetFields();
+        handleReset();
       }
-    }});
-    if (result.data) {
-      setIsModalVisible(false);
+    } catch (error: any) {
+      setGraphqlError(error.message);
     }
   };
 
-  const handleCancel = () => {
+  const handleReset = () => {
     form.resetFields();
+    setGraphqlError(undefined);
     setIsModalVisible(false);
   };
 
@@ -42,7 +50,10 @@ const AddCompartmentModal: React.FC<Props> = ({ truckId }) => {
       <Button type="primary" onClick={showModal}>
         {t('addCompartmentModal.openBtn')}
       </Button>
-      <Modal title={t('addCompartmentModal.openBtn')} visible={isModalVisible} onOk={form.submit} onCancel={handleCancel} cancelText={t('btn.cancel')} okText={t('btn.save')}>
+      <Modal title={t('addCompartmentModal.openBtn')} visible={isModalVisible} onOk={form.submit} onCancel={handleReset} cancelText={t('btn.cancel')} okText={t('btn.save')}>
+        { graphqlError && (
+          <ErrorMessage message={graphqlError}></ErrorMessage>
+        )}
         <Form
           form={form}
           onFinish={onFinish}

@@ -33,5 +33,8 @@ export const en = {
   btn: {
     cancel: "Cancel",
     save: "Save",
+  },
+  errors: {
+    somethingWentWrong: "Something went wrong!"
   }
 };
