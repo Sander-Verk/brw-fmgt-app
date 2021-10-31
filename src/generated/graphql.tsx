@@ -4,7 +4,7 @@ export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-const defaultOptions = {}
+const defaultOptions =  {}
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -277,6 +277,14 @@ export type UpdateMaterialTypeInput = {
   name?: Maybe<Scalars['String']>;
 };
 
+export type CreateCompartmentMutationVariables = Exact<{
+  truckId: Scalars['ID'];
+  compartment: CreateCompartmentInput;
+}>;
+
+
+export type CreateCompartmentMutation = { __typename?: 'Mutation', createCompartment: { __typename?: 'Truck', id: string, code: string, name: string, compartments: Array<{ __typename?: 'Compartment', id: string, code: string, name: string, sections: Array<{ __typename?: 'Section', id: string, name?: string | null | undefined, imageUrl?: string | null | undefined, materials: Array<{ __typename?: 'Material', id: string, serial: string, date: any, type: { __typename?: 'MaterialType', code: string, name: string, description: string, codeFiche: string } }> }> }> } };
+
 export type GetMaterialsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -295,6 +303,63 @@ export type GetTrucksQueryVariables = Exact<{ [key: string]: never; }>;
 export type GetTrucksQuery = { __typename?: 'Query', trucks: { __typename?: 'TruckResult', count: number, items: Array<{ __typename?: 'Truck', id: string, code: string, name: string }> } };
 
 
+export const CreateCompartmentDocument = gql`
+    mutation CreateCompartment($truckId: ID!, $compartment: CreateCompartmentInput!) {
+  createCompartment(truckId: $truckId, compartment: $compartment) {
+    id
+    code
+    name
+    compartments {
+      id
+      code
+      name
+      sections {
+        id
+        name
+        imageUrl
+        materials {
+          id
+          type {
+            code
+            name
+            description
+            codeFiche
+          }
+          serial
+          date
+        }
+      }
+    }
+  }
+}
+    `;
+export type CreateCompartmentMutationFn = Apollo.MutationFunction<CreateCompartmentMutation, CreateCompartmentMutationVariables>;
+
+/**
+ * __useCreateCompartmentMutation__
+ *
+ * To run a mutation, you first call `useCreateCompartmentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateCompartmentMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createCompartmentMutation, { data, loading, error }] = useCreateCompartmentMutation({
+ *   variables: {
+ *      truckId: // value for 'truckId'
+ *      compartment: // value for 'compartment'
+ *   },
+ * });
+ */
+export function useCreateCompartmentMutation(baseOptions?: Apollo.MutationHookOptions<CreateCompartmentMutation, CreateCompartmentMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateCompartmentMutation, CreateCompartmentMutationVariables>(CreateCompartmentDocument, options);
+      }
+export type CreateCompartmentMutationHookResult = ReturnType<typeof useCreateCompartmentMutation>;
+export type CreateCompartmentMutationResult = Apollo.MutationResult<CreateCompartmentMutation>;
+export type CreateCompartmentMutationOptions = Apollo.BaseMutationOptions<CreateCompartmentMutation, CreateCompartmentMutationVariables>;
 export const GetMaterialsDocument = gql`
     query getMaterials {
   materials(filter: {}) {
@@ -331,13 +396,13 @@ export const GetMaterialsDocument = gql`
  * });
  */
 export function useGetMaterialsQuery(baseOptions?: Apollo.QueryHookOptions<GetMaterialsQuery, GetMaterialsQueryVariables>) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<GetMaterialsQuery, GetMaterialsQueryVariables>(GetMaterialsDocument, options);
-}
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetMaterialsQuery, GetMaterialsQueryVariables>(GetMaterialsDocument, options);
+      }
 export function useGetMaterialsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetMaterialsQuery, GetMaterialsQueryVariables>) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<GetMaterialsQuery, GetMaterialsQueryVariables>(GetMaterialsDocument, options);
-}
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetMaterialsQuery, GetMaterialsQueryVariables>(GetMaterialsDocument, options);
+        }
 export type GetMaterialsQueryHookResult = ReturnType<typeof useGetMaterialsQuery>;
 export type GetMaterialsLazyQueryHookResult = ReturnType<typeof useGetMaterialsLazyQuery>;
 export type GetMaterialsQueryResult = Apollo.QueryResult<GetMaterialsQuery, GetMaterialsQueryVariables>;
@@ -389,13 +454,13 @@ export const GetTruckDocument = gql`
  * });
  */
 export function useGetTruckQuery(baseOptions: Apollo.QueryHookOptions<GetTruckQuery, GetTruckQueryVariables>) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<GetTruckQuery, GetTruckQueryVariables>(GetTruckDocument, options);
-}
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetTruckQuery, GetTruckQueryVariables>(GetTruckDocument, options);
+      }
 export function useGetTruckLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetTruckQuery, GetTruckQueryVariables>) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<GetTruckQuery, GetTruckQueryVariables>(GetTruckDocument, options);
-}
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetTruckQuery, GetTruckQueryVariables>(GetTruckDocument, options);
+        }
 export type GetTruckQueryHookResult = ReturnType<typeof useGetTruckQuery>;
 export type GetTruckLazyQueryHookResult = ReturnType<typeof useGetTruckLazyQuery>;
 export type GetTruckQueryResult = Apollo.QueryResult<GetTruckQuery, GetTruckQueryVariables>;
@@ -428,13 +493,13 @@ export const GetTrucksDocument = gql`
  * });
  */
 export function useGetTrucksQuery(baseOptions?: Apollo.QueryHookOptions<GetTrucksQuery, GetTrucksQueryVariables>) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<GetTrucksQuery, GetTrucksQueryVariables>(GetTrucksDocument, options);
-}
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetTrucksQuery, GetTrucksQueryVariables>(GetTrucksDocument, options);
+      }
 export function useGetTrucksLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetTrucksQuery, GetTrucksQueryVariables>) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<GetTrucksQuery, GetTrucksQueryVariables>(GetTrucksDocument, options);
-}
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetTrucksQuery, GetTrucksQueryVariables>(GetTrucksDocument, options);
+        }
 export type GetTrucksQueryHookResult = ReturnType<typeof useGetTrucksQuery>;
 export type GetTrucksLazyQueryHookResult = ReturnType<typeof useGetTrucksLazyQuery>;
 export type GetTrucksQueryResult = Apollo.QueryResult<GetTrucksQuery, GetTrucksQueryVariables>;

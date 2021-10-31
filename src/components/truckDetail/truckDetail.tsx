@@ -2,6 +2,7 @@ import { Col, Collapse, Row, Table } from 'antd';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Compartment, GetTruckQuery, Section } from '../../generated/graphql';
+import AddCompartmentModal from '../materialsOverview/components/addCompartmentModal/addCompartmentModal';
 import './styles.scss';
 
 const { Panel } = Collapse;
@@ -28,7 +29,7 @@ const renderCompartment = (compartment: Partial<Compartment>, id: number, t: any
   <Panel header={compartment.name} key={'comparment_' + id}>
     {compartment.sections && compartment.sections.length ?
       compartment.sections.map((section, i) => renderSection(section as Section, i, t)) :
-      <div>{t("truckDetail.noCompartment")}</div>}
+      <div>{t("truckDetail.noSection")}</div>}
   </Panel>);
 
 const renderSection = (section: Partial<Section>, id: number, t: any) => {
@@ -41,7 +42,7 @@ const renderSection = (section: Partial<Section>, id: number, t: any) => {
 
   return (section &&
     <div key={'section_' + id} className="section">
-      <h3>{section.name} </h3>
+      <h3>{section.name}</h3>
       <Row gutter={[16, 16]}>
         <Col span={18}>
           <Table dataSource={dataSource} columns={columns} pagination={false} showHeader={false} />
@@ -55,6 +56,10 @@ const renderSection = (section: Partial<Section>, id: number, t: any) => {
     </div>);
 };
 
+const sort = (array: any[]): any[] => {
+  return [...array].sort((a, b) => a.code > b.code ? 1 : -1);
+}
+
 const TruckDetail: React.FC<Props> = ({ data }) => {
   const { t } = useTranslation();
 
@@ -62,9 +67,13 @@ const TruckDetail: React.FC<Props> = ({ data }) => {
     <div className={className}>
       {data && data.truck && (
         <>
-          <h1>{`${data.truck.name} - (${data.truck.code})`}</h1>
+          <div className="truck-header">
+            <h1>{`${data.truck.name} - (${data.truck.code})`}</h1>
+            <AddCompartmentModal truckId={data.truck.id}></AddCompartmentModal>
+          </div>
+
           <Collapse>
-            {data.truck.compartments.map((compartment, i) => renderCompartment(compartment as Compartment, i, t))}
+            {sort(data.truck.compartments).map((compartment, i) => renderCompartment(compartment as Compartment, i, t))}
           </Collapse>
         </>
       )}

@@ -21,9 +21,17 @@ export const en = {
   },
   truckDetail: {
     noImage: "No image",
-    noCompartment: "No compartment",
+    noSection: "No section",
   },
   truckOverview: {
     title: "Trucks",
   },
+  addCompartmentModal: {
+    openBtn: "Create compartment",
+    title: "Create compartment",
+  },
+  btn: {
+    cancel: "Cancel",
+    save: "Save",
+  }
 };
