@@ -50,11 +50,12 @@ const columns = [
 const MaterialOverview: React.FC<Props> = ({ data }) => {
   const { t } = useTranslation();
   const dataSource: TableItem[] = data?.materials?.items.map(material => ({
-    code: material.code,
-  name: material.name,
+    code: material.type.code,
+  name: material.type.name,
   serial: material.serial,
-  codeFiche: material.codeFiche,
-  date: dayjs(material.date).format('DD/MM/YYYY') 
+  codeFiche: material.type.codeFiche,
+  date: dayjs(material.date).format('DD/MM/YYYY'),
+  key: material.type.code
   }) || [])
   
   return (

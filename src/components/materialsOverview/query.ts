@@ -9,11 +9,14 @@ export const QUERY_GET_MATERIALS = gql`
     count
     items {
       id
-      code
-      name
-      description
+      type {
+        id
+        code
+        name
+        description
+        codeFiche
+      }
       serial
-      codeFiche
       date
     }
   }

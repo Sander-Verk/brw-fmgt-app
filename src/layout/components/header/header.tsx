@@ -22,7 +22,6 @@ const AppHeader: React.FC<Props> = () => {
       ...loginRequest,
       account: accounts[0]
     }).then((response) => {
-      console.log(response);
       setUserName(response.account?.name);
     });
   }

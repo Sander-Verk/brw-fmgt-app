@@ -25,21 +25,26 @@ const columns = [
 ];
 
 const renderCompartment = (compartment: Partial<Compartment>, id: number, t: any) => (compartment &&
-  <Panel header={compartment.name} key={id}>
+  <Panel header={compartment.name} key={'comparment_'+id}>
     { compartment.sections && compartment.sections.length ? 
       compartment.sections.map((section, i) => renderSection(section as Section, i, t)) :
       <div>{ t("truckDetail.noCompartment")}</div>}
   </Panel>);
 
 const renderSection = (section: Partial<Section>, id: number, t: any) => {
-  const dataSource: { materialName: string; amount: number}[] = section?.materials?.map(m => ({ materialName: m.material.name, amount: m.amount })) || [];
+  const counts: { [key:string]: number } = {};
+
+  for (const num of section.materials?.map(m => m.type.name) || []) {
+    counts[num] = counts[num] ? counts[num] + 1 : 1;
+  }
+  const dataSource: { materialName: string; amount: number}[] = Object.keys(counts).map(key => ({ key: key, materialName: key, amount: counts[key] })) || [];
 
   return (section &&
-    <div key={id} className="section">
+    <div key={'section_'+id} className="section">
       <h3>{section.name} </h3>
       <Row gutter={[16, 16]}>
         <Col span={18}>
-          <Table dataSource={dataSource} columns={columns} pagination={false}/>
+          <Table dataSource={dataSource} columns={columns} pagination={false} showHeader={false}/>
         </Col>
         <Col span={6}>
           {section.imageUrl ?

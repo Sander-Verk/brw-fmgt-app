@@ -15,12 +15,15 @@ export const QUERY_GET_TRUCK = gql`
           name
           imageUrl
           materials {
-            amount
-            material {
-              id
-              name
+            id
+            type {
               code
+              name
+              description
+              codeFiche
             }
+            serial
+            date
           }
         }
       }

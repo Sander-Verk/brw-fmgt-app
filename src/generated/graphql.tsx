@@ -29,12 +29,16 @@ export type CreateCompartmentInput = {
 };
 
 export type CreateMaterialInput = {
+  date?: Maybe<Scalars['DateTime']>;
+  materialTypeId: Scalars['ID'];
+  serial?: Maybe<Scalars['String']>;
+};
+
+export type CreateMaterialTypeInput = {
   code: Scalars['String'];
   codeFiche?: Maybe<Scalars['String']>;
-  date?: Maybe<Scalars['DateTime']>;
   description: Scalars['String'];
   name: Scalars['String'];
-  serial?: Maybe<Scalars['String']>;
 };
 
 export type CreateSectionInput = {
@@ -67,13 +71,10 @@ export type LogbookResult = {
 
 export type Material = {
   __typename?: 'Material';
-  code: Scalars['String'];
-  codeFiche: Scalars['String'];
   date: Scalars['DateTime'];
-  description: Scalars['String'];
   id: Scalars['ID'];
-  name: Scalars['String'];
   serial: Scalars['String'];
+  type: MaterialType;
 };
 
 export type MaterialResult = {
@@ -82,7 +83,28 @@ export type MaterialResult = {
   items: Array<Material>;
 };
 
+export type MaterialType = {
+  __typename?: 'MaterialType';
+  code: Scalars['String'];
+  codeFiche: Scalars['String'];
+  description: Scalars['String'];
+  id: Scalars['ID'];
+  name: Scalars['String'];
+};
+
+export type MaterialTypeFilterInput = {
+  codes?: Maybe<Array<Scalars['String']>>;
+  search?: Maybe<Scalars['String']>;
+};
+
+export type MaterialTypeResult = {
+  __typename?: 'MaterialTypeResult';
+  count: Scalars['Int'];
+  items: Array<MaterialType>;
+};
+
 export type MaterialsFilterInput = {
+  materialTypeId?: Maybe<Scalars['ID']>;
   search?: Maybe<Scalars['String']>;
   truckCodes?: Maybe<Array<Scalars['String']>>;
 };
@@ -92,9 +114,11 @@ export type Mutation = {
   addMaterial: Truck;
   createCompartment: Truck;
   createMaterial: Material;
+  createMaterialType: MaterialType;
   createSection: Truck;
   createTruck: Truck;
   updateMaterial: Material;
+  updateMaterialType: MaterialType;
 };
 
 
@@ -117,6 +141,11 @@ export type MutationCreateMaterialArgs = {
 };
 
 
+export type MutationCreateMaterialTypeArgs = {
+  materialType: CreateMaterialTypeInput;
+};
+
+
 export type MutationCreateSectionArgs = {
   compartmentId: Scalars['ID'];
   section: CreateSectionInput;
@@ -132,6 +161,12 @@ export type MutationCreateTruckArgs = {
 export type MutationUpdateMaterialArgs = {
   id: Scalars['String'];
   material: UpdateMaterialInput;
+};
+
+
+export type MutationUpdateMaterialTypeArgs = {
+  id: Scalars['ID'];
+  materialType: UpdateMaterialTypeInput;
 };
 
 export type ProblemReport = {
@@ -155,6 +190,8 @@ export type Query = {
   logbook: LogbookResult;
   logbookItem: LogbookItem;
   material: Material;
+  materialType: MaterialType;
+  materialTypes: MaterialTypeResult;
   materials: MaterialResult;
   truck: Truck;
   truckPDF: Scalars['String'];
@@ -179,6 +216,18 @@ export type QueryMaterialArgs = {
 };
 
 
+export type QueryMaterialTypeArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type QueryMaterialTypesArgs = {
+  filter?: Maybe<MaterialTypeFilterInput>;
+  limit?: Maybe<Scalars['Int']>;
+  skip?: Maybe<Scalars['Int']>;
+};
+
+
 export type QueryMaterialsArgs = {
   filter?: Maybe<MaterialsFilterInput>;
   limit?: Maybe<Scalars['Int']>;
@@ -199,7 +248,7 @@ export type Section = {
   __typename?: 'Section';
   id: Scalars['ID'];
   imageUrl?: Maybe<Scalars['String']>;
-  materials: Array<TruckMaterial>;
+  materials: Array<Material>;
   name?: Maybe<Scalars['String']>;
 };
 
@@ -211,12 +260,6 @@ export type Truck = {
   name: Scalars['String'];
 };
 
-export type TruckMaterial = {
-  __typename?: 'TruckMaterial';
-  amount: Scalars['Int'];
-  material: Material;
-};
-
 export type TruckResult = {
   __typename?: 'TruckResult';
   count: Scalars['Int'];
@@ -224,24 +267,27 @@ export type TruckResult = {
 };
 
 export type UpdateMaterialInput = {
-  codeFiche?: Maybe<Scalars['String']>;
   date?: Maybe<Scalars['DateTime']>;
+  serial?: Maybe<Scalars['String']>;
+};
+
+export type UpdateMaterialTypeInput = {
+  codeFiche?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
-  serial?: Maybe<Scalars['String']>;
 };
 
 export type GetMaterialsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetMaterialsQuery = { __typename?: 'Query', materials: { __typename?: 'MaterialResult', count: number, items: Array<{ __typename?: 'Material', id: string, code: string, name: string, description: string, serial: string, codeFiche: string, date: any }> } };
+export type GetMaterialsQuery = { __typename?: 'Query', materials: { __typename?: 'MaterialResult', count: number, items: Array<{ __typename?: 'Material', id: string, serial: string, date: any, type: { __typename?: 'MaterialType', id: string, code: string, name: string, description: string, codeFiche: string } }> } };
 
 export type GetTruckQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
 
 
-export type GetTruckQuery = { __typename?: 'Query', truck: { __typename?: 'Truck', id: string, code: string, name: string, compartments: Array<{ __typename?: 'Compartment', id: string, code: string, name: string, sections: Array<{ __typename?: 'Section', id: string, name?: string | null | undefined, imageUrl?: string | null | undefined, materials: Array<{ __typename?: 'TruckMaterial', amount: number, material: { __typename?: 'Material', id: string, name: string, code: string } }> }> }> } };
+export type GetTruckQuery = { __typename?: 'Query', truck: { __typename?: 'Truck', id: string, code: string, name: string, compartments: Array<{ __typename?: 'Compartment', id: string, code: string, name: string, sections: Array<{ __typename?: 'Section', id: string, name?: string | null | undefined, imageUrl?: string | null | undefined, materials: Array<{ __typename?: 'Material', id: string, serial: string, date: any, type: { __typename?: 'MaterialType', code: string, name: string, description: string, codeFiche: string } }> }> }> } };
 
 export type GetTrucksQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -255,11 +301,14 @@ export const GetMaterialsDocument = gql`
     count
     items {
       id
-      code
-      name
-      description
+      type {
+        id
+        code
+        name
+        description
+        codeFiche
+      }
       serial
-      codeFiche
       date
     }
   }
@@ -307,12 +356,15 @@ export const GetTruckDocument = gql`
         name
         imageUrl
         materials {
-          amount
-          material {
-            id
-            name
+          id
+          type {
             code
+            name
+            description
+            codeFiche
           }
+          serial
+          date
         }
       }
     }
