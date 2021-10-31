@@ -285,6 +285,15 @@ export type CreateCompartmentMutationVariables = Exact<{
 
 export type CreateCompartmentMutation = { __typename?: 'Mutation', createCompartment: { __typename?: 'Truck', id: string, code: string, name: string, compartments: Array<{ __typename?: 'Compartment', id: string, code: string, name: string, sections: Array<{ __typename?: 'Section', id: string, name?: string | null | undefined, imageUrl?: string | null | undefined, materials: Array<{ __typename?: 'Material', id: string, serial: string, date: any, type: { __typename?: 'MaterialType', code: string, name: string, description: string, codeFiche: string } }> }> }> } };
 
+export type CreateSectionMutationVariables = Exact<{
+  truckId: Scalars['ID'];
+  compartmentId: Scalars['ID'];
+  section: CreateSectionInput;
+}>;
+
+
+export type CreateSectionMutation = { __typename?: 'Mutation', createSection: { __typename?: 'Truck', id: string, code: string, name: string, compartments: Array<{ __typename?: 'Compartment', id: string, code: string, name: string, sections: Array<{ __typename?: 'Section', id: string, name?: string | null | undefined, imageUrl?: string | null | undefined, materials: Array<{ __typename?: 'Material', id: string, serial: string, date: any, type: { __typename?: 'MaterialType', code: string, name: string, description: string, codeFiche: string } }> }> }> } };
+
 export type GetMaterialsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -360,6 +369,68 @@ export function useCreateCompartmentMutation(baseOptions?: Apollo.MutationHookOp
 export type CreateCompartmentMutationHookResult = ReturnType<typeof useCreateCompartmentMutation>;
 export type CreateCompartmentMutationResult = Apollo.MutationResult<CreateCompartmentMutation>;
 export type CreateCompartmentMutationOptions = Apollo.BaseMutationOptions<CreateCompartmentMutation, CreateCompartmentMutationVariables>;
+export const CreateSectionDocument = gql`
+    mutation CreateSection($truckId: ID!, $compartmentId: ID!, $section: CreateSectionInput!) {
+  createSection(
+    truckId: $truckId
+    compartmentId: $compartmentId
+    section: $section
+  ) {
+    id
+    code
+    name
+    compartments {
+      id
+      code
+      name
+      sections {
+        id
+        name
+        imageUrl
+        materials {
+          id
+          type {
+            code
+            name
+            description
+            codeFiche
+          }
+          serial
+          date
+        }
+      }
+    }
+  }
+}
+    `;
+export type CreateSectionMutationFn = Apollo.MutationFunction<CreateSectionMutation, CreateSectionMutationVariables>;
+
+/**
+ * __useCreateSectionMutation__
+ *
+ * To run a mutation, you first call `useCreateSectionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateSectionMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createSectionMutation, { data, loading, error }] = useCreateSectionMutation({
+ *   variables: {
+ *      truckId: // value for 'truckId'
+ *      compartmentId: // value for 'compartmentId'
+ *      section: // value for 'section'
+ *   },
+ * });
+ */
+export function useCreateSectionMutation(baseOptions?: Apollo.MutationHookOptions<CreateSectionMutation, CreateSectionMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateSectionMutation, CreateSectionMutationVariables>(CreateSectionDocument, options);
+      }
+export type CreateSectionMutationHookResult = ReturnType<typeof useCreateSectionMutation>;
+export type CreateSectionMutationResult = Apollo.MutationResult<CreateSectionMutation>;
+export type CreateSectionMutationOptions = Apollo.BaseMutationOptions<CreateSectionMutation, CreateSectionMutationVariables>;
 export const GetMaterialsDocument = gql`
     query getMaterials {
   materials(filter: {}) {

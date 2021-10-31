@@ -30,6 +30,10 @@ export const en = {
     openBtn: "Create compartment",
     title: "Create compartment",
   },
+  addSectionModal: {
+    openBtn: "Create section",
+    title: "Create section",
+  },
   btn: {
     cancel: "Cancel",
     save: "Save",
