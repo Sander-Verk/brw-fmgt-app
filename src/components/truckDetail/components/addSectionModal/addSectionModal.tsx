@@ -64,6 +64,7 @@ const AddSectionModal: React.FC<Props> = ({ truckId, compartmentId }) => {
           form={form}
           onFinish={onFinish}
           autoComplete="off"
+          requiredMark={"optional"}
         >
           <Form.Item
             label="Name"

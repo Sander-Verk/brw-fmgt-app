@@ -1,16 +1,17 @@
-import { useGetMaterialsQuery } from "../../generated/graphql";
+import { useGetMaterialTypesQuery } from "../../generated/graphql";
+import ErrorMessage from "../errorMessage/errorMessage";
 import LoadingContainer from "../loader";
 import MaterialOverview from "./materialsOverview";
 
 const MaterialOverviewContainer = () => {
-  const { data, error, loading } = useGetMaterialsQuery();
+  const { data, error, loading } = useGetMaterialTypesQuery();
 
   if (loading) {
     return <LoadingContainer></LoadingContainer>;
   }
 
   if (error || !data) {
-    return <div>ERROR</div>;
+    return <ErrorMessage message={error?.message}></ErrorMessage>;
   }
 
   return <MaterialOverview data={data} />;

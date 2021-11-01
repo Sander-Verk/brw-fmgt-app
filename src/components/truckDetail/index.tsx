@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useGetTruckQuery } from "../../generated/graphql";
+import ErrorMessage from "../errorMessage/errorMessage";
 import LoadingContainer from "../loader";
 import TruckDetail from "./truckDetail";
 
@@ -14,7 +15,7 @@ const TruckDetailContainer = () => {
   }
 
   if (error || !data) {
-    return <div>ERROR</div>;
+    return <ErrorMessage message={error?.message}></ErrorMessage>;
   }
 
   return <TruckDetail data={data} />;

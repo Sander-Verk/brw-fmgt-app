@@ -3,19 +3,18 @@ import { Button, Form, Input, Modal } from 'antd';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import ErrorMessage from '../../../errorMessage/errorMessage';
-import { MUTATION_CREATE_COMPARTMENT } from './mutation';
+import { MUTATION_CREATE_MATERIALTYPE } from './mutation';
 import './styles.scss';
 
 interface Props {
-  truckId: string;
 }
 
-const AddCompartmentModal: React.FC<Props> = ({ truckId }) => {
+const AddMaterialTypeModal: React.FC<Props> = () => {
   const { t } = useTranslation();
   const [isModalVisible, setIsModalVisible] = React.useState(false);
   const [graphqlError, setGraphqlError] = React.useState<string>();
   const [form] = Form.useForm();
-  const [createCompartment] = useMutation(MUTATION_CREATE_COMPARTMENT);
+  const [creatematerialType] = useMutation(MUTATION_CREATE_MATERIALTYPE);
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -23,11 +22,12 @@ const AddCompartmentModal: React.FC<Props> = ({ truckId }) => {
 
   const onFinish = async (values: any) => {
     try {
-      const result = await createCompartment({ variables: {
-        truckId,
-        compartment: {
+      const result = await creatematerialType({ variables: {
+        materialType: {
           code: values.code,
-          name: values.name
+          name: values.name,
+          description: values.description,
+          codeFiche: values.codeFiche
         }
       }});
       if (result.data) {
@@ -48,9 +48,9 @@ const AddCompartmentModal: React.FC<Props> = ({ truckId }) => {
   return (
     <>
       <Button type="primary" onClick={showModal}>
-        {t('addCompartmentModal.openBtn')}
+        {t('addMaterialTypeModal.openBtn')}
       </Button>
-      <Modal title={t('addCompartmentModal.openBtn')} visible={isModalVisible} onOk={form.submit} onCancel={handleReset} cancelText={t('btn.cancel')} okText={t('btn.save')}>
+      <Modal title={t('addMaterialTypeModal.openBtn')} visible={isModalVisible} onOk={form.submit} onCancel={handleReset} cancelText={t('btn.cancel')} okText={t('btn.save')}>
         { graphqlError && (
           <ErrorMessage message={graphqlError}></ErrorMessage>
         )}
@@ -75,10 +75,25 @@ const AddCompartmentModal: React.FC<Props> = ({ truckId }) => {
           >
             <Input />
           </Form.Item>
+
+          <Form.Item
+            label="Description"
+            name="description"
+            rules={[{ required: true, message: 'This field is required' }]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+            label="Code fiche"
+            name="codeFiche"
+          >
+            <Input />
+          </Form.Item>
         </Form>
       </Modal>
     </>
   );
 };
 
-export default AddCompartmentModal;
+export default AddMaterialTypeModal;

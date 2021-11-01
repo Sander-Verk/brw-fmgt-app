@@ -1,20 +1,18 @@
 import { Table } from 'antd';
-import dayjs from 'dayjs'
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { GetMaterialsQuery } from '../../generated/graphql';
+import { GetMaterialTypesQuery } from '../../generated/graphql';
+import AddMaterialTypeModal from './components/addMaterialTypeModal/addMaterialTypeModal';
 import './styles.scss';
 
 interface Props {
-  data: GetMaterialsQuery;
+  data: GetMaterialTypesQuery;
 }
 
 interface TableItem {
   code: string;
   name: string;
-  serial: string;
   codeFiche: string;
-  date: string;
 }
 
 const className = 'MaterialOverview';
@@ -31,36 +29,28 @@ const columns = [
     key: 'name',
   },
   {
-    title: 'Serial',
-    dataIndex: 'serial',
-    key: 'serial',
-  },
-  {
     title: 'Code Fiche',
     dataIndex: 'codeFiche',
     key: 'codeFiche',
-  },
-  {
-    title: 'Date',
-    dataIndex: 'date',
-    key: 'date',
-  },
+  }
 ];
 
 const MaterialOverview: React.FC<Props> = ({ data }) => {
   const { t } = useTranslation();
-  const dataSource: TableItem[] = data?.materials?.items.map(material => ({
-    code: material.type.code,
-    name: material.type.name,
-    serial: material.serial,
-    codeFiche: material.type.codeFiche,
-    date: dayjs(material.date).format('DD/MM/YYYY'),
-    key: material.type.code
+  const dataSource: TableItem[] = data?.materialTypes?.items.map(material => ({
+    code: material.code,
+    name: material.name,
+    codeFiche: material.codeFiche,
+    key: material.code
   }) || [])
 
   return (
     <div className={className}>
-      <h1>{t("materialsOverview.title")}</h1>
+      <div className="pageHeader">
+        <h1>{t("materialsOverview.title")}</h1>
+        <AddMaterialTypeModal></AddMaterialTypeModal>
+      </div>
+      
 
       <Table dataSource={dataSource} columns={columns} pagination={false} />
     </div>

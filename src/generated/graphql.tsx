@@ -277,6 +277,18 @@ export type UpdateMaterialTypeInput = {
   name?: Maybe<Scalars['String']>;
 };
 
+export type CreateMaterialTypeMutationVariables = Exact<{
+  materialType: CreateMaterialTypeInput;
+}>;
+
+
+export type CreateMaterialTypeMutation = { __typename?: 'Mutation', createMaterialType: { __typename?: 'MaterialType', id: string, code: string, name: string, description: string, codeFiche: string } };
+
+export type GetMaterialTypesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetMaterialTypesQuery = { __typename?: 'Query', materialTypes: { __typename?: 'MaterialTypeResult', count: number, items: Array<{ __typename?: 'MaterialType', id: string, code: string, name: string, description: string, codeFiche: string }> } };
+
 export type CreateCompartmentMutationVariables = Exact<{
   truckId: Scalars['ID'];
   compartment: CreateCompartmentInput;
@@ -294,11 +306,6 @@ export type CreateSectionMutationVariables = Exact<{
 
 export type CreateSectionMutation = { __typename?: 'Mutation', createSection: { __typename?: 'Truck', id: string, code: string, name: string, compartments: Array<{ __typename?: 'Compartment', id: string, code: string, name: string, sections: Array<{ __typename?: 'Section', id: string, name?: string | null | undefined, imageUrl?: string | null | undefined, materials: Array<{ __typename?: 'Material', id: string, serial: string, date: any, type: { __typename?: 'MaterialType', code: string, name: string, description: string, codeFiche: string } }> }> }> } };
 
-export type GetMaterialsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetMaterialsQuery = { __typename?: 'Query', materials: { __typename?: 'MaterialResult', count: number, items: Array<{ __typename?: 'Material', id: string, serial: string, date: any, type: { __typename?: 'MaterialType', id: string, code: string, name: string, description: string, codeFiche: string } }> } };
-
 export type GetTruckQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
@@ -312,6 +319,84 @@ export type GetTrucksQueryVariables = Exact<{ [key: string]: never; }>;
 export type GetTrucksQuery = { __typename?: 'Query', trucks: { __typename?: 'TruckResult', count: number, items: Array<{ __typename?: 'Truck', id: string, code: string, name: string }> } };
 
 
+export const CreateMaterialTypeDocument = gql`
+    mutation CreateMaterialType($materialType: CreateMaterialTypeInput!) {
+  createMaterialType(materialType: $materialType) {
+    id
+    code
+    name
+    description
+    codeFiche
+  }
+}
+    `;
+export type CreateMaterialTypeMutationFn = Apollo.MutationFunction<CreateMaterialTypeMutation, CreateMaterialTypeMutationVariables>;
+
+/**
+ * __useCreateMaterialTypeMutation__
+ *
+ * To run a mutation, you first call `useCreateMaterialTypeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateMaterialTypeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createMaterialTypeMutation, { data, loading, error }] = useCreateMaterialTypeMutation({
+ *   variables: {
+ *      materialType: // value for 'materialType'
+ *   },
+ * });
+ */
+export function useCreateMaterialTypeMutation(baseOptions?: Apollo.MutationHookOptions<CreateMaterialTypeMutation, CreateMaterialTypeMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateMaterialTypeMutation, CreateMaterialTypeMutationVariables>(CreateMaterialTypeDocument, options);
+      }
+export type CreateMaterialTypeMutationHookResult = ReturnType<typeof useCreateMaterialTypeMutation>;
+export type CreateMaterialTypeMutationResult = Apollo.MutationResult<CreateMaterialTypeMutation>;
+export type CreateMaterialTypeMutationOptions = Apollo.BaseMutationOptions<CreateMaterialTypeMutation, CreateMaterialTypeMutationVariables>;
+export const GetMaterialTypesDocument = gql`
+    query getMaterialTypes {
+  materialTypes(filter: {}) {
+    count
+    items {
+      id
+      code
+      name
+      description
+      codeFiche
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetMaterialTypesQuery__
+ *
+ * To run a query within a React component, call `useGetMaterialTypesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetMaterialTypesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetMaterialTypesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetMaterialTypesQuery(baseOptions?: Apollo.QueryHookOptions<GetMaterialTypesQuery, GetMaterialTypesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetMaterialTypesQuery, GetMaterialTypesQueryVariables>(GetMaterialTypesDocument, options);
+      }
+export function useGetMaterialTypesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetMaterialTypesQuery, GetMaterialTypesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetMaterialTypesQuery, GetMaterialTypesQueryVariables>(GetMaterialTypesDocument, options);
+        }
+export type GetMaterialTypesQueryHookResult = ReturnType<typeof useGetMaterialTypesQuery>;
+export type GetMaterialTypesLazyQueryHookResult = ReturnType<typeof useGetMaterialTypesLazyQuery>;
+export type GetMaterialTypesQueryResult = Apollo.QueryResult<GetMaterialTypesQuery, GetMaterialTypesQueryVariables>;
 export const CreateCompartmentDocument = gql`
     mutation CreateCompartment($truckId: ID!, $compartment: CreateCompartmentInput!) {
   createCompartment(truckId: $truckId, compartment: $compartment) {
@@ -431,52 +516,6 @@ export function useCreateSectionMutation(baseOptions?: Apollo.MutationHookOption
 export type CreateSectionMutationHookResult = ReturnType<typeof useCreateSectionMutation>;
 export type CreateSectionMutationResult = Apollo.MutationResult<CreateSectionMutation>;
 export type CreateSectionMutationOptions = Apollo.BaseMutationOptions<CreateSectionMutation, CreateSectionMutationVariables>;
-export const GetMaterialsDocument = gql`
-    query getMaterials {
-  materials(filter: {}) {
-    count
-    items {
-      id
-      type {
-        id
-        code
-        name
-        description
-        codeFiche
-      }
-      serial
-      date
-    }
-  }
-}
-    `;
-
-/**
- * __useGetMaterialsQuery__
- *
- * To run a query within a React component, call `useGetMaterialsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetMaterialsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetMaterialsQuery({
- *   variables: {
- *   },
- * });
- */
-export function useGetMaterialsQuery(baseOptions?: Apollo.QueryHookOptions<GetMaterialsQuery, GetMaterialsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetMaterialsQuery, GetMaterialsQueryVariables>(GetMaterialsDocument, options);
-      }
-export function useGetMaterialsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetMaterialsQuery, GetMaterialsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetMaterialsQuery, GetMaterialsQueryVariables>(GetMaterialsDocument, options);
-        }
-export type GetMaterialsQueryHookResult = ReturnType<typeof useGetMaterialsQuery>;
-export type GetMaterialsLazyQueryHookResult = ReturnType<typeof useGetMaterialsLazyQuery>;
-export type GetMaterialsQueryResult = Apollo.QueryResult<GetMaterialsQuery, GetMaterialsQueryVariables>;
 export const GetTruckDocument = gql`
     query GetTruck($id: ID!) {
   truck(id: $id) {

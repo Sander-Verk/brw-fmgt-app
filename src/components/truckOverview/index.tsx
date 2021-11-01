@@ -1,4 +1,5 @@
 import { useGetTrucksQuery } from "../../generated/graphql";
+import ErrorMessage from "../errorMessage/errorMessage";
 import LoadingContainer from "../loader";
 import TruckOverview from "./truckOverview";
 
@@ -10,7 +11,7 @@ const TruckOverviewContainer = () => {
   }
 
   if (error || !data) {
-    return <div>ERROR</div>;
+    return <ErrorMessage message={error?.message}></ErrorMessage>;
   }
 
   return <TruckOverview data={data} />;

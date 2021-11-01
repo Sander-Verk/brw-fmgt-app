@@ -34,6 +34,10 @@ export const en = {
     openBtn: "Create section",
     title: "Create section",
   },
+  addMaterialTypeModal: {
+    openBtn: "Add material type",
+    title: "Add material type",
+  },
   btn: {
     cancel: "Cancel",
     save: "Save",
