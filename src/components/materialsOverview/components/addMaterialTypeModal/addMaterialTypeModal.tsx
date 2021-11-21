@@ -50,7 +50,7 @@ const AddMaterialTypeModal: React.FC<Props> = () => {
       <Button type="primary" onClick={showModal}>
         {t('addMaterialTypeModal.openBtn')}
       </Button>
-      <Modal title={t('addMaterialTypeModal.openBtn')} visible={isModalVisible} onOk={form.submit} onCancel={handleReset} cancelText={t('btn.cancel')} okText={t('btn.save')}>
+      <Modal title={t('addMaterialTypeModal.title')} visible={isModalVisible} onOk={form.submit} onCancel={handleReset} cancelText={t('btn.cancel')} okText={t('btn.save')}>
         { graphqlError && (
           <ErrorMessage message={graphqlError}></ErrorMessage>
         )}

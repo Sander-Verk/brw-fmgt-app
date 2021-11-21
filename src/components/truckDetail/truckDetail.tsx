@@ -1,9 +1,9 @@
-import { PlusCircleOutlined } from '@ant-design/icons';
 import { Col, Collapse, Row, Table } from 'antd';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Compartment, GetTruckQuery, Section } from '../../generated/graphql';
 import AddCompartmentModal from './components/addCompartmentModal/addCompartmentModal';
+import AddMaterialModal from './components/addMaterialModal/addMaterialModal';
 import AddSectionModal from './components/addSectionModal/addSectionModal';
 import './styles.scss';
 
@@ -60,7 +60,7 @@ const renderSection = (truckId: string, compartmentId: string, section: Partial<
 };
 
 const renderTableFooter = (truckId: string, compartmentId: string, sectionId: string) => (
-  <PlusCircleOutlined onClick={() => console.log(truckId, compartmentId, sectionId) }/>
+  <AddMaterialModal truckId={truckId} compartmentId={compartmentId} sectionId={sectionId}></AddMaterialModal>
 )
 
 const sort = (array: any[]): any[] => {

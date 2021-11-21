@@ -38,6 +38,10 @@ export const en = {
     openBtn: "Add material type",
     title: "Add material type",
   },
+  addMaterialModal: {
+    openBtn: "Add material",
+    title: "Add material",
+  },
   btn: {
     cancel: "Cancel",
     save: "Save",

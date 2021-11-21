@@ -50,7 +50,7 @@ const AddCompartmentModal: React.FC<Props> = ({ truckId }) => {
       <Button type="primary" onClick={showModal}>
         {t('addCompartmentModal.openBtn')}
       </Button>
-      <Modal title={t('addCompartmentModal.openBtn')} visible={isModalVisible} onOk={form.submit} onCancel={handleReset} cancelText={t('btn.cancel')} okText={t('btn.save')}>
+      <Modal title={t('addCompartmentModal.title')} visible={isModalVisible} onOk={form.submit} onCancel={handleReset} cancelText={t('btn.cancel')} okText={t('btn.save')}>
         { graphqlError && (
           <ErrorMessage message={graphqlError}></ErrorMessage>
         )}
