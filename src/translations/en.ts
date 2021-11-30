@@ -12,6 +12,7 @@ export const en = {
   navigation: {
     trucks: "Trucks",
     materials: "Materials",
+    logbook: "Logbook",
     about: "About",
     logout: "Logout",
   },
@@ -48,5 +49,18 @@ export const en = {
   },
   errors: {
     somethingWentWrong: "Something went wrong!"
+  },
+  logbookOverview: {
+    title: "Logbook",
+  },
+  logbookItems: {
+    type: "Type",
+    truck: "Truck",
+    user: "User",
+    createdAt: "Created at",
+  },
+  logbookItemType: {
+    problem_report: "Problem report",
+    material_check: "Material check"
   }
 };

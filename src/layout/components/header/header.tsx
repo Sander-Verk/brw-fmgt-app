@@ -1,4 +1,4 @@
-import { CarOutlined, ToolOutlined, InfoCircleOutlined, LogoutOutlined, UserOutlined } from "@ant-design/icons";
+import { CarOutlined, ToolOutlined, InfoCircleOutlined, LogoutOutlined, UserOutlined, BookOutlined } from "@ant-design/icons";
 import { useMsal } from "@azure/msal-react";
 import { Menu } from "antd";
 import { Header } from "antd/lib/layout/layout";
@@ -38,14 +38,17 @@ const AppHeader: React.FC<Props> = () => {
   return (
     <Header style={{ position: 'fixed', zIndex: 1, width: '100%', display: 'flex', justifyContent: 'space-between' }}>
       <div className="logo" />
-      <Menu theme="dark" mode="horizontal">
+      <Menu theme="dark" mode="horizontal" style={{width: "100%"}} >
         <Menu.Item key="1" icon={<CarOutlined />}>
           <Link to="/">{t("navigation.trucks")}</Link>
         </Menu.Item>
         <Menu.Item key="2" icon={<ToolOutlined />}>
           <Link to="/materials">{t("navigation.materials")}</Link>
         </Menu.Item>
-        <SubMenu key="3" icon={<UserOutlined />} title={userName}>
+        <Menu.Item key="3" icon={<BookOutlined />}>
+          <Link to="/logbook">{t("navigation.logbook")}</Link>
+        </Menu.Item>
+        <SubMenu key="4" icon={<UserOutlined />} title={userName}>
           <Menu.Item key="3:1" icon={<InfoCircleOutlined />}>
             <Link to="/about">{t("navigation.about")}</Link>
           </Menu.Item>

@@ -2,6 +2,7 @@ import { Layout } from 'antd';
 import { Content } from 'antd/lib/layout/layout';
 import * as React from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
+import LogbookOverviewContainer from '../components/logbookOverview';
 import MaterialOverviewContainer from '../components/materialsOverview';
 import TruckDetailContainer from '../components/truckDetail';
 import TruckOverviewContainer from '../components/truckOverview';
@@ -26,6 +27,9 @@ const AppLayout: React.FC<Props> = () => {
             <Route path="/trucks/:id" children={<TruckDetailContainer />} />
             <Route path="/materials">
               <MaterialOverviewContainer></MaterialOverviewContainer>
+            </Route>
+            <Route path="/logbook">
+              <LogbookOverviewContainer></LogbookOverviewContainer>
             </Route>
             <Route path="/about" exact={true}>
               <div>

@@ -12,7 +12,7 @@ interface Props {
 interface TableItem {
   code: string;
   name: string;
-  codeFiche: string;
+  codeFiche?: string | null;
 }
 
 const className = 'MaterialOverview';

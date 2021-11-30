@@ -23,6 +23,21 @@ export type Compartment = {
   sections: Array<Section>;
 };
 
+export type CompartmentCheck = {
+  __typename?: 'CompartmentCheck';
+  code: Scalars['String'];
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  sections: Array<SectionCheck>;
+};
+
+export type CompartmentCheckInput = {
+  code: Scalars['String'];
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  sections: Array<SectionCheckInput>;
+};
+
 export type CreateCompartmentInput = {
   code: Scalars['String'];
   name: Scalars['String'];
@@ -52,6 +67,7 @@ export type CreateTruckInput = {
 };
 
 export enum LogBookItemType {
+  MaterialCheck = 'MATERIAL_CHECK',
   ProblemReport = 'PROBLEM_REPORT'
 }
 
@@ -61,7 +77,7 @@ export type LogbookFilterInput = {
   truckIds?: Maybe<Array<Scalars['ID']>>;
 };
 
-export type LogbookItem = ProblemReport;
+export type LogbookItem = MaterialCheckReport | ProblemReport;
 
 export type LogbookResult = {
   __typename?: 'LogbookResult';
@@ -71,10 +87,41 @@ export type LogbookResult = {
 
 export type Material = {
   __typename?: 'Material';
-  date: Scalars['DateTime'];
+  date?: Maybe<Scalars['DateTime']>;
   id: Scalars['ID'];
-  serial: Scalars['String'];
+  serial?: Maybe<Scalars['String']>;
   type: MaterialType;
+};
+
+export type MaterialCheck = {
+  __typename?: 'MaterialCheck';
+  amount: Scalars['Int'];
+  check: Scalars['Boolean'];
+  materialType: MaterialType;
+  remark?: Maybe<Scalars['String']>;
+};
+
+export type MaterialCheckInput = {
+  amount: Scalars['Int'];
+  check: Scalars['Boolean'];
+  materialTypeId: Scalars['ID'];
+  remark?: Maybe<Scalars['String']>;
+};
+
+export type MaterialCheckReport = {
+  __typename?: 'MaterialCheckReport';
+  checks: Array<CompartmentCheck>;
+  createdAt: Scalars['DateTime'];
+  id: Scalars['ID'];
+  truck: Truck;
+  type: LogBookItemType;
+  user: Scalars['String'];
+};
+
+export type MaterialCheckReportInput = {
+  checks: Array<CompartmentCheckInput>;
+  truckId: Scalars['ID'];
+  user: Scalars['String'];
 };
 
 export type MaterialResult = {
@@ -86,7 +133,7 @@ export type MaterialResult = {
 export type MaterialType = {
   __typename?: 'MaterialType';
   code: Scalars['String'];
-  codeFiche: Scalars['String'];
+  codeFiche?: Maybe<Scalars['String']>;
   description: Scalars['String'];
   id: Scalars['ID'];
   name: Scalars['String'];
@@ -114,7 +161,9 @@ export type Mutation = {
   addMaterial: Truck;
   createCompartment: Truck;
   createMaterial: Material;
+  createMaterialCheck: MaterialCheckReport;
   createMaterialType: MaterialType;
+  createMaterialWithTruck: Truck;
   createSection: Truck;
   createTruck: Truck;
   updateMaterial: Material;
@@ -141,8 +190,21 @@ export type MutationCreateMaterialArgs = {
 };
 
 
+export type MutationCreateMaterialCheckArgs = {
+  materialCheck: MaterialCheckReportInput;
+};
+
+
 export type MutationCreateMaterialTypeArgs = {
   materialType: CreateMaterialTypeInput;
+};
+
+
+export type MutationCreateMaterialWithTruckArgs = {
+  compartmentId: Scalars['ID'];
+  material: CreateMaterialInput;
+  sectionId: Scalars['ID'];
+  truckId: Scalars['ID'];
 };
 
 
@@ -174,7 +236,7 @@ export type ProblemReport = {
   createdAt: Scalars['DateTime'];
   id: Scalars['ID'];
   issues: Array<ProblemReportIssue>;
-  truckId: Scalars['ID'];
+  truck: Truck;
   type: LogBookItemType;
   user: Scalars['String'];
 };
@@ -252,6 +314,19 @@ export type Section = {
   name?: Maybe<Scalars['String']>;
 };
 
+export type SectionCheck = {
+  __typename?: 'SectionCheck';
+  id: Scalars['ID'];
+  materials: Array<MaterialCheck>;
+  name?: Maybe<Scalars['String']>;
+};
+
+export type SectionCheckInput = {
+  id: Scalars['ID'];
+  materials: Array<MaterialCheckInput>;
+  name?: Maybe<Scalars['String']>;
+};
+
 export type Truck = {
   __typename?: 'Truck';
   code: Scalars['String'];
@@ -277,17 +352,22 @@ export type UpdateMaterialTypeInput = {
   name?: Maybe<Scalars['String']>;
 };
 
+export type GetLogbookQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetLogbookQuery = { __typename?: 'Query', logbook: { __typename?: 'LogbookResult', count: number, items: Array<{ __typename?: 'MaterialCheckReport', id: string, user: string, createdAt: any, type: LogBookItemType, truck: { __typename?: 'Truck', id: string, name: string } } | { __typename?: 'ProblemReport', id: string, user: string, createdAt: any, type: LogBookItemType, truck: { __typename?: 'Truck', id: string, name: string } }> } };
+
 export type CreateMaterialTypeMutationVariables = Exact<{
   materialType: CreateMaterialTypeInput;
 }>;
 
 
-export type CreateMaterialTypeMutation = { __typename?: 'Mutation', createMaterialType: { __typename?: 'MaterialType', id: string, code: string, name: string, description: string, codeFiche: string } };
+export type CreateMaterialTypeMutation = { __typename?: 'Mutation', createMaterialType: { __typename?: 'MaterialType', id: string, code: string, name: string, description: string, codeFiche?: string | null | undefined } };
 
 export type GetMaterialTypesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetMaterialTypesQuery = { __typename?: 'Query', materialTypes: { __typename?: 'MaterialTypeResult', count: number, items: Array<{ __typename?: 'MaterialType', id: string, code: string, name: string, description: string, codeFiche: string }> } };
+export type GetMaterialTypesQuery = { __typename?: 'Query', materialTypes: { __typename?: 'MaterialTypeResult', count: number, items: Array<{ __typename?: 'MaterialType', id: string, code: string, name: string, description: string, codeFiche?: string | null | undefined }> } };
 
 export type CreateCompartmentMutationVariables = Exact<{
   truckId: Scalars['ID'];
@@ -295,7 +375,17 @@ export type CreateCompartmentMutationVariables = Exact<{
 }>;
 
 
-export type CreateCompartmentMutation = { __typename?: 'Mutation', createCompartment: { __typename?: 'Truck', id: string, code: string, name: string, compartments: Array<{ __typename?: 'Compartment', id: string, code: string, name: string, sections: Array<{ __typename?: 'Section', id: string, name?: string | null | undefined, imageUrl?: string | null | undefined, materials: Array<{ __typename?: 'Material', id: string, serial: string, date: any, type: { __typename?: 'MaterialType', code: string, name: string, description: string, codeFiche: string } }> }> }> } };
+export type CreateCompartmentMutation = { __typename?: 'Mutation', createCompartment: { __typename?: 'Truck', id: string, code: string, name: string, compartments: Array<{ __typename?: 'Compartment', id: string, code: string, name: string, sections: Array<{ __typename?: 'Section', id: string, name?: string | null | undefined, imageUrl?: string | null | undefined, materials: Array<{ __typename?: 'Material', id: string, serial?: string | null | undefined, date?: any | null | undefined, type: { __typename?: 'MaterialType', code: string, name: string, description: string, codeFiche?: string | null | undefined } }> }> }> } };
+
+export type CreateMaterialWithTruckMutationVariables = Exact<{
+  truckId: Scalars['ID'];
+  compartmentId: Scalars['ID'];
+  sectionId: Scalars['ID'];
+  material: CreateMaterialInput;
+}>;
+
+
+export type CreateMaterialWithTruckMutation = { __typename?: 'Mutation', createMaterialWithTruck: { __typename?: 'Truck', id: string, code: string, name: string, compartments: Array<{ __typename?: 'Compartment', id: string, code: string, name: string, sections: Array<{ __typename?: 'Section', id: string, name?: string | null | undefined, imageUrl?: string | null | undefined, materials: Array<{ __typename?: 'Material', id: string, serial?: string | null | undefined, date?: any | null | undefined, type: { __typename?: 'MaterialType', code: string, name: string, description: string, codeFiche?: string | null | undefined } }> }> }> } };
 
 export type CreateSectionMutationVariables = Exact<{
   truckId: Scalars['ID'];
@@ -304,14 +394,14 @@ export type CreateSectionMutationVariables = Exact<{
 }>;
 
 
-export type CreateSectionMutation = { __typename?: 'Mutation', createSection: { __typename?: 'Truck', id: string, code: string, name: string, compartments: Array<{ __typename?: 'Compartment', id: string, code: string, name: string, sections: Array<{ __typename?: 'Section', id: string, name?: string | null | undefined, imageUrl?: string | null | undefined, materials: Array<{ __typename?: 'Material', id: string, serial: string, date: any, type: { __typename?: 'MaterialType', code: string, name: string, description: string, codeFiche: string } }> }> }> } };
+export type CreateSectionMutation = { __typename?: 'Mutation', createSection: { __typename?: 'Truck', id: string, code: string, name: string, compartments: Array<{ __typename?: 'Compartment', id: string, code: string, name: string, sections: Array<{ __typename?: 'Section', id: string, name?: string | null | undefined, imageUrl?: string | null | undefined, materials: Array<{ __typename?: 'Material', id: string, serial?: string | null | undefined, date?: any | null | undefined, type: { __typename?: 'MaterialType', code: string, name: string, description: string, codeFiche?: string | null | undefined } }> }> }> } };
 
 export type GetTruckQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
 
 
-export type GetTruckQuery = { __typename?: 'Query', truck: { __typename?: 'Truck', id: string, code: string, name: string, compartments: Array<{ __typename?: 'Compartment', id: string, code: string, name: string, sections: Array<{ __typename?: 'Section', id: string, name?: string | null | undefined, imageUrl?: string | null | undefined, materials: Array<{ __typename?: 'Material', id: string, serial: string, date: any, type: { __typename?: 'MaterialType', code: string, name: string, description: string, codeFiche: string } }> }> }> } };
+export type GetTruckQuery = { __typename?: 'Query', truck: { __typename?: 'Truck', id: string, code: string, name: string, compartments: Array<{ __typename?: 'Compartment', id: string, code: string, name: string, sections: Array<{ __typename?: 'Section', id: string, name?: string | null | undefined, imageUrl?: string | null | undefined, materials: Array<{ __typename?: 'Material', id: string, serial?: string | null | undefined, date?: any | null | undefined, type: { __typename?: 'MaterialType', code: string, name: string, description: string, codeFiche?: string | null | undefined } }> }> }> } };
 
 export type GetTrucksQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -319,6 +409,62 @@ export type GetTrucksQueryVariables = Exact<{ [key: string]: never; }>;
 export type GetTrucksQuery = { __typename?: 'Query', trucks: { __typename?: 'TruckResult', count: number, items: Array<{ __typename?: 'Truck', id: string, code: string, name: string }> } };
 
 
+export const GetLogbookDocument = gql`
+    query getLogbook {
+  logbook(filter: {}) {
+    count
+    items {
+      ... on ProblemReport {
+        id
+        truck {
+          id
+          name
+        }
+        user
+        createdAt
+        type
+      }
+      ... on MaterialCheckReport {
+        id
+        truck {
+          id
+          name
+        }
+        user
+        createdAt
+        type
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetLogbookQuery__
+ *
+ * To run a query within a React component, call `useGetLogbookQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetLogbookQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetLogbookQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetLogbookQuery(baseOptions?: Apollo.QueryHookOptions<GetLogbookQuery, GetLogbookQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetLogbookQuery, GetLogbookQueryVariables>(GetLogbookDocument, options);
+      }
+export function useGetLogbookLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetLogbookQuery, GetLogbookQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetLogbookQuery, GetLogbookQueryVariables>(GetLogbookDocument, options);
+        }
+export type GetLogbookQueryHookResult = ReturnType<typeof useGetLogbookQuery>;
+export type GetLogbookLazyQueryHookResult = ReturnType<typeof useGetLogbookLazyQuery>;
+export type GetLogbookQueryResult = Apollo.QueryResult<GetLogbookQuery, GetLogbookQueryVariables>;
 export const CreateMaterialTypeDocument = gql`
     mutation CreateMaterialType($materialType: CreateMaterialTypeInput!) {
   createMaterialType(materialType: $materialType) {
@@ -454,6 +600,70 @@ export function useCreateCompartmentMutation(baseOptions?: Apollo.MutationHookOp
 export type CreateCompartmentMutationHookResult = ReturnType<typeof useCreateCompartmentMutation>;
 export type CreateCompartmentMutationResult = Apollo.MutationResult<CreateCompartmentMutation>;
 export type CreateCompartmentMutationOptions = Apollo.BaseMutationOptions<CreateCompartmentMutation, CreateCompartmentMutationVariables>;
+export const CreateMaterialWithTruckDocument = gql`
+    mutation CreateMaterialWithTruck($truckId: ID!, $compartmentId: ID!, $sectionId: ID!, $material: CreateMaterialInput!) {
+  createMaterialWithTruck(
+    truckId: $truckId
+    compartmentId: $compartmentId
+    sectionId: $sectionId
+    material: $material
+  ) {
+    id
+    code
+    name
+    compartments {
+      id
+      code
+      name
+      sections {
+        id
+        name
+        imageUrl
+        materials {
+          id
+          type {
+            code
+            name
+            description
+            codeFiche
+          }
+          serial
+          date
+        }
+      }
+    }
+  }
+}
+    `;
+export type CreateMaterialWithTruckMutationFn = Apollo.MutationFunction<CreateMaterialWithTruckMutation, CreateMaterialWithTruckMutationVariables>;
+
+/**
+ * __useCreateMaterialWithTruckMutation__
+ *
+ * To run a mutation, you first call `useCreateMaterialWithTruckMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateMaterialWithTruckMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createMaterialWithTruckMutation, { data, loading, error }] = useCreateMaterialWithTruckMutation({
+ *   variables: {
+ *      truckId: // value for 'truckId'
+ *      compartmentId: // value for 'compartmentId'
+ *      sectionId: // value for 'sectionId'
+ *      material: // value for 'material'
+ *   },
+ * });
+ */
+export function useCreateMaterialWithTruckMutation(baseOptions?: Apollo.MutationHookOptions<CreateMaterialWithTruckMutation, CreateMaterialWithTruckMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateMaterialWithTruckMutation, CreateMaterialWithTruckMutationVariables>(CreateMaterialWithTruckDocument, options);
+      }
+export type CreateMaterialWithTruckMutationHookResult = ReturnType<typeof useCreateMaterialWithTruckMutation>;
+export type CreateMaterialWithTruckMutationResult = Apollo.MutationResult<CreateMaterialWithTruckMutation>;
+export type CreateMaterialWithTruckMutationOptions = Apollo.BaseMutationOptions<CreateMaterialWithTruckMutation, CreateMaterialWithTruckMutationVariables>;
 export const CreateSectionDocument = gql`
     mutation CreateSection($truckId: ID!, $compartmentId: ID!, $section: CreateSectionInput!) {
   createSection(
