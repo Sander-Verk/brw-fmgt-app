@@ -2,6 +2,7 @@ import { Layout } from 'antd';
 import { Content } from 'antd/lib/layout/layout';
 import * as React from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
+import AddLogbookItemContainer from '../components/addLogbookItem';
 import LogbookOverviewContainer from '../components/logbookOverview';
 import MaterialOverviewContainer from '../components/materialsOverview';
 import TruckDetailContainer from '../components/truckDetail';
@@ -28,8 +29,11 @@ const AppLayout: React.FC<Props> = () => {
             <Route path="/materials">
               <MaterialOverviewContainer></MaterialOverviewContainer>
             </Route>
-            <Route path="/logbook">
+            <Route path="/logbook" exact={true}>
               <LogbookOverviewContainer></LogbookOverviewContainer>
+            </Route>
+            <Route path="/logbook/new" exact={true}>
+              <AddLogbookItemContainer></AddLogbookItemContainer>
             </Route>
             <Route path="/about" exact={true}>
               <div>

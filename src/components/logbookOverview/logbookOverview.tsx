@@ -7,6 +7,7 @@ import './styles.scss';
 import { ColumnsType } from 'antd/lib/table';
 import { ControlOutlined, WarningOutlined } from '@ant-design/icons';
 import Translated from '../translated/translated';
+import AddLogbookItemModal from './components/addLogbookItemModal/addLogbookItemModal';
 
 interface Props {
   data: GetLogbookQuery;
@@ -71,6 +72,7 @@ const LogbookOverview: React.FC<Props> = ({ data }) => {
     <div className={className}>
       <div className="pageHeader">
         <h1>{t("logbookOverview.title")}</h1>
+        <AddLogbookItemModal></AddLogbookItemModal>
       </div>
       
 
