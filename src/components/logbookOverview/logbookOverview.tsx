@@ -61,6 +61,7 @@ const columns: ColumnsType<TableItem> = [
 const LogbookOverview: React.FC<Props> = ({ data }) => {
   const { t } = useTranslation();
   const dataSource: TableItem[] = data?.logbook?.items.map(logbook => ({
+    key: logbook.id,
     id: logbook.id,
     type: logbook.type,
     truck: logbook.truck.name,

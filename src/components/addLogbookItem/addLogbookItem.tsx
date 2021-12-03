@@ -1,9 +1,13 @@
+import { useMutation } from '@apollo/client';
+import { useMsal } from '@azure/msal-react';
 import { Button, Col, Form, Row, Select } from 'antd';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { GetTrucksQuery, LogBookItemType } from '../../generated/graphql';
+import ErrorMessage from '../errorMessage/errorMessage';
 import MaterialCheckForm from './components/materialCheckForm/materialCheckForm';
 import ProblemReportForm from './components/problemReportForm/problemReportForm';
+import { MUTATION_CREATE_MATERIAL_CHECK } from './mutation';
 import './styles.scss';
 
 const { Option } = Select;
@@ -16,10 +20,29 @@ const className = 'AddLogbookItem';
 
 const AddLogbookItem: React.FC<Props> = ({ trucks, type = LogBookItemType.MaterialCheck }) => {
   const { t } = useTranslation();
+  const { accounts } = useMsal();
   const [selectedTruckId, setSelectedTruckId] = React.useState<string>();
+  const [graphqlError, setGraphqlError] = React.useState<string>();
+  const [creatematerialCheck] = useMutation(MUTATION_CREATE_MATERIAL_CHECK);
   const [form] = Form.useForm();
 
   const onFinish = async (values: any) => {
+    if (type === LogBookItemType.MaterialCheck) {
+      try {
+        const result = await creatematerialCheck({
+          variables: {
+            materialCheck: values
+          }
+        });
+
+        if (result.data) {
+          form.resetFields();
+          console.log("Should redirect");
+        }
+      } catch (error: any) {
+        setGraphqlError(error.message);
+      }
+    }
     console.log(values);
   };
 
@@ -29,6 +52,10 @@ const AddLogbookItem: React.FC<Props> = ({ trucks, type = LogBookItemType.Materi
 
   return (
     <div className={className}>
+      {graphqlError && (
+        <ErrorMessage message={graphqlError}></ErrorMessage>
+      )}
+
       <div className="pageHeader">
         <h1>{t("addLogbookItem.title")}</h1>
       </div>
@@ -41,6 +68,7 @@ const AddLogbookItem: React.FC<Props> = ({ trucks, type = LogBookItemType.Materi
       >
         <Row>
           <Col span={12} offset={6}>
+            <Form.Item name="user" hidden initialValue={accounts[0].name}/>
             <Form.Item name="truckId" rules={[{ required: true, message: 'This field is required' }]}>
               <Select
                 showSearch

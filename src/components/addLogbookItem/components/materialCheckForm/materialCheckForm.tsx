@@ -1,7 +1,8 @@
-import { Card, Checkbox, Form, FormInstance } from 'antd';
+import { Card, Checkbox, Col, Form, FormInstance, Row } from 'antd';
 import { FormListFieldData } from 'antd/lib/form/FormList';
 import * as React from 'react';
-import { Compartment, CompartmentCheckInput, Material, MaterialCheckInput, SectionCheckInput, useGetTruckQuery } from '../../../../generated/graphql';
+import { useTranslation } from 'react-i18next';
+import { Compartment, CompartmentCheckInput, Material, MaterialCheckInput, Section, SectionCheckInput, useGetTruckQuery } from '../../../../generated/graphql';
 import ErrorMessage from '../../../errorMessage/errorMessage';
 import Loading from '../../../loader/loading';
 import './styles.scss';
@@ -14,6 +15,7 @@ interface Props {
 }
 
 const MaterialCheckForm: React.FC<Props> = ({ truckId, form }) => {
+  const { t } = useTranslation();
   const { data, error, loading } = useGetTruckQuery({
     variables: { id: truckId },
   });
@@ -40,50 +42,76 @@ const MaterialCheckForm: React.FC<Props> = ({ truckId, form }) => {
     }));
   };
 
-  const renderCompartment = (field: FormListFieldData, comparment: CompartmentCheckInput) => {
+  const getSection = (compartmentId: string, sectionId: string): Section => {
+    return data?.truck.compartments.find(c => c.id === compartmentId)?.sections.find(s => s.id === sectionId) as Section;
+  }
+
+  const getMaterialTypeName = (section: Section, materialTypeId: string): string => {
+    return section.materials.find(m => m.type.id === materialTypeId)?.type.name || "";
+  }
+
+  const renderCompartment = (field: FormListFieldData, comparmentForm: CompartmentCheckInput) => {
     return (
-      <Card key={field.fieldKey} className="">
-        <h1>{ comparment.name }</h1>
-        {renderSection(field.name, comparment.sections)}
+      <Card key={field.fieldKey} className="compartment">
+        <h1>{comparmentForm.name}</h1>
+
+        <Form.List name={[field.name, 'sections']} initialValue={comparmentForm.sections}>
+          {(fields) => (
+            <>
+              {fields.map(section => (
+                renderSection(section, comparmentForm.sections[section.key], getSection(comparmentForm.id, comparmentForm.sections[section.key].id))
+              ))}
+            </>
+          )}
+        </Form.List>
       </Card>
     )
   }
 
-  const renderSection = (fieldName: number, sections: SectionCheckInput[]) => {
+  const renderSection = (field: FormListFieldData, sectionForm: SectionCheckInput, section: Section) => {
     return (
-      <Form.List name={[fieldName, 'sections']} initialValue={sections}>
-        {(fields) => (
-          <>
-            {fields.map(section => (
-              <div key={section.key}>
-                <h2>{ sections[section.key].name }</h2>
-                {sections[section.key]?.materials && renderMaterials(section.name, sections[section.key].materials)}
-              </div>
-            ))}
-          </>
-        )}
-      </Form.List>
+      <section key={field.key}>
+        <h2>{sectionForm.name}</h2>
+        <Row>
+          <Col span={18}>
+            <Form.List name={[field.name, 'materials']} initialValue={sectionForm.materials}>
+              {(fields) => (
+                <>
+                  {fields.map(material => (
+                    sectionForm?.materials && renderMaterial(material, sectionForm.materials[material.key], getMaterialTypeName(section, sectionForm.materials[material.key].materialTypeId))
+                  ))}
+                </>
+              )}
+            </Form.List>
+          </Col>
+          <Col span={6}>
+            {section.imageUrl ?
+              <img src={section.imageUrl} alt={`Section ${section.name}`} width={300} /> :
+              <p>{t("truckDetail.noImage")}</p>}
+          </Col>
+        </Row>
+      </section>
     )
   };
 
-  const renderMaterials = (fieldName: number, materials: MaterialCheckInput[]) => {
+  const renderMaterial = (field: FormListFieldData, materialForm: MaterialCheckInput, materialTypeName: string) => {
     return (
-      <Form.List name={[fieldName, 'materials']} initialValue={materials}>
-        {(fields) => (
-          <>
-            {fields.map(field => (
-              <div key={field.fieldKey}>
-                <Form.Item
-                  {...field}
-                  name={[field.name, 'check']}
-                  fieldKey={[field.fieldKey, 'check']}
-                  valuePropName="checked"
-                ><Checkbox></Checkbox></Form.Item>
-              </div>
-            ))}
-          </>
-        )}
-      </Form.List>
+      <div key={field.fieldKey}>
+        <Row>
+          <Col span={18}><p>{materialTypeName}</p></Col>
+          <Col span={3}><p>{materialForm.amount}</p></Col>
+          <Col span={3}>
+            <Form.Item
+              {...field}
+              name={[field.name, 'check']}
+              fieldKey={[field.fieldKey, 'check']}
+              valuePropName="checked"
+            >
+              <Checkbox />
+            </Form.Item>
+          </Col>
+        </Row>
+      </div>
     )
   };
 
