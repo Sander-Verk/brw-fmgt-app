@@ -352,6 +352,13 @@ export type UpdateMaterialTypeInput = {
   name?: Maybe<Scalars['String']>;
 };
 
+export type CreateMaterialCheckMutationVariables = Exact<{
+  materialCheck: MaterialCheckReportInput;
+}>;
+
+
+export type CreateMaterialCheckMutation = { __typename?: 'Mutation', createMaterialCheck: { __typename?: 'MaterialCheckReport', id: string, user: string, createdAt: any, type: LogBookItemType, truck: { __typename?: 'Truck', id: string, name: string }, checks: Array<{ __typename?: 'CompartmentCheck', id: string, code: string, name: string, sections: Array<{ __typename?: 'SectionCheck', id: string, name?: string | null | undefined, materials: Array<{ __typename?: 'MaterialCheck', amount: number, check: boolean, remark?: string | null | undefined, materialType: { __typename?: 'MaterialType', id: string } }> }> }> } };
+
 export type GetLogbookQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -401,7 +408,7 @@ export type GetTruckQueryVariables = Exact<{
 }>;
 
 
-export type GetTruckQuery = { __typename?: 'Query', truck: { __typename?: 'Truck', id: string, code: string, name: string, compartments: Array<{ __typename?: 'Compartment', id: string, code: string, name: string, sections: Array<{ __typename?: 'Section', id: string, name?: string | null | undefined, imageUrl?: string | null | undefined, materials: Array<{ __typename?: 'Material', id: string, serial?: string | null | undefined, date?: any | null | undefined, type: { __typename?: 'MaterialType', code: string, name: string, description: string, codeFiche?: string | null | undefined } }> }> }> } };
+export type GetTruckQuery = { __typename?: 'Query', truck: { __typename?: 'Truck', id: string, code: string, name: string, compartments: Array<{ __typename?: 'Compartment', id: string, code: string, name: string, sections: Array<{ __typename?: 'Section', id: string, name?: string | null | undefined, imageUrl?: string | null | undefined, materials: Array<{ __typename?: 'Material', id: string, serial?: string | null | undefined, date?: any | null | undefined, type: { __typename?: 'MaterialType', id: string, code: string, name: string, description: string, codeFiche?: string | null | undefined } }> }> }> } };
 
 export type GetTrucksQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -409,6 +416,63 @@ export type GetTrucksQueryVariables = Exact<{ [key: string]: never; }>;
 export type GetTrucksQuery = { __typename?: 'Query', trucks: { __typename?: 'TruckResult', count: number, items: Array<{ __typename?: 'Truck', id: string, code: string, name: string }> } };
 
 
+export const CreateMaterialCheckDocument = gql`
+    mutation CreateMaterialCheck($materialCheck: MaterialCheckReportInput!) {
+  createMaterialCheck(materialCheck: $materialCheck) {
+    id
+    truck {
+      id
+      name
+    }
+    user
+    createdAt
+    type
+    checks {
+      id
+      code
+      name
+      sections {
+        id
+        name
+        materials {
+          materialType {
+            id
+          }
+          amount
+          check
+          remark
+        }
+      }
+    }
+  }
+}
+    `;
+export type CreateMaterialCheckMutationFn = Apollo.MutationFunction<CreateMaterialCheckMutation, CreateMaterialCheckMutationVariables>;
+
+/**
+ * __useCreateMaterialCheckMutation__
+ *
+ * To run a mutation, you first call `useCreateMaterialCheckMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateMaterialCheckMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createMaterialCheckMutation, { data, loading, error }] = useCreateMaterialCheckMutation({
+ *   variables: {
+ *      materialCheck: // value for 'materialCheck'
+ *   },
+ * });
+ */
+export function useCreateMaterialCheckMutation(baseOptions?: Apollo.MutationHookOptions<CreateMaterialCheckMutation, CreateMaterialCheckMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateMaterialCheckMutation, CreateMaterialCheckMutationVariables>(CreateMaterialCheckDocument, options);
+      }
+export type CreateMaterialCheckMutationHookResult = ReturnType<typeof useCreateMaterialCheckMutation>;
+export type CreateMaterialCheckMutationResult = Apollo.MutationResult<CreateMaterialCheckMutation>;
+export type CreateMaterialCheckMutationOptions = Apollo.BaseMutationOptions<CreateMaterialCheckMutation, CreateMaterialCheckMutationVariables>;
 export const GetLogbookDocument = gql`
     query getLogbook {
   logbook(filter: {}) {
@@ -743,6 +807,7 @@ export const GetTruckDocument = gql`
         materials {
           id
           type {
+            id
             code
             name
             description

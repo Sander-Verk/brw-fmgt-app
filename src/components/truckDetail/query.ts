@@ -17,6 +17,7 @@ export const QUERY_GET_TRUCK = gql`
           materials {
             id
             type {
+              id
               code
               name
               description

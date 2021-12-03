@@ -1,23 +1,35 @@
 import { gql } from "@apollo/client";
 
-export const QUERY_GET_LOGBOOK = gql`
-  query getLogbook {
-    logbook(filter: {}) {
-      count
-      items {
-        ... on ProblemReport {
+export const MUTATION_CREATE_MATERIAL_CHECK = gql`
+  mutation CreateMaterialCheck(
+    $materialCheck: MaterialCheckReportInput!
+  ) {
+    createMaterialCheck(
+      materialCheck: $materialCheck
+    ) {
+      id
+      truck {
+        id
+        name
+      }
+      user
+      createdAt
+      type
+      checks {
+        id
+        code
+        name
+        sections {
           id
-          truck { id, name }
-          user
-          createdAt
-          type
-        }
-        ... on MaterialCheckReport {
-          id
-          truck { id, name }
-          user
-          createdAt
-          type
+          name
+          materials {
+            materialType {
+              id
+            }
+            amount
+            check
+            remark
+          }
         }
       }
     }
