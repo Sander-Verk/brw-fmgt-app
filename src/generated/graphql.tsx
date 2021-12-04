@@ -359,6 +359,13 @@ export type CreateMaterialCheckMutationVariables = Exact<{
 
 export type CreateMaterialCheckMutation = { __typename?: 'Mutation', createMaterialCheck: { __typename?: 'MaterialCheckReport', id: string, user: string, createdAt: any, type: LogBookItemType, truck: { __typename?: 'Truck', id: string, name: string }, checks: Array<{ __typename?: 'CompartmentCheck', id: string, code: string, name: string, sections: Array<{ __typename?: 'SectionCheck', id: string, name?: string | null | undefined, materials: Array<{ __typename?: 'MaterialCheck', amount: number, check: boolean, remark?: string | null | undefined, materialType: { __typename?: 'MaterialType', id: string } }> }> }> } };
 
+export type GetLogbookItemQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type GetLogbookItemQuery = { __typename?: 'Query', logbookItem: { __typename: 'MaterialCheckReport', id: string, user: string, createdAt: any, type: LogBookItemType, truck: { __typename?: 'Truck', id: string, name: string }, checks: Array<{ __typename?: 'CompartmentCheck', id: string, code: string, name: string, sections: Array<{ __typename?: 'SectionCheck', id: string, name?: string | null | undefined, materials: Array<{ __typename?: 'MaterialCheck', amount: number, check: boolean, remark?: string | null | undefined, materialType: { __typename?: 'MaterialType', id: string, name: string } }> }> }> } | { __typename: 'ProblemReport', id: string, user: string, createdAt: any, type: LogBookItemType, truck: { __typename?: 'Truck', id: string, name: string }, issues: Array<{ __typename?: 'ProblemReportIssue', part: string, description: string }> } };
+
 export type GetLogbookQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -473,6 +480,83 @@ export function useCreateMaterialCheckMutation(baseOptions?: Apollo.MutationHook
 export type CreateMaterialCheckMutationHookResult = ReturnType<typeof useCreateMaterialCheckMutation>;
 export type CreateMaterialCheckMutationResult = Apollo.MutationResult<CreateMaterialCheckMutation>;
 export type CreateMaterialCheckMutationOptions = Apollo.BaseMutationOptions<CreateMaterialCheckMutation, CreateMaterialCheckMutationVariables>;
+export const GetLogbookItemDocument = gql`
+    query GetLogbookItem($id: ID!) {
+  logbookItem(id: $id) {
+    __typename
+    ... on ProblemReport {
+      id
+      truck {
+        id
+        name
+      }
+      user
+      createdAt
+      type
+      issues {
+        part
+        description
+      }
+    }
+    ... on MaterialCheckReport {
+      id
+      truck {
+        id
+        name
+      }
+      user
+      createdAt
+      type
+      checks {
+        id
+        code
+        name
+        sections {
+          id
+          name
+          materials {
+            materialType {
+              id
+              name
+            }
+            amount
+            check
+            remark
+          }
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetLogbookItemQuery__
+ *
+ * To run a query within a React component, call `useGetLogbookItemQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetLogbookItemQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetLogbookItemQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useGetLogbookItemQuery(baseOptions: Apollo.QueryHookOptions<GetLogbookItemQuery, GetLogbookItemQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetLogbookItemQuery, GetLogbookItemQueryVariables>(GetLogbookItemDocument, options);
+      }
+export function useGetLogbookItemLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetLogbookItemQuery, GetLogbookItemQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetLogbookItemQuery, GetLogbookItemQueryVariables>(GetLogbookItemDocument, options);
+        }
+export type GetLogbookItemQueryHookResult = ReturnType<typeof useGetLogbookItemQuery>;
+export type GetLogbookItemLazyQueryHookResult = ReturnType<typeof useGetLogbookItemLazyQuery>;
+export type GetLogbookItemQueryResult = Apollo.QueryResult<GetLogbookItemQuery, GetLogbookItemQueryVariables>;
 export const GetLogbookDocument = gql`
     query getLogbook {
   logbook(filter: {}) {

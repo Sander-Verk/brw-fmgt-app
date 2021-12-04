@@ -3,6 +3,7 @@ import { useMsal } from '@azure/msal-react';
 import { Button, Col, Form, Row, Select } from 'antd';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
+import { useHistory } from "react-router-dom";
 import { GetTrucksQuery, LogBookItemType } from '../../generated/graphql';
 import ErrorMessage from '../errorMessage/errorMessage';
 import MaterialCheckForm from './components/materialCheckForm/materialCheckForm';
@@ -21,6 +22,7 @@ const className = 'AddLogbookItem';
 const AddLogbookItem: React.FC<Props> = ({ trucks, type = LogBookItemType.MaterialCheck }) => {
   const { t } = useTranslation();
   const { accounts } = useMsal();
+  const history = useHistory();
   const [selectedTruckId, setSelectedTruckId] = React.useState<string>();
   const [graphqlError, setGraphqlError] = React.useState<string>();
   const [creatematerialCheck] = useMutation(MUTATION_CREATE_MATERIAL_CHECK);
@@ -37,13 +39,12 @@ const AddLogbookItem: React.FC<Props> = ({ trucks, type = LogBookItemType.Materi
 
         if (result.data) {
           form.resetFields();
-          console.log("Should redirect");
+          history.push(`/logbook/${result.data.createMaterialCheck.id}`);
         }
       } catch (error: any) {
         setGraphqlError(error.message);
       }
     }
-    console.log(values);
   };
 
   const onChange = (value: string) => {
@@ -66,7 +67,7 @@ const AddLogbookItem: React.FC<Props> = ({ trucks, type = LogBookItemType.Materi
         autoComplete="off"
         requiredMark={"optional"}
       >
-        <Row>
+        <Row gutter={[16, 16]}>
           <Col span={12} offset={6}>
             <Form.Item name="user" hidden initialValue={accounts[0].name}/>
             <Form.Item name="truckId" rules={[{ required: true, message: 'This field is required' }]}>

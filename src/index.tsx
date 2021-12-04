@@ -12,7 +12,7 @@ import { msalConfig } from './authentication/authConfig';
 import Translations from './translations';
 
 const client = new ApolloClient({
-  uri: 'http://localhost:3000/graphql',
+  uri: 'https://brw-fmgt-api.herokuapp.com/graphql',
   cache: new InMemoryCache(),
 });
 

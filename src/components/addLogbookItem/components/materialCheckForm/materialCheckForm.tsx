@@ -72,7 +72,7 @@ const MaterialCheckForm: React.FC<Props> = ({ truckId, form }) => {
     return (
       <section key={field.key}>
         <h2>{sectionForm.name}</h2>
-        <Row>
+        <Row gutter={[16, 16]}>
           <Col span={18}>
             <Form.List name={[field.name, 'materials']} initialValue={sectionForm.materials}>
               {(fields) => (

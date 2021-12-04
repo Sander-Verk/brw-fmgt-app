@@ -8,6 +8,7 @@ import { ColumnsType } from 'antd/lib/table';
 import { ControlOutlined, WarningOutlined } from '@ant-design/icons';
 import Translated from '../translated/translated';
 import AddLogbookItemModal from './components/addLogbookItemModal/addLogbookItemModal';
+import { useHistory } from 'react-router-dom';
 
 interface Props {
   data: GetLogbookQuery;
@@ -53,13 +54,14 @@ const columns: ColumnsType<TableItem> = [
     dataIndex: 'createdAt',
     key: 'createdAt',
     render: (value) => {
-      return <Moment format="MM-DD-YYYY HH:mm:ss">{value}</Moment>;
+      return <Moment format="DD-MM-YYYY HH:mm:ss">{value}</Moment>;
     }
   }
 ];
 
 const LogbookOverview: React.FC<Props> = ({ data }) => {
   const { t } = useTranslation();
+  const history = useHistory();
   const dataSource: TableItem[] = data?.logbook?.items.map(logbook => ({
     key: logbook.id,
     id: logbook.id,
@@ -69,6 +71,10 @@ const LogbookOverview: React.FC<Props> = ({ data }) => {
     createdAt: logbook.createdAt,
   }) || [])
 
+  const goToDetail = (id: string) => {
+    history.push(`/logbook/${id}`);
+  }
+
   return (
     <div className={className}>
       <div className="pageHeader">
@@ -77,7 +83,16 @@ const LogbookOverview: React.FC<Props> = ({ data }) => {
       </div>
       
 
-      <Table dataSource={dataSource} columns={columns} pagination={false} />
+      <Table
+        dataSource={dataSource}
+        columns={columns}
+        pagination={false}
+        onRow={(record: TableItem) => {
+          return {
+            onClick: event => { goToDetail(record.id) }
+          };
+        }}
+      />
     </div>
   )
 };

@@ -52,7 +52,7 @@ const MaterialOverview: React.FC<Props> = ({ data }) => {
       </div>
       
 
-      <Table dataSource={dataSource} columns={columns} pagination={false} />
+      <Table dataSource={dataSource} columns={columns} pagination={false}/>
     </div>
   )
 };
