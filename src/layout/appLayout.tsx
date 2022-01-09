@@ -18,7 +18,7 @@ interface Props {
 
 const AppLayout: React.FC<Props> = () => {
   return (
-    <Layout>
+    <Layout className="rootSection">
       <AppHeader></AppHeader>
       <Content className="site-layout" style={{ padding: '0 50px', marginTop: 64 }}>
         <div className="container" style={{ padding: 24 }}>

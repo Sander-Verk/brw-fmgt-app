@@ -17,7 +17,7 @@ const LogbookItemDetail: React.FC<Props> = ({ logbookItem }) => {
   return (
     <div className={className}>
       <div className="pageHeader">
-        <h1>{t("logbookItemDetail.title")}</h1>
+        <h1>{t(`logbookItemDetail.${logbookItem.type.toLowerCase()}.title`)}</h1>
       </div>
 
       <Row gutter={[16, 16]}>

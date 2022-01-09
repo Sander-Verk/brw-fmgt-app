@@ -62,5 +62,32 @@ export const en = {
   logbookItemType: {
     problem_report: "Problem report",
     material_check: "Material check"
+  },
+  logbookItemDetail: {
+    material_check: {
+      title: "Material check",
+    },
+    problem_report: {
+      title: "Problem report"
+    }
+  },
+  addLogbookItem: {
+    material_check: {
+      title: "Material check",
+    },
+    problem_report: {
+      title: "Problem report"
+    }
+  },
+  addLogbookItemModal: {
+    openBtn: "Add logbook item",
+    title: "Add logbook item",
+  },
+  problemReportForm: {
+    save: "Save",
+    truck: {
+      placeholder: "Choose truck"
+    },
+    addProblem: "Add problem"
   }
 };

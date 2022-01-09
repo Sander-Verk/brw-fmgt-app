@@ -58,7 +58,7 @@ const AddLogbookItem: React.FC<Props> = ({ trucks, type = LogBookItemType.Materi
       )}
 
       <div className="pageHeader">
-        <h1>{t("addLogbookItem.title")}</h1>
+        <h1>{t(`addLogbookItem.${type.toLowerCase()}.title`)}</h1>
       </div>
 
       <Form

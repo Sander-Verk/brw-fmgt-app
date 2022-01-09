@@ -14,6 +14,10 @@ interface Props {
   form: FormInstance;
 }
 
+const sort = (array: Compartment[]): Compartment[] => {
+  return [...array].sort((a, b) => a.code > b.code ? 1 : -1);
+}
+
 const MaterialCheckForm: React.FC<Props> = ({ truckId, form }) => {
   const { t } = useTranslation();
   const { data, error, loading } = useGetTruckQuery({
@@ -30,7 +34,7 @@ const MaterialCheckForm: React.FC<Props> = ({ truckId, form }) => {
   };
 
   const mapMaterialForm = (compartments: Compartment[]): CompartmentCheckInput[] => {
-    return compartments.map(c => ({
+    return sort(compartments).map(c => ({
       id: c.id,
       code: c.code,
       name: c.name,
