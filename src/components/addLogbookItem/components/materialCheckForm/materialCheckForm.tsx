@@ -2,9 +2,9 @@ import { Card, Checkbox, Col, Form, FormInstance, Row } from 'antd';
 import { FormListFieldData } from 'antd/lib/form/FormList';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Compartment, CompartmentCheckInput, Material, MaterialCheckInput, Section, SectionCheckInput, useGetTruckQuery } from '../../../../generated/graphql';
-import ErrorMessage from '../../../errorMessage/errorMessage';
-import Loading from '../../../loader/loading';
+import { Compartment, CompartmentCheckInput, Material, MaterialCheckInput, Section, SectionCheckInput, useGetTruckQuery } from 'generated/graphql';
+import ErrorMessage from 'components/errorMessage/errorMessage';
+import Loading from 'components/loader/loading';
 import './styles.scss';
 
 const _ = require('lodash');

@@ -6,7 +6,7 @@ import SubMenu from "antd/lib/menu/SubMenu";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import { loginRequest } from "../../../authentication/authConfig";
+import { loginRequest } from "authentication/authConfig";
 
 interface Props {
 

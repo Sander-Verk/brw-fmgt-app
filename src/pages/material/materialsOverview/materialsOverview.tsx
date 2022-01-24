@@ -1,7 +1,7 @@
 import { Table } from 'antd';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { GetMaterialTypesQuery } from '../../../generated/graphql';
+import { GetMaterialTypesQuery } from 'generated/graphql';
 import AddMaterialTypeModal from './components/addMaterialTypeModal/addMaterialTypeModal';
 import './styles.scss';
 

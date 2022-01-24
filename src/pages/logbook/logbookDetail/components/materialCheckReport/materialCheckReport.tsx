@@ -2,7 +2,7 @@ import { CheckCircleFilled, CloseCircleFilled } from '@ant-design/icons';
 import { Table, Card } from 'antd';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { CompartmentCheck, SectionCheck } from '../../../../../generated/graphql';
+import { CompartmentCheck, SectionCheck } from 'generated/graphql';
 import './styles.scss';
 
 interface Props {

@@ -1,7 +1,7 @@
 import { Col, Collapse, Row, Table } from 'antd';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Compartment, GetTruckQuery, Section } from '../../../generated/graphql';
+import { Compartment, GetTruckQuery, Section } from 'generated/graphql';
 import AddCompartmentModal from './components/addCompartmentModal/addCompartmentModal';
 import AddMaterialModal from './components/addMaterialModal/addMaterialModal';
 import AddSectionModal from './components/addSectionModal/addSectionModal';

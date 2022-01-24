@@ -1,6 +1,6 @@
-import { useGetLogbookQuery } from "../../../generated/graphql";
-import ErrorMessage from "../../../components/errorMessage/errorMessage";
-import LoadingContainer from "../../../components/loader";
+import { useGetLogbookQuery } from "generated/graphql";
+import ErrorMessage from "components/errorMessage/errorMessage";
+import LoadingContainer from "components/loader";
 import LogbookOverview from "./logbookOverview";
 
 const LogbookOverviewContainer = () => {

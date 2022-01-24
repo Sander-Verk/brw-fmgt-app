@@ -2,7 +2,7 @@ import { Card, Col, Row } from 'antd';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { GetTrucksQuery, Truck } from '../../../generated/graphql';
+import { GetTrucksQuery, Truck } from 'generated/graphql';
 import './styles.scss';
 
 interface Props {

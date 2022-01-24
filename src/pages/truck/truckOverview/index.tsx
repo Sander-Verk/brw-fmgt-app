@@ -1,7 +1,7 @@
 
-import ErrorMessage from "../../../components/errorMessage/errorMessage";
-import LoadingContainer from "../../../components/loader";
-import { useGetTrucksQuery } from "../../../generated/graphql";
+import ErrorMessage from "components/errorMessage/errorMessage";
+import LoadingContainer from "components/loader";
+import { useGetTrucksQuery } from "generated/graphql";
 import TruckOverview from "./truckOverview";
 
 const TruckOverviewContainer = () => {

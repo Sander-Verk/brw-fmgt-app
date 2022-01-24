@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
-import { useGetTruckQuery } from "../../../generated/graphql";
-import ErrorMessage from "../../../components/errorMessage/errorMessage";
-import LoadingContainer from "../../../components/loader";
+import { useGetTruckQuery } from "generated/graphql";
+import ErrorMessage from "components/errorMessage/errorMessage";
+import LoadingContainer from "components/loader";
 import TruckDetail from "./truckDetail";
 
 const TruckDetailContainer = () => {

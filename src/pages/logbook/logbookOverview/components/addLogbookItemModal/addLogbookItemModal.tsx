@@ -3,8 +3,8 @@ import { Button, Card, Col, Modal, Row } from 'antd';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { LogBookItemType } from '../../../../../generated/graphql';
-import Translated from '../../../../../components/translated/translated';
+import { LogBookItemType } from 'generated/graphql';
+import Translated from 'components/translated/translated';
 import './styles.scss';
 
 interface Props {

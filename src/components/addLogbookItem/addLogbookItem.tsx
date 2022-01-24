@@ -4,7 +4,7 @@ import { Button, Col, Form, Row, Select } from 'antd';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from "react-router-dom";
-import { GetTrucksQuery, LogBookItemType } from '../../generated/graphql';
+import { GetTrucksQuery, LogBookItemType } from 'generated/graphql';
 import ErrorMessage from '../errorMessage/errorMessage';
 import MaterialCheckForm from './components/materialCheckForm/materialCheckForm';
 import ProblemReportForm from './components/problemReportForm/problemReportForm';

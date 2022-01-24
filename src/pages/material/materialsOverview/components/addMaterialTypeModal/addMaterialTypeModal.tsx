@@ -2,7 +2,7 @@ import { useMutation } from '@apollo/client';
 import { Button, Form, Input, Modal } from 'antd';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import ErrorMessage from '../../../../../components/errorMessage/errorMessage';
+import ErrorMessage from 'components/errorMessage/errorMessage';
 import { MUTATION_CREATE_MATERIALTYPE } from './mutation';
 import './styles.scss';
 

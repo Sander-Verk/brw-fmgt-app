@@ -2,11 +2,11 @@ import { Table } from 'antd';
 import * as React from 'react';
 import Moment from 'react-moment';
 import { useTranslation } from 'react-i18next';
-import { GetLogbookQuery, LogBookItemType } from '../../../generated/graphql';
+import { GetLogbookQuery, LogBookItemType } from 'generated/graphql';
 import './styles.scss';
 import { ColumnsType } from 'antd/lib/table';
 import { ControlOutlined, WarningOutlined } from '@ant-design/icons';
-import Translated from '../../../components/translated/translated';
+import Translated from 'components/translated/translated';
 import AddLogbookItemModal from './components/addLogbookItemModal/addLogbookItemModal';
 import { useHistory } from 'react-router-dom';
 

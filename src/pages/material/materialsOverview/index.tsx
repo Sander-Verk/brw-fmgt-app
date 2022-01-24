@@ -1,6 +1,6 @@
-import { useGetMaterialTypesQuery } from "../../../generated/graphql";
-import ErrorMessage from "../../../components/errorMessage/errorMessage";
-import LoadingContainer from "../../../components/loader";
+import { useGetMaterialTypesQuery } from "generated/graphql";
+import ErrorMessage from "components/errorMessage/errorMessage";
+import LoadingContainer from "components/loader";
 import MaterialOverview from "./materialsOverview";
 
 const MaterialOverviewContainer = () => {

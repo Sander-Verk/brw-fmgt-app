@@ -2,7 +2,7 @@ import { Row, Col, Tooltip } from 'antd';
 import * as React from 'react';
 import Moment from 'react-moment';
 import { useTranslation } from 'react-i18next';
-import { LogbookItem, LogBookItemType, MaterialCheckReport as MaterialCheckReportType } from '../../../generated/graphql';
+import { LogbookItem, LogBookItemType, MaterialCheckReport as MaterialCheckReportType } from 'generated/graphql';
 import MaterialCheckReport from './components/materialCheckReport/materialCheckReport';
 import './styles.scss';
 

@@ -1,5 +1,5 @@
 import { useMsal } from "@azure/msal-react";
-import { loginRequest } from "./../../authConfig";
+import { loginRequest } from "../../authConfig";
 import { Button } from "antd";
 import { useTranslation } from "react-i18next";
 
