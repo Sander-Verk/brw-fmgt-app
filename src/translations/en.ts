@@ -23,6 +23,7 @@ export const en = {
   truckDetail: {
     noImage: "No image",
     noSection: "No section",
+    printList: "Print list"
   },
   truckOverview: {
     title: "Trucks",

@@ -36,7 +36,7 @@ const AppHeader: React.FC<Props> = () => {
 
 
   return (
-    <Header style={{ position: 'fixed', zIndex: 1, width: '100%', display: 'flex', justifyContent: 'space-between' }}>
+    <Header className="no-print" style={{ position: 'fixed', zIndex: 1, width: '100%', display: 'flex', justifyContent: 'space-between' }}>
       <div className="logo" />
       <Menu theme="dark" mode="horizontal" style={{width: "100%"}} >
         <Menu.Item key="1" icon={<CarOutlined />}>

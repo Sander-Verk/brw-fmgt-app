@@ -1,4 +1,4 @@
-import { Col, Collapse, Row, Table } from 'antd';
+import { Button, Col, Collapse, Row, Table } from 'antd';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Compartment, GetTruckQuery, Section } from 'generated/graphql';
@@ -6,11 +6,13 @@ import AddCompartmentModal from './components/addCompartmentModal/addCompartment
 import AddMaterialModal from './components/addMaterialModal/addMaterialModal';
 import AddSectionModal from './components/addSectionModal/addSectionModal';
 import './styles.scss';
+import { countMaterials } from 'utils/material.helper';
 
 const { Panel } = Collapse;
 
 interface Props {
-  data: GetTruckQuery
+  data: GetTruckQuery,
+  printDetail: () => void
 }
 
 const className = 'TruckDetail';
@@ -36,12 +38,7 @@ const renderCompartment = (truckId: string, compartment: Partial<Compartment>, i
   </Panel>);
 
 const renderSection = (truckId: string, compartmentId: string, section: Partial<Section>, id: number, t: any) => {
-  const counts: { [key: string]: number } = {};
-
-  for (const num of section.materials?.map(m => m.type.name) || []) {
-    counts[num] = counts[num] ? counts[num] + 1 : 1;
-  }
-  const dataSource: { materialName: string; amount: number }[] = Object.keys(counts).map(key => ({ key: key, materialName: key, amount: counts[key] })) || [];
+  const dataSource = countMaterials(section.materials || []);
 
   return (section && section.id &&
     <div key={'section_' + id} className="section">
@@ -67,7 +64,7 @@ const sort = (array: any[]): any[] => {
   return [...array].sort((a, b) => a.code > b.code ? 1 : -1);
 }
 
-const TruckDetail: React.FC<Props> = ({ data }) => {
+const TruckDetail: React.FC<Props> = ({ data, printDetail }) => {
   const { t } = useTranslation();
 
   return (
@@ -76,7 +73,13 @@ const TruckDetail: React.FC<Props> = ({ data }) => {
         <>
           <div className="truck-header">
             <h1>{`${data.truck.name} - (${data.truck.code})`}</h1>
-            <AddCompartmentModal truckId={data.truck.id}></AddCompartmentModal>
+
+            <div>
+              <Button type="primary" className="printBtn" onClick={printDetail}>
+                {t('truckDetail.printList')}
+              </Button>
+              <AddCompartmentModal truckId={data.truck.id}></AddCompartmentModal>
+            </div>
           </div>
 
           <Collapse>

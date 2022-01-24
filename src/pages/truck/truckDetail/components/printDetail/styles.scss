@@ -1,0 +1,33 @@
+@media print, screen {
+  section {
+    margin: 0;
+  
+    .title {
+      padding: 10px 5px;
+      color: white;
+      margin: 0;
+      font-weight: 900;
+      font-size: 18px;
+    }
+    
+    .compartmentTitle {
+      background-color: #4472c4;
+    }
+    
+    .sectionTitle {
+      background-color: #8eaadb;
+    }
+
+    img {
+      width: 100%;
+    }
+
+    .materialList {
+      margin: 10px 0;
+    }
+  }
+  
+  .pageBreak {
+    page-break-after: always;
+  }
+}

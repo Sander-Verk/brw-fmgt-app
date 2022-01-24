@@ -14,6 +14,10 @@ export const QUERY_GET_TRUCK = gql`
           id
           name
           imageUrl
+          imageSize {
+            width
+            height
+          }
           materials {
             id
             type {

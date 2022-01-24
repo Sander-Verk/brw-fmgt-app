@@ -1,6 +1,21 @@
 @import "~antd/dist/antd.css";
 @import "./styles/container.scss";
 
+@media print {
+  @page { margin: 0; }
+  body {
+    margin: 1.6cm;
+  }
+
+  .no-print, .no-print * {
+    display: none !important;
+  }
+
+  .ant-layout {
+    background-color: white !important;
+  }
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -8,6 +23,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -webkit-print-color-adjust: exact !important;
 }
 
 code {
