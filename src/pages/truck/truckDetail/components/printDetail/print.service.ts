@@ -1,5 +1,6 @@
 import { Compartment } from "generated/graphql";
 import { countMaterials } from "utils/material.helper";
+import { v4 as uuidv4 } from "uuid";
 
 export enum PrintBlockType {
   COMPARTMENT = "COMPARTMENT",
@@ -42,10 +43,11 @@ export const calculatePrintBlocks = (compartments: Compartment[]): PrintBlock[] 
 
     for (const section of compartment.sections) {
       const materials = countMaterials(section.materials || []);
-      const calculatedHeight = 50 + Math.max(materials.length * 55) + 20; // 55px for the section title, 20px for the margin, 55px for each material line
+      const imageHeight = section.imageSize ? (270 / (section.imageSize.width || 0)) * (section.imageSize.height || 0) : 0;
+      const calculatedHeight = 50 + Math.max(materials.length * 55, imageHeight) + 20; // 55px for the section title, 20px for the margin, 55px for each material line
 
       addBlock({
-        key: section.id,
+        key: uuidv4(),
         type: PrintBlockType.SECTION,
         content: {
           title: section.name,
