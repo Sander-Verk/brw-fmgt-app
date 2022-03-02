@@ -2,19 +2,22 @@ import './app.scss';
 import {
   BrowserRouter as Router
 } from "react-router-dom";
-import { AuthenticatedTemplate, UnauthenticatedTemplate } from "@azure/msal-react";
-import { LandingPage } from './authentication/components/landingPage/landingPage';
 import AppLayoutContainer from './layout';
+import { useAuth } from '@frontegg/react';
 
 function App() {
+  const { user, isAuthenticated } = useAuth();
+
+  if (user) {
+    localStorage.setItem("token", user.accessToken);
+  }
+
   return (
     <Router>
-      <AuthenticatedTemplate>
-        <AppLayoutContainer></AppLayoutContainer>
-      </AuthenticatedTemplate>
-      <UnauthenticatedTemplate>
-        <LandingPage></LandingPage>
-      </UnauthenticatedTemplate>
+      { isAuthenticated ?
+          <AppLayoutContainer></AppLayoutContainer> :
+          <div>Not authenticated</div>
+      }
     </Router>
   );
 }

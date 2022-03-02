@@ -2,22 +2,38 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.scss';
 import reportWebVitals from './reportWebVitals';
-import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+import { ApolloClient, ApolloProvider, createHttpLink, InMemoryCache } from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
 import App from './app';
-import { PublicClientApplication } from '@azure/msal-browser';
-import { MsalProvider } from '@azure/msal-react';
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
-import { msalConfig } from './authentication/authConfig';
 import Translations from './translations';
+import { FronteggProvider } from '@frontegg/react';
 
-const client = new ApolloClient({
+const httpLink = createHttpLink({
   uri: 'http://localhost:3000/graphql',
   // uri: 'https://brw-fmgt-api.herokuapp.com/graphql',
+});
+
+const authLink = setContext((_, { headers }) => {
+  // get the authentication token from local storage if it exists
+  const token = localStorage.getItem('token');
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : "",
+    }
+  }
+});
+
+const client = new ApolloClient({
+  link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });
 
-const msalInstance = new PublicClientApplication(msalConfig);
+const contextOptions = {
+  baseUrl: 'https://app-grh37bz1gon0.frontegg.com',
+};
 
 i18n
   .use(initReactI18next)
@@ -33,9 +49,9 @@ i18n
 ReactDOM.render(
   <ApolloProvider client={client}>
     <React.StrictMode>
-      <MsalProvider instance={msalInstance}>
+      <FronteggProvider contextOptions={contextOptions}>
         <App />
-      </MsalProvider>
+      </FronteggProvider>
     </React.StrictMode>
   </ApolloProvider>,
   document.getElementById('root')

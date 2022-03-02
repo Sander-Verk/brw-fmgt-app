@@ -1,5 +1,4 @@
 import { useMutation } from '@apollo/client';
-import { useMsal } from '@azure/msal-react';
 import { Button, Col, Form, Row, Select } from 'antd';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -10,6 +9,7 @@ import MaterialCheckForm from './components/materialCheckForm/materialCheckForm'
 import ProblemReportForm from './components/problemReportForm/problemReportForm';
 import { MUTATION_CREATE_MATERIAL_CHECK } from './mutation';
 import './styles.scss';
+import { useAuth } from '@frontegg/react';
 
 const { Option } = Select;
 
@@ -21,7 +21,7 @@ const className = 'AddLogbookItem';
 
 const AddLogbookItem: React.FC<Props> = ({ trucks, type = LogBookItemType.MaterialCheck }) => {
   const { t } = useTranslation();
-  const { accounts } = useMsal();
+  const { user } = useAuth();
   const history = useHistory();
   const [selectedTruckId, setSelectedTruckId] = React.useState<string>();
   const [graphqlError, setGraphqlError] = React.useState<string>();
@@ -69,7 +69,7 @@ const AddLogbookItem: React.FC<Props> = ({ trucks, type = LogBookItemType.Materi
       >
         <Row gutter={[16, 16]}>
           <Col span={12} offset={6}>
-            <Form.Item name="user" hidden initialValue={accounts[0].name}/>
+            <Form.Item name="user" hidden initialValue={user.name}/>
             <Form.Item name="truckId" rules={[{ required: true, message: 'This field is required' }]}>
               <Select
                 showSearch

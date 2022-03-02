@@ -5,8 +5,7 @@
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
     "@apollo/client": "^3.4.16",
-    "@azure/msal-browser": "^2.14.2",
-    "@azure/msal-react": "^1.0.0",
+    "@frontegg/react": "^4.0.8",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
