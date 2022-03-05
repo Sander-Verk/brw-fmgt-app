@@ -15,6 +15,7 @@ export const en = {
     logbook: "Logbook",
     about: "About",
     logout: "Logout",
+    settings: "Settings",
   },
   loading: "Loading...",
   materialsOverview: {
@@ -24,9 +25,6 @@ export const en = {
     noImage: "No image",
     noSection: "No section",
     printList: "Print list"
-  },
-  truckOverview: {
-    title: "Trucks",
   },
   addCompartmentModal: {
     openBtn: "Create compartment",

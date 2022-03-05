@@ -1,11 +1,13 @@
 import * as React from 'react';
 import { Layout } from 'antd';
-import { Content, Header } from 'antd/lib/layout/layout';
+import { Content } from 'antd/lib/layout/layout';
 import Sider from 'antd/lib/layout/Sider';
-import { MenuUnfoldOutlined, MenuFoldOutlined, CloseOutlined } from '@ant-design/icons';
+import { CloseOutlined } from '@ant-design/icons';
 import AppFooter from './components/footer/footer';
 import SideNavigation from './components/sideNavigation/sideNavigation';
 import './styles.scss';
+import AppHeader from './components/header/header';
+import AppRouter from './appRouter';
 
 interface Props {
 
@@ -51,31 +53,16 @@ const AppLayout: React.FC<Props> = () => {
           <SideNavigation onUrlChange={onUrlChange} />
         </Sider>
 
-        <Layout >
-          <Header style={{ background: '#fff', textAlign: 'center', padding: 0 }}>
-            {hasBroken && React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
-              className: 'trigger',
-              onClick: () => { setCollapsed(!collapsed) },
-            })}
-            Header
-          </Header>
-          <Content style={{ margin: '24px 16px 0' }}>
-            <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
-              <h1>Content</h1>
-            </div>
+        <Layout>
+          <AppHeader collapsed={collapsed} hasBroken={hasBroken} setCollapsed={setCollapsed}/>
+
+          <Content style={{ margin: '80px 40px 0' }}>
+            <AppRouter></AppRouter>
           </Content>
+
           <AppFooter />
         </Layout>
       </Layout>
-    // <Layout className="rootSection">
-    //   <AppHeader></AppHeader>
-    //   <Content className="site-layout" style={{ padding: '0 50px', marginTop: 64 }}>
-    //     <div className="container" style={{ padding: 24 }}>
-    //       <AppRouter />
-    //     </div>
-    //   </Content>
-    //   <AppFooter></AppFooter>
-    // </Layout>
   )
 };
 
