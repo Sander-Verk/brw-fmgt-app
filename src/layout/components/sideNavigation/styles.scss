@@ -1,0 +1,25 @@
+@import '../../../styles/colors.scss';
+
+.navigationElement {
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 10px;
+  display: block;
+  color: var(--text-primary);
+
+  &:hover, &__active {
+    background-color: var(--color-primary);
+    color: white;
+  }
+
+  span {
+    margin-right: 10px;
+  }
+}
+
+a {
+  -moz-transition: none;
+  -webkit-transition: none;
+  -o-transition: color 0 ease-in;
+  transition: none;
+}
