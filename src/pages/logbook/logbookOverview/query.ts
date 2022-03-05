@@ -7,15 +7,15 @@ export const QUERY_GET_LOGBOOK = gql`
       items {
         ... on ProblemReport {
           id
-          truck { id, name }
-          user
+          truck { id, name, code }
+          user { id, name }
           createdAt
           type
         }
         ... on MaterialCheckReport {
           id
-          truck { id, name }
-          user
+          truck { id, name, code }
+          user { id, name }
           createdAt
           type
         }

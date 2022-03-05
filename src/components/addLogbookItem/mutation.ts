@@ -12,7 +12,7 @@ export const MUTATION_CREATE_MATERIAL_CHECK = gql`
         id
         name
       }
-      user
+      user { id, name }
       createdAt
       type
       checks {

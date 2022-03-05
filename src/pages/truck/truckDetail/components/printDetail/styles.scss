@@ -1,6 +1,7 @@
 @media print, screen {
   section {
     margin: 0;
+    page-break-inside: avoid;
   
     .title {
       padding: 10px 5px;
@@ -18,16 +19,13 @@
       background-color: #8eaadb;
     }
 
-    img {
-      width: 100%;
-    }
-
     .materialList {
       margin: 10px 0;
     }
-  }
-  
-  .pageBreak {
-    page-break-after: always;
+
+    .sectionImg {
+      width: 100%;
+      height: auto;
+    }
   }
 }

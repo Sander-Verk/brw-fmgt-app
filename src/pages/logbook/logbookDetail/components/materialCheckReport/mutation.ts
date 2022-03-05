@@ -1,30 +1,27 @@
 import { gql } from "@apollo/client";
 
-export const QUERY_LOGBOOK_ITEM = gql`
-  query GetLogbookItem($id: ID!){
-  logbookItem(id: $id) {
-      __typename
-      ... on ProblemReport {
-        id
-        truck { id, name, code }
-        user { id, name }
-        createdAt
-        type
-        issues {
-          part
-          description
-        }
-      }
+export const ADD_MATERIALCHECK_UPDATE = gql`
+  mutation addLogbookStatusUpdate($logbookId: ID!, $status: HistoryStatus!) {
+    addLogbookStatusUpdate(logbookId: $logbookId, status: $status) {
       ... on MaterialCheckReport {
         id
-         truck { id, name }
-        user { id, name }
+        truck {
+          id
+          name
+        }
+        user {
+          id
+          name
+        }
         createdAt
         type
         statusHistory {
           status
           timestamp
-          user { id, name }
+          user {
+            id
+            name
+          }
         }
         checks {
           id
@@ -45,6 +42,6 @@ export const QUERY_LOGBOOK_ITEM = gql`
           }
         }
       }
+    }
   }
-}
 `;

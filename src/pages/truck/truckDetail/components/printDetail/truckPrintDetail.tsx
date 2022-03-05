@@ -43,7 +43,7 @@ const renderSection = (key: string, title: string, materials: { materialName: st
           <Table dataSource={materials} columns={columns} pagination={false} showHeader={false} />
         </Col>
         <Col span={10}>
-          { imageUrl && <img src={imageUrl} alt={`Section ${title}`}/> }
+          { imageUrl && <img src={imageUrl} alt={`Section ${title}`} className="sectionImg"/> }
         </Col>
       </Row>
     </section>
@@ -54,7 +54,6 @@ const renderPrintBlocks = (compartments: Compartment[]) => {
   return calculatePrintBlocks(compartments).map((block) => {
     if (block.type === PrintBlockType.SECTION) { return renderSection(block.key, block.content.title, block.content.materials, block.content.imageUrl)}
     if (block.type === PrintBlockType.COMPARTMENT) { return renderCompartment(block.key, block.content.title)}
-    if (block.type === PrintBlockType.PAGEBREAK) { return <div className='pageBreak' /> }
 
     return null;
   });
@@ -65,10 +64,6 @@ const TruckPrintDetail: React.FC<Props> = ({ data }) => {
     <div className={className}>
       {data && data.truck && (
         <>
-          {/* <div className="truck-header">
-            <h1>{`${data.truck.name} - (${data.truck.code})`}</h1>
-          </div> */}
-
           {renderPrintBlocks(sort(data.truck.compartments))}
         </>
       )}

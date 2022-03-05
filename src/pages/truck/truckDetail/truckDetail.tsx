@@ -44,12 +44,12 @@ const renderSection = (truckId: string, compartmentId: string, section: Partial<
     <div key={'section_' + id} className="section">
       <h3>{section.name}</h3>
       <Row gutter={[16, 16]}>
-        <Col span={18}>
+        <Col span={16}>
           <Table dataSource={dataSource} columns={columns} pagination={false} showHeader={false} footer={() => renderTableFooter(truckId, compartmentId, section.id as string)}/>
         </Col>
-        <Col span={6}>
+        <Col span={8}>
           {section.imageUrl ?
-            <img src={section.imageUrl} alt={`Section ${section.name}`} width={300}/> :
+            <img src={section.imageUrl} alt={`Section ${section.name}`} className="sectionImg"/> :
             <p>{t("truckDetail.noImage")}</p>}
         </Col>
       </Row>

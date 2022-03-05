@@ -66,8 +66,8 @@ const LogbookOverview: React.FC<Props> = ({ data }) => {
     key: logbook.id,
     id: logbook.id,
     type: logbook.type,
-    truck: logbook.truck.name,
-    user: logbook.user,
+    truck: `(${logbook.truck.code}) ${logbook.truck.name}`,
+    user: logbook.user.name,
     createdAt: logbook.createdAt,
   }) || [])
 

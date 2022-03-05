@@ -1,12 +1,20 @@
 import { CheckCircleFilled, CloseCircleFilled } from '@ant-design/icons';
-import { Table, Card } from 'antd';
+import { Table, Card, Tabs, Timeline, Form, Select, Button, Divider } from 'antd';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { CompartmentCheck, SectionCheck } from 'generated/graphql';
+import { CompartmentCheck, HistoryStatus, MaterialCheck, SectionCheck, StatusHistoryItem } from 'generated/graphql';
 import './styles.scss';
+import Moment from 'react-moment';
+import { useMutation } from '@apollo/client';
+import { ADD_MATERIALCHECK_UPDATE } from './mutation';
+
+const { TabPane } = Tabs;
+const { Option } = Select;
 
 interface Props {
-  materialChecks: CompartmentCheck[]
+  id: string;
+  materialChecks: CompartmentCheck[];
+  history: StatusHistoryItem[];
 }
 
 const sort = (array: any[]): any[] => {
@@ -30,14 +38,16 @@ const columns = [
     key: 'check',
     render: (check: boolean) => {
       return check ?
-        <CheckCircleFilled className="successIcon"/> :
+        <CheckCircleFilled className="successIcon" /> :
         <CloseCircleFilled className="errorIcon" />;
     }
   },
 ];
 
-const MaterialCheckReport: React.FC<Props> = ({ materialChecks }) => {
+const MaterialCheckReport: React.FC<Props> = ({ id, materialChecks, history }) => {
   const { t } = useTranslation();
+  const [addMaterialCheckUpdate] = useMutation(ADD_MATERIALCHECK_UPDATE);
+  const [form] = Form.useForm();
 
   const renderCompartment = (compartment: CompartmentCheck) => (compartment && compartment.id &&
     <Card key={'comparment_' + compartment.id} className="compartment">
@@ -47,14 +57,14 @@ const MaterialCheckReport: React.FC<Props> = ({ materialChecks }) => {
         compartment.sections.map((section) => renderSection(section)) :
         <div>{t("truckDetail.noSection")}</div>}
     </Card>);
-  
+
   const renderSection = (section: SectionCheck) => {
     return (section && section.id &&
       <div key={'section_' + section.id} className="section">
         <h3>{section.name}</h3>
-        
+
         <Table
-          dataSource={section.materials.map(m => ({ materialTypeName: m.materialType.name, amount: m.amount, check: m.check}))}
+          dataSource={section.materials.map(m => ({ materialTypeName: m.materialType.name, amount: m.amount, check: m.check }))}
           columns={columns}
           pagination={false}
           showHeader={false}
@@ -62,10 +72,94 @@ const MaterialCheckReport: React.FC<Props> = ({ materialChecks }) => {
       </div>);
   };
 
+  const renderHistoryItem = (historyItem: StatusHistoryItem) => {
+    return (
+      <Timeline.Item>
+        <p className='timeLineTitle'>{historyItem.status}</p>
+        <p>{historyItem.user.name} op <Moment format="HH:mm:ss">{historyItem.timestamp}</Moment></p>
+      </Timeline.Item>
+    )
+  };
+
+  const onFinish = async (values: any) => {
+    await addMaterialCheckUpdate({
+      variables: {
+        logbookId: id,
+        status: values.status
+      }
+    });
+
+    form.resetFields();
+  };
+
+  const renderRecap = (compartments: CompartmentCheck[]) => {
+    const materials: MaterialCheck[] = [];
+    compartments.forEach(compartment => {
+      compartment.sections.forEach(section => {
+        section.materials.forEach(material => {
+          if (!material.check) {
+            materials.push(material);
+          }
+        });
+      });
+    });
+
+    return (
+      <Table
+          dataSource={materials.map(m => ({ materialTypeName: m.materialType.name, amount: m.amount, check: m.check }))}
+          columns={columns}
+          pagination={false}
+          showHeader={false}
+        />
+    )
+  }
+
   return (
-    <div>
-      {sort(materialChecks).map((compartment) => renderCompartment(compartment))}
-    </div>
+    <Tabs defaultActiveKey="1">
+      <TabPane tab="Overview" key="1">
+        <Timeline>
+          {history?.map((historyItem) => renderHistoryItem(historyItem))}
+          <Timeline.Item>
+            <Form
+              form={form}
+              onFinish={onFinish}
+              autoComplete="off"
+              requiredMark={'optional'}
+            >
+              <div>
+                <Form.Item
+                  label="Status"
+                  name="status"
+                  rules={[{ required: true, message: 'This field is required' }]}
+                >
+                  <Select
+                    showSearch
+                    
+                    filterOption={(input: any, option: any) =>
+                      option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                    }
+                  >
+                    {Object.keys(HistoryStatus).map((status) => <Option value={status.toUpperCase()} key={status}>{status}</Option>)}
+                  </Select>
+                </Form.Item>
+                <Button type="primary" onClick={form.submit}>
+                  {t('problemReportForm.save')}
+                </Button>
+              </div>
+            </Form>
+          </Timeline.Item>
+        </Timeline>
+
+        <Divider></Divider>
+
+        <h3>{t('logbookItemDetail.material_check.recap')}</h3>
+
+        { renderRecap(materialChecks) }
+      </TabPane>
+      <TabPane tab="Detail" key="2">
+        {sort(materialChecks).map((compartment) => renderCompartment(compartment))}
+      </TabPane>
+    </Tabs>
   );
 };
 

@@ -66,12 +66,11 @@ export type CreateTruckInput = {
   name: Scalars['String'];
 };
 
-export type CreateUserInput = {
-  email: Scalars['String'];
-  firstName: Scalars['String'];
-  lastName: Scalars['String'];
-  password: Scalars['String'];
-};
+export enum HistoryStatus {
+  Created = 'CREATED',
+  Finished = 'FINISHED',
+  Reviewed = 'REVIEWED'
+}
 
 export type ImageSize = {
   __typename?: 'ImageSize';
@@ -126,15 +125,15 @@ export type MaterialCheckReport = {
   checks: Array<CompartmentCheck>;
   createdAt: Scalars['DateTime'];
   id: Scalars['ID'];
+  statusHistory: Array<StatusHistoryItem>;
   truck: Truck;
   type: LogBookItemType;
-  user: Scalars['String'];
+  user: User;
 };
 
 export type MaterialCheckReportInput = {
   checks: Array<CompartmentCheckInput>;
   truckId: Scalars['ID'];
-  user: Scalars['String'];
 };
 
 export type MaterialResult = {
@@ -171,6 +170,7 @@ export type MaterialsFilterInput = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  addLogbookStatusUpdate: LogbookItem;
   addMaterial: Truck;
   createCompartment: Truck;
   createMaterial: Material;
@@ -179,11 +179,14 @@ export type Mutation = {
   createMaterialWithTruck: Truck;
   createSection: Truck;
   createTruck: Truck;
-  createUser: User;
-  login: Scalars['String'];
   updateMaterial: Material;
   updateMaterialType: MaterialType;
-  updateUser: User;
+};
+
+
+export type MutationAddLogbookStatusUpdateArgs = {
+  logbookId: Scalars['ID'];
+  status: HistoryStatus;
 };
 
 
@@ -236,17 +239,6 @@ export type MutationCreateTruckArgs = {
 };
 
 
-export type MutationCreateUserArgs = {
-  user: CreateUserInput;
-};
-
-
-export type MutationLoginArgs = {
-  email: Scalars['String'];
-  password: Scalars['String'];
-};
-
-
 export type MutationUpdateMaterialArgs = {
   id: Scalars['String'];
   material: UpdateMaterialInput;
@@ -258,20 +250,15 @@ export type MutationUpdateMaterialTypeArgs = {
   materialType: UpdateMaterialTypeInput;
 };
 
-
-export type MutationUpdateUserArgs = {
-  id: Scalars['ID'];
-  user: UpdateUserInput;
-};
-
 export type ProblemReport = {
   __typename?: 'ProblemReport';
   createdAt: Scalars['DateTime'];
   id: Scalars['ID'];
   issues: Array<ProblemReportIssue>;
+  statusHistory: Array<StatusHistoryItem>;
   truck: Truck;
   type: LogBookItemType;
-  user: Scalars['String'];
+  user: User;
 };
 
 export type ProblemReportIssue = {
@@ -291,8 +278,6 @@ export type Query = {
   truck: Truck;
   truckPDF: Scalars['String'];
   trucks: TruckResult;
-  user: User;
-  users: UserResult;
 };
 
 
@@ -341,11 +326,6 @@ export type QueryTruckPdfArgs = {
   id: Scalars['ID'];
 };
 
-
-export type QueryUserArgs = {
-  id: Scalars['ID'];
-};
-
 export type Section = {
   __typename?: 'Section';
   id: Scalars['ID'];
@@ -366,6 +346,13 @@ export type SectionCheckInput = {
   id: Scalars['ID'];
   materials: Array<MaterialCheckInput>;
   name?: Maybe<Scalars['String']>;
+};
+
+export type StatusHistoryItem = {
+  __typename?: 'StatusHistoryItem';
+  status: HistoryStatus;
+  timestamp: Scalars['DateTime'];
+  user: User;
 };
 
 export type Truck = {
@@ -393,36 +380,33 @@ export type UpdateMaterialTypeInput = {
   name?: Maybe<Scalars['String']>;
 };
 
-export type UpdateUserInput = {
-  firstName?: Maybe<Scalars['String']>;
-  lastName?: Maybe<Scalars['String']>;
-};
-
 export type User = {
   __typename?: 'User';
   email: Scalars['String'];
-  firstName: Scalars['String'];
   id: Scalars['ID'];
-  lastName: Scalars['String'];
+  name: Scalars['String'];
+  profilePicture: Scalars['String'];
 };
 
-export type UserResult = {
-  __typename?: 'UserResult';
-  count: Scalars['Int'];
-  items: Array<User>;
-};
+export type AddLogbookStatusUpdateMutationVariables = Exact<{
+  logbookId: Scalars['ID'];
+  status: HistoryStatus;
+}>;
+
+
+export type AddLogbookStatusUpdateMutation = { __typename?: 'Mutation', addLogbookStatusUpdate: { __typename?: 'MaterialCheckReport', id: string, createdAt: any, type: LogBookItemType, truck: { __typename?: 'Truck', id: string, name: string }, user: { __typename?: 'User', id: string, name: string }, statusHistory: Array<{ __typename?: 'StatusHistoryItem', status: HistoryStatus, timestamp: any, user: { __typename?: 'User', id: string, name: string } }>, checks: Array<{ __typename?: 'CompartmentCheck', id: string, code: string, name: string, sections: Array<{ __typename?: 'SectionCheck', id: string, name?: string | null | undefined, materials: Array<{ __typename?: 'MaterialCheck', amount: number, check: boolean, remark?: string | null | undefined, materialType: { __typename?: 'MaterialType', id: string, name: string } }> }> }> } | { __typename?: 'ProblemReport' } };
 
 export type GetLogbookItemQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
 
 
-export type GetLogbookItemQuery = { __typename?: 'Query', logbookItem: { __typename: 'MaterialCheckReport', id: string, user: string, createdAt: any, type: LogBookItemType, truck: { __typename?: 'Truck', id: string, name: string }, checks: Array<{ __typename?: 'CompartmentCheck', id: string, code: string, name: string, sections: Array<{ __typename?: 'SectionCheck', id: string, name?: string | null | undefined, materials: Array<{ __typename?: 'MaterialCheck', amount: number, check: boolean, remark?: string | null | undefined, materialType: { __typename?: 'MaterialType', id: string, name: string } }> }> }> } | { __typename: 'ProblemReport', id: string, user: string, createdAt: any, type: LogBookItemType, truck: { __typename?: 'Truck', id: string, name: string }, issues: Array<{ __typename?: 'ProblemReportIssue', part: string, description: string }> } };
+export type GetLogbookItemQuery = { __typename?: 'Query', logbookItem: { __typename: 'MaterialCheckReport', id: string, createdAt: any, type: LogBookItemType, truck: { __typename?: 'Truck', id: string, name: string }, user: { __typename?: 'User', id: string, name: string }, statusHistory: Array<{ __typename?: 'StatusHistoryItem', status: HistoryStatus, timestamp: any, user: { __typename?: 'User', id: string, name: string } }>, checks: Array<{ __typename?: 'CompartmentCheck', id: string, code: string, name: string, sections: Array<{ __typename?: 'SectionCheck', id: string, name?: string | null | undefined, materials: Array<{ __typename?: 'MaterialCheck', amount: number, check: boolean, remark?: string | null | undefined, materialType: { __typename?: 'MaterialType', id: string, name: string } }> }> }> } | { __typename: 'ProblemReport', id: string, createdAt: any, type: LogBookItemType, truck: { __typename?: 'Truck', id: string, name: string, code: string }, user: { __typename?: 'User', id: string, name: string }, issues: Array<{ __typename?: 'ProblemReportIssue', part: string, description: string }> } };
 
 export type GetLogbookQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetLogbookQuery = { __typename?: 'Query', logbook: { __typename?: 'LogbookResult', count: number, items: Array<{ __typename?: 'MaterialCheckReport', id: string, user: string, createdAt: any, type: LogBookItemType, truck: { __typename?: 'Truck', id: string, name: string } } | { __typename?: 'ProblemReport', id: string, user: string, createdAt: any, type: LogBookItemType, truck: { __typename?: 'Truck', id: string, name: string } }> } };
+export type GetLogbookQuery = { __typename?: 'Query', logbook: { __typename?: 'LogbookResult', count: number, items: Array<{ __typename?: 'MaterialCheckReport', id: string, createdAt: any, type: LogBookItemType, truck: { __typename?: 'Truck', id: string, name: string, code: string }, user: { __typename?: 'User', id: string, name: string } } | { __typename?: 'ProblemReport', id: string, createdAt: any, type: LogBookItemType, truck: { __typename?: 'Truck', id: string, name: string, code: string }, user: { __typename?: 'User', id: string, name: string } }> } };
 
 export type CreateMaterialTypeMutationVariables = Exact<{
   materialType: CreateMaterialTypeInput;
@@ -476,6 +460,78 @@ export type GetTrucksQueryVariables = Exact<{ [key: string]: never; }>;
 export type GetTrucksQuery = { __typename?: 'Query', trucks: { __typename?: 'TruckResult', count: number, items: Array<{ __typename?: 'Truck', id: string, code: string, name: string }> } };
 
 
+export const AddLogbookStatusUpdateDocument = gql`
+    mutation addLogbookStatusUpdate($logbookId: ID!, $status: HistoryStatus!) {
+  addLogbookStatusUpdate(logbookId: $logbookId, status: $status) {
+    ... on MaterialCheckReport {
+      id
+      truck {
+        id
+        name
+      }
+      user {
+        id
+        name
+      }
+      createdAt
+      type
+      statusHistory {
+        status
+        timestamp
+        user {
+          id
+          name
+        }
+      }
+      checks {
+        id
+        code
+        name
+        sections {
+          id
+          name
+          materials {
+            materialType {
+              id
+              name
+            }
+            amount
+            check
+            remark
+          }
+        }
+      }
+    }
+  }
+}
+    `;
+export type AddLogbookStatusUpdateMutationFn = Apollo.MutationFunction<AddLogbookStatusUpdateMutation, AddLogbookStatusUpdateMutationVariables>;
+
+/**
+ * __useAddLogbookStatusUpdateMutation__
+ *
+ * To run a mutation, you first call `useAddLogbookStatusUpdateMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddLogbookStatusUpdateMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addLogbookStatusUpdateMutation, { data, loading, error }] = useAddLogbookStatusUpdateMutation({
+ *   variables: {
+ *      logbookId: // value for 'logbookId'
+ *      status: // value for 'status'
+ *   },
+ * });
+ */
+export function useAddLogbookStatusUpdateMutation(baseOptions?: Apollo.MutationHookOptions<AddLogbookStatusUpdateMutation, AddLogbookStatusUpdateMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddLogbookStatusUpdateMutation, AddLogbookStatusUpdateMutationVariables>(AddLogbookStatusUpdateDocument, options);
+      }
+export type AddLogbookStatusUpdateMutationHookResult = ReturnType<typeof useAddLogbookStatusUpdateMutation>;
+export type AddLogbookStatusUpdateMutationResult = Apollo.MutationResult<AddLogbookStatusUpdateMutation>;
+export type AddLogbookStatusUpdateMutationOptions = Apollo.BaseMutationOptions<AddLogbookStatusUpdateMutation, AddLogbookStatusUpdateMutationVariables>;
 export const GetLogbookItemDocument = gql`
     query GetLogbookItem($id: ID!) {
   logbookItem(id: $id) {
@@ -485,8 +541,12 @@ export const GetLogbookItemDocument = gql`
       truck {
         id
         name
+        code
       }
-      user
+      user {
+        id
+        name
+      }
       createdAt
       type
       issues {
@@ -500,9 +560,20 @@ export const GetLogbookItemDocument = gql`
         id
         name
       }
-      user
+      user {
+        id
+        name
+      }
       createdAt
       type
+      statusHistory {
+        status
+        timestamp
+        user {
+          id
+          name
+        }
+      }
       checks {
         id
         code
@@ -563,8 +634,12 @@ export const GetLogbookDocument = gql`
         truck {
           id
           name
+          code
         }
-        user
+        user {
+          id
+          name
+        }
         createdAt
         type
       }
@@ -573,8 +648,12 @@ export const GetLogbookDocument = gql`
         truck {
           id
           name
+          code
         }
-        user
+        user {
+          id
+          name
+        }
         createdAt
         type
       }

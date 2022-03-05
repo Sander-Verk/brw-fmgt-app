@@ -90,7 +90,7 @@ const MaterialCheckForm: React.FC<Props> = ({ truckId, form }) => {
           </Col>
           <Col span={6}>
             {section.imageUrl ?
-              <img src={section.imageUrl} alt={`Section ${section.name}`} width={300} /> :
+              <img src={section.imageUrl} alt={`Section ${section.name}`} className="sectionImg" /> :
               <p>{t("truckDetail.noImage")}</p>}
           </Col>
         </Row>

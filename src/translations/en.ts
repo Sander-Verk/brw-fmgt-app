@@ -67,6 +67,7 @@ export const en = {
   logbookItemDetail: {
     material_check: {
       title: "Material check",
+      recap: "Recap",
     },
     problem_report: {
       title: "Problem report"
