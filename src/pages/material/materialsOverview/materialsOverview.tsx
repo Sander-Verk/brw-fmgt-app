@@ -1,9 +1,9 @@
-import { Table } from 'antd';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { GetMaterialTypesQuery } from 'generated/graphql';
 import AddMaterialTypeModal from './components/addMaterialTypeModal/addMaterialTypeModal';
 import './styles.scss';
+import AppTable from 'components/appTable/appTable';
 
 interface Props {
   data: GetMaterialTypesQuery;
@@ -52,7 +52,7 @@ const MaterialOverview: React.FC<Props> = ({ data }) => {
       </div>
       
 
-      <Table dataSource={dataSource} columns={columns} pagination={false}/>
+      <AppTable dataSource={dataSource} columns={columns} pagination={true}/>
     </div>
   )
 };

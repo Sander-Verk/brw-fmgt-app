@@ -1,0 +1,38 @@
+@import "../../styles/colors.scss";
+
+.ant-table {
+  padding: 5px 20px;
+  border-radius: 30px;
+  background-color: white;
+}
+
+.ant-table-thead > tr > th {
+  background-color: white;
+  text-transform: uppercase;
+}
+
+.ant-table-tbody {
+  :not(tr:last-of-type) {
+    td {
+      border-bottom: 1px solid rgba(251, 131, 111, 0.4);
+    }
+  }
+  tr:last-of-type {
+    td {
+      border-bottom: none;
+    }
+  }
+}
+
+.ant-pagination-item,
+.ant-pagination-item-link {
+  border-radius: 10px !important;
+}
+
+.ant-pagination-item-active {
+  border-color: var(--color-primary);
+
+  a {
+    color: var(--color-primary);
+  }
+}

@@ -1,4 +1,3 @@
-import { Table } from 'antd';
 import * as React from 'react';
 import Moment from 'react-moment';
 import { useTranslation } from 'react-i18next';
@@ -9,6 +8,7 @@ import { ControlOutlined, WarningOutlined } from '@ant-design/icons';
 import Translated from 'components/translated/translated';
 import AddLogbookItemModal from './components/addLogbookItemModal/addLogbookItemModal';
 import { useHistory } from 'react-router-dom';
+import AppTable from 'components/appTable/appTable';
 
 interface Props {
   data: GetLogbookQuery;
@@ -83,13 +83,13 @@ const LogbookOverview: React.FC<Props> = ({ data }) => {
       </div>
       
 
-      <Table
+      <AppTable
         dataSource={dataSource}
         columns={columns}
         pagination={false}
         onRow={(record: TableItem) => {
           return {
-            onClick: event => { goToDetail(record.id) }
+            onClick: () => { goToDetail(record.id) }
           };
         }}
       />

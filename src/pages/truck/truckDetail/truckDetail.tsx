@@ -1,4 +1,4 @@
-import { Button, Col, Collapse, Row, Table } from 'antd';
+import { Button, Col, Collapse, PageHeader, Row, Table } from 'antd';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Compartment, GetTruckQuery, Section } from 'generated/graphql';
@@ -72,7 +72,11 @@ const TruckDetail: React.FC<Props> = ({ data, printDetail }) => {
       {data && data.truck && (
         <>
           <div className="truck-header">
-            <h1>{`${data.truck.name} - (${data.truck.code})`}</h1>
+            <PageHeader
+              className="site-page-header"
+              onBack={() => null}
+              title={`${data.truck.name} - (${data.truck.code})`}
+            />
 
             <div>
               <Button type="primary" className="printBtn" onClick={printDetail}>

@@ -1,5 +1,5 @@
 import { CheckCircleFilled, CloseCircleFilled } from '@ant-design/icons';
-import { Table, Card, Tabs, Timeline, Form, Select, Button, Divider } from 'antd';
+import { Card, Tabs, Timeline, Form, Select, Button, Divider } from 'antd';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { CompartmentCheck, HistoryStatus, MaterialCheck, SectionCheck, StatusHistoryItem } from 'generated/graphql';
@@ -7,6 +7,7 @@ import './styles.scss';
 import Moment from 'react-moment';
 import { useMutation } from '@apollo/client';
 import { ADD_MATERIALCHECK_UPDATE } from './mutation';
+import AppTable from 'components/appTable/appTable';
 
 const { TabPane } = Tabs;
 const { Option } = Select;
@@ -63,7 +64,7 @@ const MaterialCheckReport: React.FC<Props> = ({ id, materialChecks, history }) =
       <div key={'section_' + section.id} className="section">
         <h3>{section.name}</h3>
 
-        <Table
+        <AppTable
           dataSource={section.materials.map(m => ({ materialTypeName: m.materialType.name, amount: m.amount, check: m.check }))}
           columns={columns}
           pagination={false}
@@ -105,7 +106,7 @@ const MaterialCheckReport: React.FC<Props> = ({ id, materialChecks, history }) =
     });
 
     return (
-      <Table
+      <AppTable
           dataSource={materials.map(m => ({ materialTypeName: m.materialType.name, amount: m.amount, check: m.check }))}
           columns={columns}
           pagination={false}
