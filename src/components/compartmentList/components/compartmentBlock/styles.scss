@@ -1,0 +1,42 @@
+@import "../../../../styles/colors.scss";
+
+:root {
+  --border-radius: 15px;
+}
+
+// Header style
+.ant-collapse-item-active {
+  .ant-collapse-header {
+    background-color: var(--color-primary);
+    color: white !important;
+  }
+}
+
+.ant-collapse {
+  border-radius: var(--border-radius);
+
+  .ant-collapse-item-active {
+    border: 1px solid var(--color-primary);
+    border-radius: var(--border-radius) !important;
+  }
+
+  .ant-collapse-item:last-child > .ant-collapse-header {
+    border-radius: var(--border-radius) var(--border-radius) 0 0 !important;
+  }
+}
+
+.ant-collapse-item:last-child > .ant-collapse-content {
+  border-radius: 0 0 var(--border-radius) var(--border-radius) !important;
+}
+
+.ant-collapse > .ant-collapse-item:last-child {
+  border-radius: var(--border-radius) !important;
+}
+
+// Btn style 
+.addSection-btn {
+  height: 22px;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+}

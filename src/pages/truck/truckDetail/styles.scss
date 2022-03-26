@@ -1,6 +1,12 @@
+@import "../../../styles/colors.scss";
+
 .truck-header {
   display: flex;
   justify-content: space-between;
+}
+
+.radio-group {
+  margin-bottom: 24px;
 }
 
 .section {
@@ -11,7 +17,31 @@
   margin-right: 10px;
 }
 
-.sectionImg {
-  width: 100%;
-  height: auto;
+// Colors for radiogroup
+.ant-radio-group-solid .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled),
+.ant-radio-group-solid .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):hover {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.ant-radio-button-wrapper-checked:not([class*=' ant-radio-button-wrapper-disabled']).ant-radio-button-wrapper:first-child {
+  border-right: var(--color-primary);
+}
+
+.ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled)::before,
+.ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):hover::before {
+  background-color: var(--color-primary);
+}
+
+.ant-radio-button-wrapper:hover {
+  color: var(--color-primary);
+}
+
+// Border for radiogroup
+.ant-radio-button-wrapper:last-child {
+  border-radius: 0 10px 10px 0;
+}
+
+.ant-radio-button-wrapper:first-child {
+  border-radius: 10px 0 0 10px;
 }

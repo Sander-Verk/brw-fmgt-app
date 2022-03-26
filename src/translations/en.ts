@@ -31,8 +31,8 @@ export const en = {
     title: "Create compartment",
   },
   addSectionModal: {
-    openBtn: "Create section",
-    title: "Create section",
+    openBtn: "Add section",
+    title: "Add section",
   },
   addMaterialTypeModal: {
     openBtn: "Add material type",
