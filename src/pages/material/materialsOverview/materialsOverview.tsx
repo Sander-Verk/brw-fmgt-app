@@ -46,7 +46,7 @@ const MaterialOverview: React.FC<Props> = ({ data }) => {
 
   return (
     <div className={className}>
-      <div className="pageHeader">
+      <div className="page-header">
         <h1>{t("materialsOverview.title")}</h1>
         <AddMaterialTypeModal></AddMaterialTypeModal>
       </div>

@@ -33,7 +33,7 @@ const SectionBlock: React.FC<Props> = ({ section }) => {
 
   return (
     <div className='section-block'>
-      <h1>{section.name}</h1>
+      <h1 className='section-title'>{section.name}</h1>
       <Row gutter={16}>
         <Col span={8}>
           {section.imageUrl ?

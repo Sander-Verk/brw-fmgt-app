@@ -1,8 +1,21 @@
+@import "../../../../styles/colors.scss";
+
 .section-block {
+  padding-bottom: 24px;
   margin-bottom: 24px;
 }
 
 .sectionImg {
-    width: 100%;
-    height: auto;
-  }
+  width: 100%;
+  height: auto;
+}
+
+.section-title {
+  font-size: 1em;
+  font-weight: 400;
+  margin-bottom: 14px;
+}
+
+.section-block:not(:last-of-type) {
+  border-bottom: 1px solid var(--color-gray);
+}

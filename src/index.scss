@@ -29,3 +29,10 @@ body {
   font-size: 16px;
   color: var(--text-primary)
 }
+
+.ant-btn-primary {
+  color: #fff;
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+  border-radius: 10px;
+}
