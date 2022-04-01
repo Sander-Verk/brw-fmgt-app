@@ -1,6 +1,8 @@
 import { gql } from "@apollo/client";
+import { TRUCK_DETAIL_FRAGMENT } from "graphql/fragments/truckDetailFragment";
 
 export const MUTATION_CREATE_MATERIAL_WITH_TRUCK = gql`
+  ${TRUCK_DETAIL_FRAGMENT}
   mutation CreateMaterialWithTruck(
     $truckId: ID!
     $compartmentId: ID!
@@ -13,30 +15,7 @@ export const MUTATION_CREATE_MATERIAL_WITH_TRUCK = gql`
       sectionId: $sectionId
       material: $material
     ) {
-      id
-      code
-      name
-      compartments {
-        id
-        code
-        name
-        sections {
-          id
-          name
-          imageUrl
-          materials {
-            id
-            type {
-              code
-              name
-              description
-              codeFiche
-            }
-            serial
-            date
-          }
-        }
-      }
+      ...TruckDetailFragment
     }
   }
 `;
