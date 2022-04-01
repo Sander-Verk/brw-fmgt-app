@@ -8,4 +8,4 @@ export const countMaterials = (materials: Material[]): { materialName: string; a
   }
   
   return Object.keys(counts).map(key => ({ key: key, materialName: key, amount: counts[key] })) || [];
-}
+};

@@ -1,13 +1,13 @@
-import { WarningOutlined, ControlOutlined } from '@ant-design/icons';
-import { ColumnsType } from 'antd/lib/table';
-import AppTable from 'components/appTable/appTable';
-import ErrorMessage from 'components/errorMessage/errorMessage';
-import LoadingContainer from 'components/loader';
-import Translated from 'components/translated/translated';
-import { LogBookItemType, useGetLogbookQuery } from 'graphql/schema';
-import * as React from 'react';
-import Moment from 'react-moment';
-import './styles.scss';
+import { WarningOutlined, ControlOutlined } from "@ant-design/icons";
+import { ColumnsType } from "antd/lib/table";
+import AppTable from "components/appTable/appTable";
+import ErrorMessage from "components/errorMessage/errorMessage";
+import LoadingContainer from "components/loader";
+import Translated from "components/translated/translated";
+import { LogBookItemType, useGetLogbookQuery } from "graphql/schema";
+import * as React from "react";
+import Moment from "react-moment";
+import "./styles.scss";
 
 interface Props {
   filters?: {
@@ -26,40 +26,40 @@ interface TableItem {
 
 const columns: ColumnsType<TableItem> = [
   {
-    title: <Translated value={'logbookItems.type'} />,
-    dataIndex: 'type',
-    key: 'type',
+    title: <Translated value={"logbookItems.type"} />,
+    dataIndex: "type",
+    key: "type",
     render: (value: LogBookItemType) => {
       if (value === LogBookItemType.ProblemReport) {
-        return (<span><WarningOutlined /> <Translated value={'logbookItemType.' + value.toLowerCase()} /></span>);
+        return (<span><WarningOutlined /> <Translated value={"logbookItemType." + value.toLowerCase()} /></span>);
       } else if (value === LogBookItemType.MaterialCheck) {
-        return (<span><ControlOutlined /> <Translated value={'logbookItemType.' + value.toLowerCase()} /></span>);
+        return (<span><ControlOutlined /> <Translated value={"logbookItemType." + value.toLowerCase()} /></span>);
       } else {
-        return (<span><Translated value={'logbookItemType.' + value} /></span>);
+        return (<span><Translated value={"logbookItemType." + value} /></span>);
       }
     }
   },
   {
-    title: <Translated value={'logbookItems.truck'} />,
-    dataIndex: 'truck',
-    key: 'truck',
+    title: <Translated value={"logbookItems.truck"} />,
+    dataIndex: "truck",
+    key: "truck",
   },
   {
-    title: <Translated value={'logbookItems.user'} />,
-    dataIndex: 'user',
-    key: 'user',
+    title: <Translated value={"logbookItems.user"} />,
+    dataIndex: "user",
+    key: "user",
   },
   {
-    title: <Translated value={'logbookItems.createdAt'} />,
-    dataIndex: 'createdAt',
-    key: 'createdAt',
+    title: <Translated value={"logbookItems.createdAt"} />,
+    dataIndex: "createdAt",
+    key: "createdAt",
     render: (value) => {
       return <Moment format="DD-MM-YYYY HH:mm:ss">{value}</Moment>;
     }
   }
 ];
 
-const LogbookList: React.FC<Props> = ({ filters, onClick }) => {
+const LogbookList: React.FC<Props> = ({ onClick }) => {
   const { data, error, loading } = useGetLogbookQuery({
     // variables: { filters }
   });
@@ -88,11 +88,11 @@ const LogbookList: React.FC<Props> = ({ filters, onClick }) => {
       pagination={false}
       onRow={(record: TableItem) => {
         return {
-          onClick: () => { onClick(record.id) }
+          onClick: () => { onClick(record.id); }
         };
       }}
     />
-  )
+  );
 };
 
 export default LogbookList;

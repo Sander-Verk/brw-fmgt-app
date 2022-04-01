@@ -1,10 +1,10 @@
-import { useMutation } from '@apollo/client';
-import { Button, Form, Input, Modal } from 'antd';
-import * as React from 'react';
-import { useTranslation } from 'react-i18next';
-import ErrorMessage from 'components/errorMessage/errorMessage';
-import './styles.scss';
-import { MUTATION_CREATE_SECTION } from 'graphql/mutations/createSection';
+import { useMutation } from "@apollo/client";
+import { Button, Form, Input, Modal } from "antd";
+import * as React from "react";
+import { useTranslation } from "react-i18next";
+import ErrorMessage from "components/errorMessage/errorMessage";
+import "./styles.scss";
+import { MUTATION_CREATE_SECTION } from "graphql/mutations/createSection";
 
 interface Props {
   truckId: string;
@@ -53,10 +53,10 @@ const AddSectionModal: React.FC<Props> = ({ truckId, compartmentId }) => {
     <>
       <div>
         <Button type="primary" onClick={showModal} className="addSectionBtn">
-          {t('addSectionModal.openBtn')}
+          {t("addSectionModal.openBtn")}
         </Button>
       </div>
-      <Modal title={t('addSectionModal.title')} visible={isModalVisible} onOk={form.submit} onCancel={handleReset} cancelText={t('btn.cancel')} okText={t('btn.save')}>
+      <Modal title={t("addSectionModal.title")} visible={isModalVisible} onOk={form.submit} onCancel={handleReset} cancelText={t("btn.cancel")} okText={t("btn.save")}>
         {graphqlError && (
           <ErrorMessage message={graphqlError}></ErrorMessage>
         )}
@@ -69,7 +69,7 @@ const AddSectionModal: React.FC<Props> = ({ truckId, compartmentId }) => {
           <Form.Item
             label="Name"
             name="name"
-            rules={[{ required: true, message: 'This field is required' }]}
+            rules={[{ required: true, message: "This field is required" }]}
           >
             <Input />
           </Form.Item>
@@ -77,7 +77,7 @@ const AddSectionModal: React.FC<Props> = ({ truckId, compartmentId }) => {
           <Form.Item
             label="Image URL"
             name="imageUrl"
-            rules={[{ required: true, message: 'This field is required' }]}
+            rules={[{ required: true, message: "This field is required" }]}
           >
             <Input />
           </Form.Item>

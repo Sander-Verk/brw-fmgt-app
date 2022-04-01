@@ -1,15 +1,15 @@
-import { Card } from 'antd';
-import { Truck } from 'graphql/schema';
-import * as React from 'react';
-import './styles.scss';
+import { Card } from "antd";
+import { Truck } from "graphql/schema";
+import * as React from "react";
+import "./styles.scss";
 
 interface Props {
   truck: Partial<Truck>;
 }
 
 const randomIntFromInterval = (min: number, max: number) => { // min and max included 
-  return Math.floor(Math.random() * (max - min + 1) + min)
-}
+  return Math.floor(Math.random() * (max - min + 1) + min);
+};
 
 const TruckCard: React.FC<Props> = ({ truck }) => {
   return (

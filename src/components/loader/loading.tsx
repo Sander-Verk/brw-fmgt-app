@@ -1,12 +1,12 @@
-import * as React from 'react';
-import './styles.scss';
-import Gif from './loading.gif';
-import { useTranslation } from 'react-i18next';
+import * as React from "react";
+import "./styles.scss";
+import Gif from "./loading.gif";
+import { useTranslation } from "react-i18next";
 
 interface Props {
 }
 
-const className = 'LoadingOverview';
+const className = "LoadingOverview";
 
 const Loading: React.FC<Props> = () => {
   const { t } = useTranslation();

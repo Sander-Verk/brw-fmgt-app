@@ -1,29 +1,29 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.scss';
-import reportWebVitals from './reportWebVitals';
-import { ApolloClient, ApolloProvider, createHttpLink, InMemoryCache } from '@apollo/client';
-import { setContext } from '@apollo/client/link/context';
-import App from './app';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.scss";
+import reportWebVitals from "./reportWebVitals";
+import { ApolloClient, ApolloProvider, createHttpLink, InMemoryCache } from "@apollo/client";
+import { setContext } from "@apollo/client/link/context";
+import App from "./app";
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
-import Translations from './translations';
-import { FronteggProvider } from '@frontegg/react';
+import Translations from "./translations";
+import { FronteggProvider } from "@frontegg/react";
 
 const httpLink = createHttpLink({
-  uri: 'http://localhost:3000/graphql',
+  uri: "http://localhost:3000/graphql",
   // uri: 'https://brw-fmgt-api.herokuapp.com/graphql',
 });
 
 const authLink = setContext((_, { headers }) => {
   // get the authentication token from local storage if it exists
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem("token");
   return {
     headers: {
       ...headers,
       authorization: token ? `Bearer ${token}` : "",
     }
-  }
+  };
 });
 
 const client = new ApolloClient({
@@ -32,7 +32,7 @@ const client = new ApolloClient({
 });
 
 const contextOptions = {
-  baseUrl: 'https://app-grh37bz1gon0.frontegg.com',
+  baseUrl: "https://app-grh37bz1gon0.frontegg.com",
 };
 
 i18n
@@ -54,7 +54,7 @@ ReactDOM.render(
       </FronteggProvider>
     </React.StrictMode>
   </ApolloProvider>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -1,9 +1,9 @@
-import * as React from 'react';
-import { useTranslation } from 'react-i18next';
-import { GetMaterialTypesQuery } from 'graphql/schema';
-import AddMaterialTypeModal from './components/addMaterialTypeModal/addMaterialTypeModal';
-import './styles.scss';
-import AppTable from 'components/appTable/appTable';
+import * as React from "react";
+import { useTranslation } from "react-i18next";
+import { GetMaterialTypesQuery } from "graphql/schema";
+import AddMaterialTypeModal from "./components/addMaterialTypeModal/addMaterialTypeModal";
+import "./styles.scss";
+import AppTable from "components/appTable/appTable";
 
 interface Props {
   data: GetMaterialTypesQuery;
@@ -15,23 +15,23 @@ interface TableItem {
   codeFiche?: string | null;
 }
 
-const className = 'MaterialOverview';
+const className = "MaterialOverview";
 
 const columns = [
   {
-    title: 'Code',
-    dataIndex: 'code',
-    key: 'code',
+    title: "Code",
+    dataIndex: "code",
+    key: "code",
   },
   {
-    title: 'Name',
-    dataIndex: 'name',
-    key: 'name',
+    title: "Name",
+    dataIndex: "name",
+    key: "name",
   },
   {
-    title: 'Code Fiche',
-    dataIndex: 'codeFiche',
-    key: 'codeFiche',
+    title: "Code Fiche",
+    dataIndex: "codeFiche",
+    key: "codeFiche",
   }
 ];
 
@@ -42,7 +42,7 @@ const MaterialOverview: React.FC<Props> = ({ data }) => {
     name: material.name,
     codeFiche: material.codeFiche,
     key: material.code
-  }) || [])
+  }) || []);
 
   return (
     <div className={className}>
@@ -54,7 +54,7 @@ const MaterialOverview: React.FC<Props> = ({ data }) => {
 
       <AppTable dataSource={dataSource} columns={columns} pagination={true}/>
     </div>
-  )
+  );
 };
 
 export default MaterialOverview;

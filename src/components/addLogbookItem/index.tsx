@@ -9,11 +9,11 @@ const useQuery = () => {
   const { search } = useLocation();
 
   return React.useMemo(() => new URLSearchParams(search), [search]);
-}
+};
 
 const AddLogbookItemContainer = () => {
   const { data, error, loading } = useGetTrucksQuery();
-  let query = useQuery();
+  const query = useQuery();
 
   if (loading) {
     return <LoadingContainer></LoadingContainer>;

@@ -1,10 +1,10 @@
-import { Row, Col } from 'antd';
-import AppTable from 'components/appTable/appTable';
-import { Section } from 'graphql/schema';
-import * as React from 'react';
-import { useTranslation } from 'react-i18next';
-import { countMaterials } from 'utils/material.helper';
-import './styles.scss';
+import { Row, Col } from "antd";
+import AppTable from "components/appTable/appTable";
+import { Section } from "graphql/schema";
+import * as React from "react";
+import { useTranslation } from "react-i18next";
+import { countMaterials } from "utils/material.helper";
+import "./styles.scss";
 
 
 interface Props {
@@ -13,14 +13,14 @@ interface Props {
 
 const columns = [
   {
-    title: 'Material',
-    dataIndex: 'materialName',
-    key: 'materialName',
+    title: "Material",
+    dataIndex: "materialName",
+    key: "materialName",
   },
   {
-    title: 'Amount',
-    dataIndex: 'amount',
-    key: 'amount',
+    title: "Amount",
+    dataIndex: "amount",
+    key: "amount",
   },
 ];
 

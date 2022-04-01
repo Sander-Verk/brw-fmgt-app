@@ -1,15 +1,15 @@
-import { Col, Row } from 'antd';
-import * as React from 'react';
-import { Link } from 'react-router-dom';
-import { GetTrucksQuery, Truck } from 'graphql/schema';
-import './styles.scss';
-import TruckCard from 'components/truckCard/truckCard';
+import { Col, Row } from "antd";
+import * as React from "react";
+import { Link } from "react-router-dom";
+import { GetTrucksQuery, Truck } from "graphql/schema";
+import "./styles.scss";
+import TruckCard from "components/truckCard/truckCard";
 
 interface Props {
   data: GetTrucksQuery;
 }
 
-const className = 'TruckOverview';
+const className = "TruckOverview";
 
 const TruckOverview: React.FC<Props> = ({ data }) => {
   return (
@@ -28,7 +28,7 @@ const TruckOverview: React.FC<Props> = ({ data }) => {
           )}
       </Row>
     </div>
-  )
+  );
 };
 
 export default TruckOverview;

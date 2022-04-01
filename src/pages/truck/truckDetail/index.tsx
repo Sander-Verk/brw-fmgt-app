@@ -5,7 +5,7 @@ import LoadingContainer from "components/loader";
 import TruckDetail from "./truckDetail";
 
 const TruckDetailContainer = () => {
-  let { id } = useParams<{ id: string }>();
+  const { id } = useParams<{ id: string }>();
   const { data, error, loading } = useGetTruckQuery({
     variables: { id },
   });

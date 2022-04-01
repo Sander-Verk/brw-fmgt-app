@@ -1,9 +1,9 @@
-import './app.scss';
+import "./app.scss";
 import {
   BrowserRouter as Router
 } from "react-router-dom";
-import AppLayoutContainer from './layout';
-import { useAuth } from '@frontegg/react';
+import AppLayoutContainer from "./layout";
+import { useAuth } from "@frontegg/react";
 
 function App() {
   const { user, isAuthenticated } = useAuth();
@@ -15,8 +15,8 @@ function App() {
   return (
     <Router>
       { isAuthenticated ?
-          <AppLayoutContainer></AppLayoutContainer> :
-          <div>Not authenticated</div>
+        <AppLayoutContainer></AppLayoutContainer> :
+        <div>Not authenticated</div>
       }
     </Router>
   );

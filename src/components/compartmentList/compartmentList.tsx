@@ -1,7 +1,7 @@
-import { Compartment } from 'graphql/schema';
-import * as React from 'react';
-import CompartmentBlock from './components/compartmentBlock/compartmentBlock';
-import './styles.scss';
+import { Compartment } from "graphql/schema";
+import * as React from "react";
+import CompartmentBlock from "./components/compartmentBlock/compartmentBlock";
+import "./styles.scss";
 
 interface Props {
   compartments: Compartment[];
@@ -10,7 +10,7 @@ interface Props {
 const CompartmentList: React.FC<Props> = ({ compartments }) => {
   const sort = (array: any[]): any[] => {
     return [...array].sort((a, b) => a.code > b.code ? 1 : -1);
-  }
+  };
 
   return (
     <>
@@ -20,7 +20,7 @@ const CompartmentList: React.FC<Props> = ({ compartments }) => {
         </div>
       ))}
     </>
-  )
+  );
 };
 
 export default CompartmentList;

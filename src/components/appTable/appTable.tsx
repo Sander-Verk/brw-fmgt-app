@@ -1,6 +1,6 @@
-import { Table } from 'antd';
-import * as React from 'react';
-import './styles.scss';
+import { Table } from "antd";
+import * as React from "react";
+import "./styles.scss";
 
 interface Props {
   dataSource: any[];
@@ -15,7 +15,7 @@ const AppTable: React.FC<Props> = ({ dataSource, columns, pagination, showHeader
     <Table
       dataSource={dataSource}
       columns={columns}
-      pagination={pagination ? { position: ['bottomRight'] } : false}
+      pagination={pagination ? { position: ["bottomRight"] } : false}
       showHeader={showHeader}
       onRow={onRow}
     />

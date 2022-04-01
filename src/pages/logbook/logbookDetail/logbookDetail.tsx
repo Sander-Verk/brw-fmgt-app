@@ -1,13 +1,13 @@
-import * as React from 'react';
-import { useTranslation } from 'react-i18next';
-import { LogbookItem, LogBookItemType, MaterialCheckReport as MaterialCheckReportType } from 'graphql/schema';
-import MaterialCheckReport from './components/materialCheckReport/materialCheckReport';
-import './styles.scss';
+import * as React from "react";
+import { useTranslation } from "react-i18next";
+import { LogbookItem, LogBookItemType, MaterialCheckReport as MaterialCheckReportType } from "graphql/schema";
+import MaterialCheckReport from "./components/materialCheckReport/materialCheckReport";
+import "./styles.scss";
 
 interface Props {
   logbookItem: LogbookItem;
 }
-const className = 'LogbookItemDetail';
+const className = "LogbookItemDetail";
 
 const LogbookItemDetail: React.FC<Props> = ({ logbookItem }) => {
   const { t } = useTranslation();
@@ -28,7 +28,7 @@ const LogbookItemDetail: React.FC<Props> = ({ logbookItem }) => {
         <MaterialCheckReport id={logbookItem.id} materialChecks={(logbookItem as MaterialCheckReportType).checks} history={logbookItem.statusHistory}/>
       )}
     </div>
-  )
+  );
 };
 
 export default LogbookItemDetail;

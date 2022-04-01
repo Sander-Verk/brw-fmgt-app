@@ -1,13 +1,14 @@
-import { Card, Checkbox, Col, Form, FormInstance, Row } from 'antd';
-import { FormListFieldData } from 'antd/lib/form/FormList';
-import * as React from 'react';
-import { useTranslation } from 'react-i18next';
-import { Compartment, CompartmentCheckInput, Material, MaterialCheckInput, Section, SectionCheckInput, useGetTruckQuery } from 'graphql/schema';
-import ErrorMessage from 'components/errorMessage/errorMessage';
-import Loading from 'components/loader/loading';
-import './styles.scss';
+import { Card, Checkbox, Col, Form, FormInstance, Row } from "antd";
+import { FormListFieldData } from "antd/lib/form/FormList";
+import * as React from "react";
+import { useTranslation } from "react-i18next";
+import { Compartment, CompartmentCheckInput, Material, MaterialCheckInput, Section, SectionCheckInput, useGetTruckQuery } from "graphql/schema";
+import ErrorMessage from "components/errorMessage/errorMessage";
+import Loading from "components/loader/loading";
+import "./styles.scss";
 
-const _ = require('lodash');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const _ = require("lodash");
 
 interface Props {
   truckId: string;
@@ -16,9 +17,9 @@ interface Props {
 
 const sort = (array: Compartment[]): Compartment[] => {
   return [...array].sort((a, b) => a.code > b.code ? 1 : -1);
-}
+};
 
-const MaterialCheckForm: React.FC<Props> = ({ truckId, form }) => {
+const MaterialCheckForm: React.FC<Props> = ({ truckId }) => {
   const { t } = useTranslation();
   const { data, error, loading } = useGetTruckQuery({
     variables: { id: truckId },
@@ -48,18 +49,18 @@ const MaterialCheckForm: React.FC<Props> = ({ truckId, form }) => {
 
   const getSection = (compartmentId: string, sectionId: string): Section => {
     return data?.truck.compartments.find(c => c.id === compartmentId)?.sections.find(s => s.id === sectionId) as Section;
-  }
+  };
 
   const getMaterialTypeName = (section: Section, materialTypeId: string): string => {
     return section.materials.find(m => m.type.id === materialTypeId)?.type.name || "";
-  }
+  };
 
   const renderCompartment = (field: FormListFieldData, comparmentForm: CompartmentCheckInput) => {
     return (
       <Card key={field.fieldKey} className="compartment">
         <h1>{comparmentForm.name}</h1>
 
-        <Form.List name={[field.name, 'sections']} initialValue={comparmentForm.sections}>
+        <Form.List name={[field.name, "sections"]} initialValue={comparmentForm.sections}>
           {(fields) => (
             <>
               {fields.map(section => (
@@ -69,8 +70,8 @@ const MaterialCheckForm: React.FC<Props> = ({ truckId, form }) => {
           )}
         </Form.List>
       </Card>
-    )
-  }
+    );
+  };
 
   const renderSection = (field: FormListFieldData, sectionForm: SectionCheckInput, section: Section) => {
     return (
@@ -78,7 +79,7 @@ const MaterialCheckForm: React.FC<Props> = ({ truckId, form }) => {
         <h2>{sectionForm.name}</h2>
         <Row gutter={[16, 16]}>
           <Col span={18}>
-            <Form.List name={[field.name, 'materials']} initialValue={sectionForm.materials}>
+            <Form.List name={[field.name, "materials"]} initialValue={sectionForm.materials}>
               {(fields) => (
                 <>
                   {fields.map(material => (
@@ -95,7 +96,7 @@ const MaterialCheckForm: React.FC<Props> = ({ truckId, form }) => {
           </Col>
         </Row>
       </section>
-    )
+    );
   };
 
   const renderMaterial = (field: FormListFieldData, materialForm: MaterialCheckInput, materialTypeName: string) => {
@@ -107,8 +108,8 @@ const MaterialCheckForm: React.FC<Props> = ({ truckId, form }) => {
           <Col span={3}>
             <Form.Item
               {...field}
-              name={[field.name, 'check']}
-              fieldKey={[field.fieldKey, 'check']}
+              name={[field.name, "check"]}
+              fieldKey={[field.fieldKey, "check"]}
               valuePropName="checked"
             >
               <Checkbox />
@@ -116,11 +117,11 @@ const MaterialCheckForm: React.FC<Props> = ({ truckId, form }) => {
           </Col>
         </Row>
       </div>
-    )
+    );
   };
 
   if (loading) {
-    return <Loading></Loading>
+    return <Loading></Loading>;
   }
 
   if (error || !data) {

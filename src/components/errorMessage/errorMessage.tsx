@@ -1,8 +1,8 @@
-import { InfoCircleOutlined } from '@ant-design/icons';
-import { Alert, Tooltip } from 'antd';
-import * as React from 'react';
-import { useTranslation } from 'react-i18next';
-import './styles.scss';
+import { InfoCircleOutlined } from "@ant-design/icons";
+import { Alert, Tooltip } from "antd";
+import * as React from "react";
+import { useTranslation } from "react-i18next";
+import "./styles.scss";
 
 interface Props {
   message?: string;
@@ -14,17 +14,17 @@ const ErrorMessage: React.FC<Props> = ({ message }) => {
   return (
     <>
       <Alert className="errorMessage"
-      message={ t("errors.somethingWentWrong")}
-      showIcon
-      type="error"
-      action={
-        message && (
-          <Tooltip placement="bottom" title={message}>
-            <InfoCircleOutlined />
-          </Tooltip>
-        )
-      }
-    />
+        message={ t("errors.somethingWentWrong")}
+        showIcon
+        type="error"
+        action={
+          message && (
+            <Tooltip placement="bottom" title={message}>
+              <InfoCircleOutlined />
+            </Tooltip>
+          )
+        }
+      />
     </>
   );
 };

@@ -36,25 +36,13 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
+    "lint": "npx eslint src/**/*.{ts,tsx}",
     "codegen": "graphql-codegen --config codegen.yml"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
       "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
     ]
   },
   "devDependencies": {
@@ -64,6 +52,10 @@
     "@graphql-codegen/typescript-react-apollo": "3.1.6",
     "@types/lodash": "^4.14.177",
     "@types/react-router-dom": "^5.3.1",
-    "@types/uuid": "^8.3.4"
+    "@types/uuid": "^8.3.4",
+    "@typescript-eslint/eslint-plugin": "^5.17.0",
+    "@typescript-eslint/parser": "^5.17.0",
+    "eslint": "^7.32.0",
+    "eslint-plugin-react": "^7.29.4"
   }
 }

@@ -1,13 +1,13 @@
-import { CheckCircleFilled, CloseCircleFilled } from '@ant-design/icons';
-import { Card, Tabs, Timeline, Form, Select, Button, Divider } from 'antd';
-import * as React from 'react';
-import { useTranslation } from 'react-i18next';
-import { CompartmentCheck, HistoryStatus, MaterialCheck, SectionCheck, StatusHistoryItem } from 'graphql/schema';
-import './styles.scss';
-import Moment from 'react-moment';
-import { useMutation } from '@apollo/client';
-import AppTable from 'components/appTable/appTable';
-import { ADD_MATERIALCHECK_UPDATE } from 'graphql/mutations/addLogbookStatusUpdate';
+import { CheckCircleFilled, CloseCircleFilled } from "@ant-design/icons";
+import { Card, Tabs, Timeline, Form, Select, Button, Divider } from "antd";
+import * as React from "react";
+import { useTranslation } from "react-i18next";
+import { CompartmentCheck, HistoryStatus, MaterialCheck, SectionCheck, StatusHistoryItem } from "graphql/schema";
+import "./styles.scss";
+import Moment from "react-moment";
+import { useMutation } from "@apollo/client";
+import AppTable from "components/appTable/appTable";
+import { ADD_MATERIALCHECK_UPDATE } from "graphql/mutations/addLogbookStatusUpdate";
 
 const { TabPane } = Tabs;
 const { Option } = Select;
@@ -20,23 +20,23 @@ interface Props {
 
 const sort = (array: any[]): any[] => {
   return [...array].sort((a, b) => a.code > b.code ? 1 : -1);
-}
+};
 
 const columns = [
   {
-    title: 'Material',
-    dataIndex: 'materialTypeName',
-    key: 'materialTypeName',
+    title: "Material",
+    dataIndex: "materialTypeName",
+    key: "materialTypeName",
   },
   {
-    title: 'Amount',
-    dataIndex: 'amount',
-    key: 'amount',
+    title: "Amount",
+    dataIndex: "amount",
+    key: "amount",
   },
   {
-    title: 'Check',
-    dataIndex: 'check',
-    key: 'check',
+    title: "Check",
+    dataIndex: "check",
+    key: "check",
     render: (check: boolean) => {
       return check ?
         <CheckCircleFilled className="successIcon" /> :
@@ -51,7 +51,7 @@ const MaterialCheckReport: React.FC<Props> = ({ id, materialChecks, history }) =
   const [form] = Form.useForm();
 
   const renderCompartment = (compartment: CompartmentCheck) => (compartment && compartment.id &&
-    <Card key={'comparment_' + compartment.id} className="compartment">
+    <Card key={"comparment_" + compartment.id} className="compartment">
       <h2>{compartment.name}</h2>
 
       {compartment.sections && compartment.sections.length ?
@@ -61,7 +61,7 @@ const MaterialCheckReport: React.FC<Props> = ({ id, materialChecks, history }) =
 
   const renderSection = (section: SectionCheck) => {
     return (section && section.id &&
-      <div key={'section_' + section.id} className="section">
+      <div key={"section_" + section.id} className="section">
         <h3>{section.name}</h3>
 
         <AppTable
@@ -79,7 +79,7 @@ const MaterialCheckReport: React.FC<Props> = ({ id, materialChecks, history }) =
         <p className='timeLineTitle'>{historyItem.status}</p>
         <p>{historyItem.user.name} op <Moment format="HH:mm:ss">{historyItem.timestamp}</Moment></p>
       </Timeline.Item>
-    )
+    );
   };
 
   const onFinish = async (values: any) => {
@@ -107,13 +107,13 @@ const MaterialCheckReport: React.FC<Props> = ({ id, materialChecks, history }) =
 
     return (
       <AppTable
-          dataSource={materials.map(m => ({ materialTypeName: m.materialType.name, amount: m.amount, check: m.check }))}
-          columns={columns}
-          pagination={false}
-          showHeader={false}
-        />
-    )
-  }
+        dataSource={materials.map(m => ({ materialTypeName: m.materialType.name, amount: m.amount, check: m.check }))}
+        columns={columns}
+        pagination={false}
+        showHeader={false}
+      />
+    );
+  };
 
   return (
     <Tabs defaultActiveKey="1">
@@ -125,13 +125,13 @@ const MaterialCheckReport: React.FC<Props> = ({ id, materialChecks, history }) =
               form={form}
               onFinish={onFinish}
               autoComplete="off"
-              requiredMark={'optional'}
+              requiredMark={"optional"}
             >
               <div>
                 <Form.Item
                   label="Status"
                   name="status"
-                  rules={[{ required: true, message: 'This field is required' }]}
+                  rules={[{ required: true, message: "This field is required" }]}
                 >
                   <Select
                     showSearch
@@ -144,7 +144,7 @@ const MaterialCheckReport: React.FC<Props> = ({ id, materialChecks, history }) =
                   </Select>
                 </Form.Item>
                 <Button type="primary" onClick={form.submit}>
-                  {t('problemReportForm.save')}
+                  {t("problemReportForm.save")}
                 </Button>
               </div>
             </Form>
@@ -153,7 +153,7 @@ const MaterialCheckReport: React.FC<Props> = ({ id, materialChecks, history }) =
 
         <Divider></Divider>
 
-        <h3>{t('logbookItemDetail.material_check.recap')}</h3>
+        <h3>{t("logbookItemDetail.material_check.recap")}</h3>
 
         { renderRecap(materialChecks) }
       </TabPane>

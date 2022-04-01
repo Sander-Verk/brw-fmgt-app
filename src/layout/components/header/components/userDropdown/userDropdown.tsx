@@ -1,10 +1,10 @@
-import { DownOutlined, InfoCircleOutlined, LogoutOutlined, SettingOutlined } from '@ant-design/icons';
-import { AdminPortal, useAuthUser } from '@frontegg/react';
-import { Avatar, Dropdown, Menu } from 'antd';
-import * as React from 'react';
-import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
-import './styles.scss';
+import { DownOutlined, InfoCircleOutlined, LogoutOutlined, SettingOutlined } from "@ant-design/icons";
+import { AdminPortal, useAuthUser } from "@frontegg/react";
+import { Avatar, Dropdown, Menu } from "antd";
+import * as React from "react";
+import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
+import "./styles.scss";
 
 interface Props {
 }
@@ -15,7 +15,7 @@ const UserDropdown: React.FC<Props> = () => {
 
   const onSettingsClick = () => {
     AdminPortal.show();
-  }
+  };
 
   const userMenu = (
     <Menu>

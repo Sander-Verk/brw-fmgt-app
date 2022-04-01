@@ -1,10 +1,10 @@
-import { PlusCircleOutlined } from '@ant-design/icons';
-import { Button, Collapse } from 'antd';
-import { Compartment } from 'graphql/schema';
-import * as React from 'react';
-import { useTranslation } from 'react-i18next';
-import SectionBlock from '../sectionBlock/sectionBlock';
-import './styles.scss';
+import { PlusCircleOutlined } from "@ant-design/icons";
+import { Button, Collapse } from "antd";
+import { Compartment } from "graphql/schema";
+import * as React from "react";
+import { useTranslation } from "react-i18next";
+import SectionBlock from "../sectionBlock/sectionBlock";
+import "./styles.scss";
 
 const { Panel } = Collapse;
 
@@ -18,7 +18,7 @@ const CompartmentBlock: React.FC<Props> = ({ compartment }) => {
 
   const callback = (keys: string | string[]) => {
     setIsOpen(!!keys.length);
-  }
+  };
   const renderAddBtn = () => (
     isOpen &&
     <Button
@@ -29,7 +29,7 @@ const CompartmentBlock: React.FC<Props> = ({ compartment }) => {
       }}
     >
       <PlusCircleOutlined />
-      {t('addSectionModal.openBtn')}
+      {t("addSectionModal.openBtn")}
     </Button>
   );
 

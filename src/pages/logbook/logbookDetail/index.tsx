@@ -5,7 +5,7 @@ import LogbookItemDetail from "./logbookDetail";
 import { LogbookItem, useGetLogbookItemQuery } from "graphql/schema";
 
 const LogbookItemDetailContainer = () => {
-  let { id } = useParams<{ id: string }>();
+  const { id } = useParams<{ id: string }>();
   const { data, error, loading } = useGetLogbookItemQuery({ variables: { id }});
 
   if (loading) {

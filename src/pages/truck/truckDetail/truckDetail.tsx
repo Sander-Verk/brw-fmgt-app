@@ -1,35 +1,35 @@
-import { PageHeader, Radio, RadioChangeEvent } from 'antd';
-import * as React from 'react';
-import { GetTruckQuery } from 'graphql/schema';
-import AddCompartmentModal from './components/addCompartmentModal/addCompartmentModal';
-import './styles.scss';
-import { useHistory } from 'react-router-dom';
-import CompartmentList from 'components/compartmentList/compartmentList';
-import LogbookList from 'components/logbookList/logbookList';
+import { PageHeader, Radio, RadioChangeEvent } from "antd";
+import * as React from "react";
+import { GetTruckQuery } from "graphql/schema";
+import AddCompartmentModal from "./components/addCompartmentModal/addCompartmentModal";
+import "./styles.scss";
+import { useHistory } from "react-router-dom";
+import CompartmentList from "components/compartmentList/compartmentList";
+import LogbookList from "components/logbookList/logbookList";
 
 
 interface Props {
   data: GetTruckQuery
 }
 
-const className = 'TruckDetail';
+const className = "TruckDetail";
 
 const TruckDetail: React.FC<Props> = ({ data }) => {
   const history = useHistory();
 
-  const [radioValue, setRadioValue] = React.useState<string>('info');
+  const [radioValue, setRadioValue] = React.useState<string>("info");
 
   const goToOverview = () => {
     history.push("/trucks");
-  }
+  };
 
   const goToDetail = (id: string) => {
     history.push(`/logbook/${id}`);
-  }
+  };
 
   const onRadioChange = (event: RadioChangeEvent) => {
     setRadioValue(event.target.value);
-  }
+  };
 
   return (
     <div className={className}>
@@ -45,9 +45,9 @@ const TruckDetail: React.FC<Props> = ({ data }) => {
             <Radio.Group
               className='radio-group'
               options={[
-                { label: 'Info', value: 'info' },
-                { label: 'Compartments', value: 'compartments' },
-                { label: 'Logbook', value: 'logbook' },
+                { label: "Info", value: "info" },
+                { label: "Compartments", value: "compartments" },
+                { label: "Logbook", value: "logbook" },
               ]}
               value={radioValue}
               onChange={onRadioChange}
@@ -55,11 +55,11 @@ const TruckDetail: React.FC<Props> = ({ data }) => {
               buttonStyle="solid"
             />
 
-            {radioValue === 'compartments' && <AddCompartmentModal truckId={data.truck.id}></AddCompartmentModal>}
+            {radioValue === "compartments" && <AddCompartmentModal truckId={data.truck.id}></AddCompartmentModal>}
           </div>
 
-          {radioValue === 'compartments' && (<CompartmentList compartments={data.truck.compartments} />)}
-          {radioValue === 'logbook' && (<LogbookList filters={{truckIds: [data.truck.id]}} onClick={goToDetail} />)}
+          {radioValue === "compartments" && (<CompartmentList compartments={data.truck.compartments} />)}
+          {radioValue === "logbook" && (<LogbookList filters={{truckIds: [data.truck.id]}} onClick={goToDetail} />)}
         </>
       )}
     </div>

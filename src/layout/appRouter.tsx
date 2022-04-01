@@ -1,16 +1,16 @@
-import * as React from 'react';
-import { Route, Redirect, Switch } from 'react-router-dom';
-import AddLogbookItemContainer from 'components/addLogbookItem';
-import LogbookItemDetailContainer from 'pages/logbook/logbookDetail';
-import LogbookOverviewContainer from 'pages/logbook/logbookOverview';
-import MaterialOverviewContainer from 'pages/material/materialsOverview';
-import TruckDetailContainer from 'pages/truck/truckDetail';
-import TruckOverviewContainer from 'pages/truck/truckOverview';
-import './styles.scss';
+import * as React from "react";
+import { Route, Redirect, Switch } from "react-router-dom";
+import AddLogbookItemContainer from "components/addLogbookItem";
+import LogbookItemDetailContainer from "pages/logbook/logbookDetail";
+import LogbookOverviewContainer from "pages/logbook/logbookOverview";
+import MaterialOverviewContainer from "pages/material/materialsOverview";
+import TruckDetailContainer from "pages/truck/truckDetail";
+import TruckOverviewContainer from "pages/truck/truckOverview";
+import "./styles.scss";
 
 interface Props {
 
-};
+}
 
 const AppRouter: React.FC<Props> = () => {
   return (
@@ -18,7 +18,7 @@ const AppRouter: React.FC<Props> = () => {
       <Route path="/trucks" exact={true}>
         <TruckOverviewContainer />
       </Route>
-      <Route path="/trucks/:id" children={<TruckDetailContainer />} />
+      <Route path="/trucks/:id"><TruckDetailContainer /></Route>
       <Route path="/materials">
         <MaterialOverviewContainer></MaterialOverviewContainer>
       </Route>
@@ -40,7 +40,7 @@ const AppRouter: React.FC<Props> = () => {
         <Redirect to="/trucks" />
       </Route>
     </Switch>
-  )
+  );
 };
 
 export default AppRouter;

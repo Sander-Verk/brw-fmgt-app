@@ -1,14 +1,14 @@
-import * as React from 'react';
-import { useTranslation } from 'react-i18next';
-import './styles.scss';
-import AddLogbookItemModal from './components/addLogbookItemModal/addLogbookItemModal';
-import { useHistory } from 'react-router-dom';
-import LogbookList from 'components/logbookList/logbookList';
+import * as React from "react";
+import { useTranslation } from "react-i18next";
+import "./styles.scss";
+import AddLogbookItemModal from "./components/addLogbookItemModal/addLogbookItemModal";
+import { useHistory } from "react-router-dom";
+import LogbookList from "components/logbookList/logbookList";
 
 interface Props {
 }
 
-const className = 'LogbookOverview';
+const className = "LogbookOverview";
 
 const LogbookOverview: React.FC<Props> = () => {
   const { t } = useTranslation();
@@ -16,7 +16,7 @@ const LogbookOverview: React.FC<Props> = () => {
 
   const goToDetail = (id: string) => {
     history.push(`/logbook/${id}`);
-  }
+  };
 
   return (
     <div className={className}>
@@ -30,7 +30,7 @@ const LogbookOverview: React.FC<Props> = () => {
         onClick={goToDetail}
       />
     </div>
-  )
+  );
 };
 
 export default LogbookOverview;

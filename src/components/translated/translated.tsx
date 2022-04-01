@@ -1,6 +1,6 @@
-import * as React from 'react';
-import './styles.scss';
-import { useTranslation } from 'react-i18next';
+import * as React from "react";
+import "./styles.scss";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   value: string

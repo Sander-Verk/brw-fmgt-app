@@ -1,10 +1,10 @@
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
+import { gql } from "@apollo/client";
+import * as Apollo from "@apollo/client";
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-const defaultOptions =  {}
+const defaultOptions =  {};
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -16,115 +16,115 @@ export type Scalars = {
 };
 
 export type Compartment = {
-  __typename?: 'Compartment';
-  code: Scalars['String'];
-  id: Scalars['ID'];
-  name: Scalars['String'];
+  __typename?: "Compartment";
+  code: Scalars["String"];
+  id: Scalars["ID"];
+  name: Scalars["String"];
   sections: Array<Section>;
 };
 
 export type CompartmentCheck = {
-  __typename?: 'CompartmentCheck';
-  code: Scalars['String'];
-  id: Scalars['ID'];
-  name: Scalars['String'];
+  __typename?: "CompartmentCheck";
+  code: Scalars["String"];
+  id: Scalars["ID"];
+  name: Scalars["String"];
   sections: Array<SectionCheck>;
 };
 
 export type CompartmentCheckInput = {
-  code: Scalars['String'];
-  id: Scalars['ID'];
-  name: Scalars['String'];
+  code: Scalars["String"];
+  id: Scalars["ID"];
+  name: Scalars["String"];
   sections: Array<SectionCheckInput>;
 };
 
 export type CreateCompartmentInput = {
-  code: Scalars['String'];
-  name: Scalars['String'];
+  code: Scalars["String"];
+  name: Scalars["String"];
 };
 
 export type CreateMaterialInput = {
-  date?: Maybe<Scalars['DateTime']>;
-  materialTypeId: Scalars['ID'];
-  serial?: Maybe<Scalars['String']>;
+  date?: Maybe<Scalars["DateTime"]>;
+  materialTypeId: Scalars["ID"];
+  serial?: Maybe<Scalars["String"]>;
 };
 
 export type CreateMaterialTypeInput = {
-  code: Scalars['String'];
-  codeFiche?: Maybe<Scalars['String']>;
-  description: Scalars['String'];
-  name: Scalars['String'];
+  code: Scalars["String"];
+  codeFiche?: Maybe<Scalars["String"]>;
+  description: Scalars["String"];
+  name: Scalars["String"];
 };
 
 export type CreateSectionInput = {
-  imageUrl: Scalars['String'];
-  name: Scalars['String'];
+  imageUrl: Scalars["String"];
+  name: Scalars["String"];
 };
 
 export type CreateTruckInput = {
-  code: Scalars['String'];
-  name: Scalars['String'];
+  code: Scalars["String"];
+  name: Scalars["String"];
 };
 
 export enum HistoryStatus {
-  Created = 'CREATED',
-  Finished = 'FINISHED',
-  Reviewed = 'REVIEWED'
+  Created = "CREATED",
+  Finished = "FINISHED",
+  Reviewed = "REVIEWED"
 }
 
 export type ImageSize = {
-  __typename?: 'ImageSize';
-  height: Scalars['Int'];
-  width: Scalars['Int'];
+  __typename?: "ImageSize";
+  height: Scalars["Int"];
+  width: Scalars["Int"];
 };
 
 export enum LogBookItemType {
-  MaterialCheck = 'MATERIAL_CHECK',
-  ProblemReport = 'PROBLEM_REPORT'
+  MaterialCheck = "MATERIAL_CHECK",
+  ProblemReport = "PROBLEM_REPORT"
 }
 
 export type LogbookFilterInput = {
-  from?: Maybe<Scalars['DateTime']>;
-  to?: Maybe<Scalars['DateTime']>;
-  truckIds?: Maybe<Array<Scalars['ID']>>;
+  from?: Maybe<Scalars["DateTime"]>;
+  to?: Maybe<Scalars["DateTime"]>;
+  truckIds?: Maybe<Array<Scalars["ID"]>>;
 };
 
 export type LogbookItem = MaterialCheckReport | ProblemReport;
 
 export type LogbookResult = {
-  __typename?: 'LogbookResult';
-  count: Scalars['Int'];
+  __typename?: "LogbookResult";
+  count: Scalars["Int"];
   items: Array<LogbookItem>;
 };
 
 export type Material = {
-  __typename?: 'Material';
-  date?: Maybe<Scalars['DateTime']>;
-  id: Scalars['ID'];
-  serial?: Maybe<Scalars['String']>;
+  __typename?: "Material";
+  date?: Maybe<Scalars["DateTime"]>;
+  id: Scalars["ID"];
+  serial?: Maybe<Scalars["String"]>;
   type: MaterialType;
 };
 
 export type MaterialCheck = {
-  __typename?: 'MaterialCheck';
-  amount: Scalars['Int'];
-  check: Scalars['Boolean'];
+  __typename?: "MaterialCheck";
+  amount: Scalars["Int"];
+  check: Scalars["Boolean"];
   materialType: MaterialType;
-  remark?: Maybe<Scalars['String']>;
+  remark?: Maybe<Scalars["String"]>;
 };
 
 export type MaterialCheckInput = {
-  amount: Scalars['Int'];
-  check: Scalars['Boolean'];
-  materialTypeId: Scalars['ID'];
-  remark?: Maybe<Scalars['String']>;
+  amount: Scalars["Int"];
+  check: Scalars["Boolean"];
+  materialTypeId: Scalars["ID"];
+  remark?: Maybe<Scalars["String"]>;
 };
 
 export type MaterialCheckReport = {
-  __typename?: 'MaterialCheckReport';
+  __typename?: "MaterialCheckReport";
   checks: Array<CompartmentCheck>;
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ID'];
+  createdAt: Scalars["DateTime"];
+  id: Scalars["ID"];
   statusHistory: Array<StatusHistoryItem>;
   truck: Truck;
   type: LogBookItemType;
@@ -133,43 +133,43 @@ export type MaterialCheckReport = {
 
 export type MaterialCheckReportInput = {
   checks: Array<CompartmentCheckInput>;
-  truckId: Scalars['ID'];
+  truckId: Scalars["ID"];
 };
 
 export type MaterialResult = {
-  __typename?: 'MaterialResult';
-  count: Scalars['Int'];
+  __typename?: "MaterialResult";
+  count: Scalars["Int"];
   items: Array<Material>;
 };
 
 export type MaterialType = {
-  __typename?: 'MaterialType';
-  code: Scalars['String'];
-  codeFiche?: Maybe<Scalars['String']>;
-  description: Scalars['String'];
-  id: Scalars['ID'];
-  name: Scalars['String'];
+  __typename?: "MaterialType";
+  code: Scalars["String"];
+  codeFiche?: Maybe<Scalars["String"]>;
+  description: Scalars["String"];
+  id: Scalars["ID"];
+  name: Scalars["String"];
 };
 
 export type MaterialTypeFilterInput = {
-  codes?: Maybe<Array<Scalars['String']>>;
-  search?: Maybe<Scalars['String']>;
+  codes?: Maybe<Array<Scalars["String"]>>;
+  search?: Maybe<Scalars["String"]>;
 };
 
 export type MaterialTypeResult = {
-  __typename?: 'MaterialTypeResult';
-  count: Scalars['Int'];
+  __typename?: "MaterialTypeResult";
+  count: Scalars["Int"];
   items: Array<MaterialType>;
 };
 
 export type MaterialsFilterInput = {
-  materialTypeId?: Maybe<Scalars['ID']>;
-  search?: Maybe<Scalars['String']>;
-  truckCodes?: Maybe<Array<Scalars['String']>>;
+  materialTypeId?: Maybe<Scalars["ID"]>;
+  search?: Maybe<Scalars["String"]>;
+  truckCodes?: Maybe<Array<Scalars["String"]>>;
 };
 
 export type Mutation = {
-  __typename?: 'Mutation';
+  __typename?: "Mutation";
   addLogbookStatusUpdate: LogbookItem;
   addMaterial: Truck;
   createCompartment: Truck;
@@ -185,22 +185,22 @@ export type Mutation = {
 
 
 export type MutationAddLogbookStatusUpdateArgs = {
-  logbookId: Scalars['ID'];
+  logbookId: Scalars["ID"];
   status: HistoryStatus;
 };
 
 
 export type MutationAddMaterialArgs = {
-  compartmentId: Scalars['ID'];
-  materialId: Scalars['ID'];
-  sectionId: Scalars['ID'];
-  truckId: Scalars['ID'];
+  compartmentId: Scalars["ID"];
+  materialId: Scalars["ID"];
+  sectionId: Scalars["ID"];
+  truckId: Scalars["ID"];
 };
 
 
 export type MutationCreateCompartmentArgs = {
   compartment: CreateCompartmentInput;
-  truckId: Scalars['ID'];
+  truckId: Scalars["ID"];
 };
 
 
@@ -220,17 +220,17 @@ export type MutationCreateMaterialTypeArgs = {
 
 
 export type MutationCreateMaterialWithTruckArgs = {
-  compartmentId: Scalars['ID'];
+  compartmentId: Scalars["ID"];
   material: CreateMaterialInput;
-  sectionId: Scalars['ID'];
-  truckId: Scalars['ID'];
+  sectionId: Scalars["ID"];
+  truckId: Scalars["ID"];
 };
 
 
 export type MutationCreateSectionArgs = {
-  compartmentId: Scalars['ID'];
+  compartmentId: Scalars["ID"];
   section: CreateSectionInput;
-  truckId: Scalars['ID'];
+  truckId: Scalars["ID"];
 };
 
 
@@ -240,20 +240,20 @@ export type MutationCreateTruckArgs = {
 
 
 export type MutationUpdateMaterialArgs = {
-  id: Scalars['String'];
+  id: Scalars["String"];
   material: UpdateMaterialInput;
 };
 
 
 export type MutationUpdateMaterialTypeArgs = {
-  id: Scalars['ID'];
+  id: Scalars["ID"];
   materialType: UpdateMaterialTypeInput;
 };
 
 export type ProblemReport = {
-  __typename?: 'ProblemReport';
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ID'];
+  __typename?: "ProblemReport";
+  createdAt: Scalars["DateTime"];
+  id: Scalars["ID"];
   issues: Array<ProblemReportIssue>;
   statusHistory: Array<StatusHistoryItem>;
   truck: Truck;
@@ -262,13 +262,13 @@ export type ProblemReport = {
 };
 
 export type ProblemReportIssue = {
-  __typename?: 'ProblemReportIssue';
-  description: Scalars['String'];
-  part: Scalars['String'];
+  __typename?: "ProblemReportIssue";
+  description: Scalars["String"];
+  part: Scalars["String"];
 };
 
 export type Query = {
-  __typename?: 'Query';
+  __typename?: "Query";
   logbook: LogbookResult;
   logbookItem: LogbookItem;
   material: Material;
@@ -276,210 +276,210 @@ export type Query = {
   materialTypes: MaterialTypeResult;
   materials: MaterialResult;
   truck: Truck;
-  truckPDF: Scalars['String'];
+  truckPDF: Scalars["String"];
   trucks: TruckResult;
 };
 
 
 export type QueryLogbookArgs = {
   filter: LogbookFilterInput;
-  limit?: Maybe<Scalars['Int']>;
-  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars["Int"]>;
+  skip?: Maybe<Scalars["Int"]>;
 };
 
 
 export type QueryLogbookItemArgs = {
-  id: Scalars['ID'];
+  id: Scalars["ID"];
 };
 
 
 export type QueryMaterialArgs = {
-  id: Scalars['ID'];
+  id: Scalars["ID"];
 };
 
 
 export type QueryMaterialTypeArgs = {
-  id: Scalars['ID'];
+  id: Scalars["ID"];
 };
 
 
 export type QueryMaterialTypesArgs = {
   filter?: Maybe<MaterialTypeFilterInput>;
-  limit?: Maybe<Scalars['Int']>;
-  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars["Int"]>;
+  skip?: Maybe<Scalars["Int"]>;
 };
 
 
 export type QueryMaterialsArgs = {
   filter?: Maybe<MaterialsFilterInput>;
-  limit?: Maybe<Scalars['Int']>;
-  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars["Int"]>;
+  skip?: Maybe<Scalars["Int"]>;
 };
 
 
 export type QueryTruckArgs = {
-  id: Scalars['ID'];
+  id: Scalars["ID"];
 };
 
 
 export type QueryTruckPdfArgs = {
-  id: Scalars['ID'];
+  id: Scalars["ID"];
 };
 
 
 export type QueryTrucksArgs = {
   filter?: Maybe<TruckFilterInput>;
-  limit?: Maybe<Scalars['Int']>;
-  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars["Int"]>;
+  skip?: Maybe<Scalars["Int"]>;
 };
 
 export type Section = {
-  __typename?: 'Section';
-  id: Scalars['ID'];
+  __typename?: "Section";
+  id: Scalars["ID"];
   imageSize?: Maybe<ImageSize>;
-  imageUrl?: Maybe<Scalars['String']>;
+  imageUrl?: Maybe<Scalars["String"]>;
   materials: Array<Material>;
-  name?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars["String"]>;
 };
 
 export type SectionCheck = {
-  __typename?: 'SectionCheck';
-  id: Scalars['ID'];
+  __typename?: "SectionCheck";
+  id: Scalars["ID"];
   materials: Array<MaterialCheck>;
-  name?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars["String"]>;
 };
 
 export type SectionCheckInput = {
-  id: Scalars['ID'];
+  id: Scalars["ID"];
   materials: Array<MaterialCheckInput>;
-  name?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars["String"]>;
 };
 
 export type StatusHistoryItem = {
-  __typename?: 'StatusHistoryItem';
+  __typename?: "StatusHistoryItem";
   status: HistoryStatus;
-  timestamp: Scalars['DateTime'];
+  timestamp: Scalars["DateTime"];
   user: User;
 };
 
 export type Truck = {
-  __typename?: 'Truck';
-  code: Scalars['String'];
+  __typename?: "Truck";
+  code: Scalars["String"];
   compartments: Array<Compartment>;
-  id: Scalars['ID'];
-  name: Scalars['String'];
+  id: Scalars["ID"];
+  name: Scalars["String"];
 };
 
 export type TruckFilterInput = {
-  search?: Maybe<Scalars['String']>;
+  search?: Maybe<Scalars["String"]>;
 };
 
 export type TruckResult = {
-  __typename?: 'TruckResult';
-  count: Scalars['Int'];
+  __typename?: "TruckResult";
+  count: Scalars["Int"];
   items: Array<Truck>;
 };
 
 export type UpdateMaterialInput = {
-  date?: Maybe<Scalars['DateTime']>;
-  serial?: Maybe<Scalars['String']>;
+  date?: Maybe<Scalars["DateTime"]>;
+  serial?: Maybe<Scalars["String"]>;
 };
 
 export type UpdateMaterialTypeInput = {
-  codeFiche?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
+  codeFiche?: Maybe<Scalars["String"]>;
+  description?: Maybe<Scalars["String"]>;
+  name?: Maybe<Scalars["String"]>;
 };
 
 export type User = {
-  __typename?: 'User';
-  email: Scalars['String'];
-  id: Scalars['ID'];
-  name: Scalars['String'];
-  profilePicture: Scalars['String'];
+  __typename?: "User";
+  email: Scalars["String"];
+  id: Scalars["ID"];
+  name: Scalars["String"];
+  profilePicture: Scalars["String"];
 };
 
-export type MaterialCheckReportFieldsFragment = { __typename?: 'MaterialCheckReport', id: string, createdAt: any, type: LogBookItemType, truck: { __typename?: 'Truck', id: string, name: string }, user: { __typename?: 'User', id: string, name: string }, statusHistory: Array<{ __typename?: 'StatusHistoryItem', status: HistoryStatus, timestamp: any, user: { __typename?: 'User', id: string, name: string } }>, checks: Array<{ __typename?: 'CompartmentCheck', id: string, code: string, name: string, sections: Array<{ __typename?: 'SectionCheck', id: string, name?: string | null | undefined, materials: Array<{ __typename?: 'MaterialCheck', amount: number, check: boolean, remark?: string | null | undefined, materialType: { __typename?: 'MaterialType', id: string, name: string } }> }> }> };
+export type MaterialCheckReportFieldsFragment = { __typename?: "MaterialCheckReport", id: string, createdAt: any, type: LogBookItemType, truck: { __typename?: "Truck", id: string, name: string }, user: { __typename?: "User", id: string, name: string }, statusHistory: Array<{ __typename?: "StatusHistoryItem", status: HistoryStatus, timestamp: any, user: { __typename?: "User", id: string, name: string } }>, checks: Array<{ __typename?: "CompartmentCheck", id: string, code: string, name: string, sections: Array<{ __typename?: "SectionCheck", id: string, name?: string | null | undefined, materials: Array<{ __typename?: "MaterialCheck", amount: number, check: boolean, remark?: string | null | undefined, materialType: { __typename?: "MaterialType", id: string, name: string } }> }> }> };
 
-export type TruckDetailFragmentFragment = { __typename?: 'Truck', id: string, code: string, name: string, compartments: Array<{ __typename?: 'Compartment', id: string, code: string, name: string, sections: Array<{ __typename?: 'Section', id: string, name?: string | null | undefined, imageUrl?: string | null | undefined, materials: Array<{ __typename?: 'Material', id: string, serial?: string | null | undefined, date?: any | null | undefined, type: { __typename?: 'MaterialType', id: string, code: string, name: string, description: string, codeFiche?: string | null | undefined } }> }> }> };
+export type TruckDetailFragmentFragment = { __typename?: "Truck", id: string, code: string, name: string, compartments: Array<{ __typename?: "Compartment", id: string, code: string, name: string, sections: Array<{ __typename?: "Section", id: string, name?: string | null | undefined, imageUrl?: string | null | undefined, materials: Array<{ __typename?: "Material", id: string, serial?: string | null | undefined, date?: any | null | undefined, type: { __typename?: "MaterialType", id: string, code: string, name: string, description: string, codeFiche?: string | null | undefined } }> }> }> };
 
 export type AddLogbookStatusUpdateMutationVariables = Exact<{
-  logbookId: Scalars['ID'];
+  logbookId: Scalars["ID"];
   status: HistoryStatus;
 }>;
 
 
-export type AddLogbookStatusUpdateMutation = { __typename?: 'Mutation', addLogbookStatusUpdate: { __typename?: 'MaterialCheckReport', id: string, createdAt: any, type: LogBookItemType, truck: { __typename?: 'Truck', id: string, name: string }, user: { __typename?: 'User', id: string, name: string }, statusHistory: Array<{ __typename?: 'StatusHistoryItem', status: HistoryStatus, timestamp: any, user: { __typename?: 'User', id: string, name: string } }>, checks: Array<{ __typename?: 'CompartmentCheck', id: string, code: string, name: string, sections: Array<{ __typename?: 'SectionCheck', id: string, name?: string | null | undefined, materials: Array<{ __typename?: 'MaterialCheck', amount: number, check: boolean, remark?: string | null | undefined, materialType: { __typename?: 'MaterialType', id: string, name: string } }> }> }> } | { __typename?: 'ProblemReport' } };
+export type AddLogbookStatusUpdateMutation = { __typename?: "Mutation", addLogbookStatusUpdate: { __typename?: "MaterialCheckReport", id: string, createdAt: any, type: LogBookItemType, truck: { __typename?: "Truck", id: string, name: string }, user: { __typename?: "User", id: string, name: string }, statusHistory: Array<{ __typename?: "StatusHistoryItem", status: HistoryStatus, timestamp: any, user: { __typename?: "User", id: string, name: string } }>, checks: Array<{ __typename?: "CompartmentCheck", id: string, code: string, name: string, sections: Array<{ __typename?: "SectionCheck", id: string, name?: string | null | undefined, materials: Array<{ __typename?: "MaterialCheck", amount: number, check: boolean, remark?: string | null | undefined, materialType: { __typename?: "MaterialType", id: string, name: string } }> }> }> } | { __typename?: "ProblemReport" } };
 
 export type CreateCompartmentMutationVariables = Exact<{
-  truckId: Scalars['ID'];
+  truckId: Scalars["ID"];
   compartment: CreateCompartmentInput;
 }>;
 
 
-export type CreateCompartmentMutation = { __typename?: 'Mutation', createCompartment: { __typename?: 'Truck', id: string, code: string, name: string, compartments: Array<{ __typename?: 'Compartment', id: string, code: string, name: string, sections: Array<{ __typename?: 'Section', id: string, name?: string | null | undefined, imageUrl?: string | null | undefined, materials: Array<{ __typename?: 'Material', id: string, serial?: string | null | undefined, date?: any | null | undefined, type: { __typename?: 'MaterialType', id: string, code: string, name: string, description: string, codeFiche?: string | null | undefined } }> }> }> } };
+export type CreateCompartmentMutation = { __typename?: "Mutation", createCompartment: { __typename?: "Truck", id: string, code: string, name: string, compartments: Array<{ __typename?: "Compartment", id: string, code: string, name: string, sections: Array<{ __typename?: "Section", id: string, name?: string | null | undefined, imageUrl?: string | null | undefined, materials: Array<{ __typename?: "Material", id: string, serial?: string | null | undefined, date?: any | null | undefined, type: { __typename?: "MaterialType", id: string, code: string, name: string, description: string, codeFiche?: string | null | undefined } }> }> }> } };
 
 export type CreateMaterialCheckMutationVariables = Exact<{
   materialCheck: MaterialCheckReportInput;
 }>;
 
 
-export type CreateMaterialCheckMutation = { __typename?: 'Mutation', createMaterialCheck: { __typename?: 'MaterialCheckReport', id: string, createdAt: any, type: LogBookItemType, truck: { __typename?: 'Truck', id: string, name: string }, user: { __typename?: 'User', id: string, name: string }, checks: Array<{ __typename?: 'CompartmentCheck', id: string, code: string, name: string, sections: Array<{ __typename?: 'SectionCheck', id: string, name?: string | null | undefined, materials: Array<{ __typename?: 'MaterialCheck', amount: number, check: boolean, remark?: string | null | undefined, materialType: { __typename?: 'MaterialType', id: string } }> }> }> } };
+export type CreateMaterialCheckMutation = { __typename?: "Mutation", createMaterialCheck: { __typename?: "MaterialCheckReport", id: string, createdAt: any, type: LogBookItemType, truck: { __typename?: "Truck", id: string, name: string }, user: { __typename?: "User", id: string, name: string }, checks: Array<{ __typename?: "CompartmentCheck", id: string, code: string, name: string, sections: Array<{ __typename?: "SectionCheck", id: string, name?: string | null | undefined, materials: Array<{ __typename?: "MaterialCheck", amount: number, check: boolean, remark?: string | null | undefined, materialType: { __typename?: "MaterialType", id: string } }> }> }> } };
 
 export type CreateMaterialTypeMutationVariables = Exact<{
   materialType: CreateMaterialTypeInput;
 }>;
 
 
-export type CreateMaterialTypeMutation = { __typename?: 'Mutation', createMaterialType: { __typename?: 'MaterialType', id: string, code: string, name: string, description: string, codeFiche?: string | null | undefined } };
+export type CreateMaterialTypeMutation = { __typename?: "Mutation", createMaterialType: { __typename?: "MaterialType", id: string, code: string, name: string, description: string, codeFiche?: string | null | undefined } };
 
 export type CreateMaterialWithTruckMutationVariables = Exact<{
-  truckId: Scalars['ID'];
-  compartmentId: Scalars['ID'];
-  sectionId: Scalars['ID'];
+  truckId: Scalars["ID"];
+  compartmentId: Scalars["ID"];
+  sectionId: Scalars["ID"];
   material: CreateMaterialInput;
 }>;
 
 
-export type CreateMaterialWithTruckMutation = { __typename?: 'Mutation', createMaterialWithTruck: { __typename?: 'Truck', id: string, code: string, name: string, compartments: Array<{ __typename?: 'Compartment', id: string, code: string, name: string, sections: Array<{ __typename?: 'Section', id: string, name?: string | null | undefined, imageUrl?: string | null | undefined, materials: Array<{ __typename?: 'Material', id: string, serial?: string | null | undefined, date?: any | null | undefined, type: { __typename?: 'MaterialType', id: string, code: string, name: string, description: string, codeFiche?: string | null | undefined } }> }> }> } };
+export type CreateMaterialWithTruckMutation = { __typename?: "Mutation", createMaterialWithTruck: { __typename?: "Truck", id: string, code: string, name: string, compartments: Array<{ __typename?: "Compartment", id: string, code: string, name: string, sections: Array<{ __typename?: "Section", id: string, name?: string | null | undefined, imageUrl?: string | null | undefined, materials: Array<{ __typename?: "Material", id: string, serial?: string | null | undefined, date?: any | null | undefined, type: { __typename?: "MaterialType", id: string, code: string, name: string, description: string, codeFiche?: string | null | undefined } }> }> }> } };
 
 export type CreateSectionMutationVariables = Exact<{
-  truckId: Scalars['ID'];
-  compartmentId: Scalars['ID'];
+  truckId: Scalars["ID"];
+  compartmentId: Scalars["ID"];
   section: CreateSectionInput;
 }>;
 
 
-export type CreateSectionMutation = { __typename?: 'Mutation', createSection: { __typename?: 'Truck', id: string, code: string, name: string, compartments: Array<{ __typename?: 'Compartment', id: string, code: string, name: string, sections: Array<{ __typename?: 'Section', id: string, name?: string | null | undefined, imageUrl?: string | null | undefined, materials: Array<{ __typename?: 'Material', id: string, serial?: string | null | undefined, date?: any | null | undefined, type: { __typename?: 'MaterialType', id: string, code: string, name: string, description: string, codeFiche?: string | null | undefined } }> }> }> } };
+export type CreateSectionMutation = { __typename?: "Mutation", createSection: { __typename?: "Truck", id: string, code: string, name: string, compartments: Array<{ __typename?: "Compartment", id: string, code: string, name: string, sections: Array<{ __typename?: "Section", id: string, name?: string | null | undefined, imageUrl?: string | null | undefined, materials: Array<{ __typename?: "Material", id: string, serial?: string | null | undefined, date?: any | null | undefined, type: { __typename?: "MaterialType", id: string, code: string, name: string, description: string, codeFiche?: string | null | undefined } }> }> }> } };
 
 export type GetLogbookQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetLogbookQuery = { __typename?: 'Query', logbook: { __typename?: 'LogbookResult', count: number, items: Array<{ __typename?: 'MaterialCheckReport', id: string, createdAt: any, type: LogBookItemType, truck: { __typename?: 'Truck', id: string, name: string, code: string }, user: { __typename?: 'User', id: string, name: string } } | { __typename?: 'ProblemReport', id: string, createdAt: any, type: LogBookItemType, truck: { __typename?: 'Truck', id: string, name: string, code: string }, user: { __typename?: 'User', id: string, name: string } }> } };
+export type GetLogbookQuery = { __typename?: "Query", logbook: { __typename?: "LogbookResult", count: number, items: Array<{ __typename?: "MaterialCheckReport", id: string, createdAt: any, type: LogBookItemType, truck: { __typename?: "Truck", id: string, name: string, code: string }, user: { __typename?: "User", id: string, name: string } } | { __typename?: "ProblemReport", id: string, createdAt: any, type: LogBookItemType, truck: { __typename?: "Truck", id: string, name: string, code: string }, user: { __typename?: "User", id: string, name: string } }> } };
 
 export type GetLogbookItemQueryVariables = Exact<{
-  id: Scalars['ID'];
+  id: Scalars["ID"];
 }>;
 
 
-export type GetLogbookItemQuery = { __typename?: 'Query', logbookItem: { __typename: 'MaterialCheckReport', id: string, createdAt: any, type: LogBookItemType, truck: { __typename?: 'Truck', id: string, name: string }, user: { __typename?: 'User', id: string, name: string }, statusHistory: Array<{ __typename?: 'StatusHistoryItem', status: HistoryStatus, timestamp: any, user: { __typename?: 'User', id: string, name: string } }>, checks: Array<{ __typename?: 'CompartmentCheck', id: string, code: string, name: string, sections: Array<{ __typename?: 'SectionCheck', id: string, name?: string | null | undefined, materials: Array<{ __typename?: 'MaterialCheck', amount: number, check: boolean, remark?: string | null | undefined, materialType: { __typename?: 'MaterialType', id: string, name: string } }> }> }> } | { __typename: 'ProblemReport', id: string, createdAt: any, type: LogBookItemType, truck: { __typename?: 'Truck', id: string, name: string, code: string }, user: { __typename?: 'User', id: string, name: string }, issues: Array<{ __typename?: 'ProblemReportIssue', part: string, description: string }> } };
+export type GetLogbookItemQuery = { __typename?: "Query", logbookItem: { __typename: "MaterialCheckReport", id: string, createdAt: any, type: LogBookItemType, truck: { __typename?: "Truck", id: string, name: string }, user: { __typename?: "User", id: string, name: string }, statusHistory: Array<{ __typename?: "StatusHistoryItem", status: HistoryStatus, timestamp: any, user: { __typename?: "User", id: string, name: string } }>, checks: Array<{ __typename?: "CompartmentCheck", id: string, code: string, name: string, sections: Array<{ __typename?: "SectionCheck", id: string, name?: string | null | undefined, materials: Array<{ __typename?: "MaterialCheck", amount: number, check: boolean, remark?: string | null | undefined, materialType: { __typename?: "MaterialType", id: string, name: string } }> }> }> } | { __typename: "ProblemReport", id: string, createdAt: any, type: LogBookItemType, truck: { __typename?: "Truck", id: string, name: string, code: string }, user: { __typename?: "User", id: string, name: string }, issues: Array<{ __typename?: "ProblemReportIssue", part: string, description: string }> } };
 
 export type GetMaterialTypesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetMaterialTypesQuery = { __typename?: 'Query', materialTypes: { __typename?: 'MaterialTypeResult', count: number, items: Array<{ __typename?: 'MaterialType', id: string, code: string, name: string, description: string, codeFiche?: string | null | undefined }> } };
+export type GetMaterialTypesQuery = { __typename?: "Query", materialTypes: { __typename?: "MaterialTypeResult", count: number, items: Array<{ __typename?: "MaterialType", id: string, code: string, name: string, description: string, codeFiche?: string | null | undefined }> } };
 
 export type GetTruckQueryVariables = Exact<{
-  id: Scalars['ID'];
+  id: Scalars["ID"];
 }>;
 
 
-export type GetTruckQuery = { __typename?: 'Query', truck: { __typename?: 'Truck', id: string, code: string, name: string, compartments: Array<{ __typename?: 'Compartment', id: string, code: string, name: string, sections: Array<{ __typename?: 'Section', id: string, name?: string | null | undefined, imageUrl?: string | null | undefined, materials: Array<{ __typename?: 'Material', id: string, serial?: string | null | undefined, date?: any | null | undefined, type: { __typename?: 'MaterialType', id: string, code: string, name: string, description: string, codeFiche?: string | null | undefined } }> }> }> } };
+export type GetTruckQuery = { __typename?: "Query", truck: { __typename?: "Truck", id: string, code: string, name: string, compartments: Array<{ __typename?: "Compartment", id: string, code: string, name: string, sections: Array<{ __typename?: "Section", id: string, name?: string | null | undefined, imageUrl?: string | null | undefined, materials: Array<{ __typename?: "Material", id: string, serial?: string | null | undefined, date?: any | null | undefined, type: { __typename?: "MaterialType", id: string, code: string, name: string, description: string, codeFiche?: string | null | undefined } }> }> }> } };
 
 export type GetTrucksQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetTrucksQuery = { __typename?: 'Query', trucks: { __typename?: 'TruckResult', count: number, items: Array<{ __typename?: 'Truck', id: string, code: string, name: string }> } };
+export type GetTrucksQuery = { __typename?: "Query", trucks: { __typename?: "TruckResult", count: number, items: Array<{ __typename?: "Truck", id: string, code: string, name: string }> } };
 
 export const MaterialCheckReportFieldsFragmentDoc = gql`
     fragment MaterialCheckReportFields on MaterialCheckReport {
@@ -581,9 +581,9 @@ export type AddLogbookStatusUpdateMutationFn = Apollo.MutationFunction<AddLogboo
  * });
  */
 export function useAddLogbookStatusUpdateMutation(baseOptions?: Apollo.MutationHookOptions<AddLogbookStatusUpdateMutation, AddLogbookStatusUpdateMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<AddLogbookStatusUpdateMutation, AddLogbookStatusUpdateMutationVariables>(AddLogbookStatusUpdateDocument, options);
-      }
+  const options = {...defaultOptions, ...baseOptions};
+  return Apollo.useMutation<AddLogbookStatusUpdateMutation, AddLogbookStatusUpdateMutationVariables>(AddLogbookStatusUpdateDocument, options);
+}
 export type AddLogbookStatusUpdateMutationHookResult = ReturnType<typeof useAddLogbookStatusUpdateMutation>;
 export type AddLogbookStatusUpdateMutationResult = Apollo.MutationResult<AddLogbookStatusUpdateMutation>;
 export type AddLogbookStatusUpdateMutationOptions = Apollo.BaseMutationOptions<AddLogbookStatusUpdateMutation, AddLogbookStatusUpdateMutationVariables>;
@@ -615,9 +615,9 @@ export type CreateCompartmentMutationFn = Apollo.MutationFunction<CreateCompartm
  * });
  */
 export function useCreateCompartmentMutation(baseOptions?: Apollo.MutationHookOptions<CreateCompartmentMutation, CreateCompartmentMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreateCompartmentMutation, CreateCompartmentMutationVariables>(CreateCompartmentDocument, options);
-      }
+  const options = {...defaultOptions, ...baseOptions};
+  return Apollo.useMutation<CreateCompartmentMutation, CreateCompartmentMutationVariables>(CreateCompartmentDocument, options);
+}
 export type CreateCompartmentMutationHookResult = ReturnType<typeof useCreateCompartmentMutation>;
 export type CreateCompartmentMutationResult = Apollo.MutationResult<CreateCompartmentMutation>;
 export type CreateCompartmentMutationOptions = Apollo.BaseMutationOptions<CreateCompartmentMutation, CreateCompartmentMutationVariables>;
@@ -675,9 +675,9 @@ export type CreateMaterialCheckMutationFn = Apollo.MutationFunction<CreateMateri
  * });
  */
 export function useCreateMaterialCheckMutation(baseOptions?: Apollo.MutationHookOptions<CreateMaterialCheckMutation, CreateMaterialCheckMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreateMaterialCheckMutation, CreateMaterialCheckMutationVariables>(CreateMaterialCheckDocument, options);
-      }
+  const options = {...defaultOptions, ...baseOptions};
+  return Apollo.useMutation<CreateMaterialCheckMutation, CreateMaterialCheckMutationVariables>(CreateMaterialCheckDocument, options);
+}
 export type CreateMaterialCheckMutationHookResult = ReturnType<typeof useCreateMaterialCheckMutation>;
 export type CreateMaterialCheckMutationResult = Apollo.MutationResult<CreateMaterialCheckMutation>;
 export type CreateMaterialCheckMutationOptions = Apollo.BaseMutationOptions<CreateMaterialCheckMutation, CreateMaterialCheckMutationVariables>;
@@ -712,9 +712,9 @@ export type CreateMaterialTypeMutationFn = Apollo.MutationFunction<CreateMateria
  * });
  */
 export function useCreateMaterialTypeMutation(baseOptions?: Apollo.MutationHookOptions<CreateMaterialTypeMutation, CreateMaterialTypeMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreateMaterialTypeMutation, CreateMaterialTypeMutationVariables>(CreateMaterialTypeDocument, options);
-      }
+  const options = {...defaultOptions, ...baseOptions};
+  return Apollo.useMutation<CreateMaterialTypeMutation, CreateMaterialTypeMutationVariables>(CreateMaterialTypeDocument, options);
+}
 export type CreateMaterialTypeMutationHookResult = ReturnType<typeof useCreateMaterialTypeMutation>;
 export type CreateMaterialTypeMutationResult = Apollo.MutationResult<CreateMaterialTypeMutation>;
 export type CreateMaterialTypeMutationOptions = Apollo.BaseMutationOptions<CreateMaterialTypeMutation, CreateMaterialTypeMutationVariables>;
@@ -753,9 +753,9 @@ export type CreateMaterialWithTruckMutationFn = Apollo.MutationFunction<CreateMa
  * });
  */
 export function useCreateMaterialWithTruckMutation(baseOptions?: Apollo.MutationHookOptions<CreateMaterialWithTruckMutation, CreateMaterialWithTruckMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreateMaterialWithTruckMutation, CreateMaterialWithTruckMutationVariables>(CreateMaterialWithTruckDocument, options);
-      }
+  const options = {...defaultOptions, ...baseOptions};
+  return Apollo.useMutation<CreateMaterialWithTruckMutation, CreateMaterialWithTruckMutationVariables>(CreateMaterialWithTruckDocument, options);
+}
 export type CreateMaterialWithTruckMutationHookResult = ReturnType<typeof useCreateMaterialWithTruckMutation>;
 export type CreateMaterialWithTruckMutationResult = Apollo.MutationResult<CreateMaterialWithTruckMutation>;
 export type CreateMaterialWithTruckMutationOptions = Apollo.BaseMutationOptions<CreateMaterialWithTruckMutation, CreateMaterialWithTruckMutationVariables>;
@@ -792,9 +792,9 @@ export type CreateSectionMutationFn = Apollo.MutationFunction<CreateSectionMutat
  * });
  */
 export function useCreateSectionMutation(baseOptions?: Apollo.MutationHookOptions<CreateSectionMutation, CreateSectionMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreateSectionMutation, CreateSectionMutationVariables>(CreateSectionDocument, options);
-      }
+  const options = {...defaultOptions, ...baseOptions};
+  return Apollo.useMutation<CreateSectionMutation, CreateSectionMutationVariables>(CreateSectionDocument, options);
+}
 export type CreateSectionMutationHookResult = ReturnType<typeof useCreateSectionMutation>;
 export type CreateSectionMutationResult = Apollo.MutationResult<CreateSectionMutation>;
 export type CreateSectionMutationOptions = Apollo.BaseMutationOptions<CreateSectionMutation, CreateSectionMutationVariables>;
@@ -852,13 +852,13 @@ export const GetLogbookDocument = gql`
  * });
  */
 export function useGetLogbookQuery(baseOptions?: Apollo.QueryHookOptions<GetLogbookQuery, GetLogbookQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetLogbookQuery, GetLogbookQueryVariables>(GetLogbookDocument, options);
-      }
+  const options = {...defaultOptions, ...baseOptions};
+  return Apollo.useQuery<GetLogbookQuery, GetLogbookQueryVariables>(GetLogbookDocument, options);
+}
 export function useGetLogbookLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetLogbookQuery, GetLogbookQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetLogbookQuery, GetLogbookQueryVariables>(GetLogbookDocument, options);
-        }
+  const options = {...defaultOptions, ...baseOptions};
+  return Apollo.useLazyQuery<GetLogbookQuery, GetLogbookQueryVariables>(GetLogbookDocument, options);
+}
 export type GetLogbookQueryHookResult = ReturnType<typeof useGetLogbookQuery>;
 export type GetLogbookLazyQueryHookResult = ReturnType<typeof useGetLogbookLazyQuery>;
 export type GetLogbookQueryResult = Apollo.QueryResult<GetLogbookQuery, GetLogbookQueryVariables>;
@@ -908,13 +908,13 @@ export const GetLogbookItemDocument = gql`
  * });
  */
 export function useGetLogbookItemQuery(baseOptions: Apollo.QueryHookOptions<GetLogbookItemQuery, GetLogbookItemQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetLogbookItemQuery, GetLogbookItemQueryVariables>(GetLogbookItemDocument, options);
-      }
+  const options = {...defaultOptions, ...baseOptions};
+  return Apollo.useQuery<GetLogbookItemQuery, GetLogbookItemQueryVariables>(GetLogbookItemDocument, options);
+}
 export function useGetLogbookItemLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetLogbookItemQuery, GetLogbookItemQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetLogbookItemQuery, GetLogbookItemQueryVariables>(GetLogbookItemDocument, options);
-        }
+  const options = {...defaultOptions, ...baseOptions};
+  return Apollo.useLazyQuery<GetLogbookItemQuery, GetLogbookItemQueryVariables>(GetLogbookItemDocument, options);
+}
 export type GetLogbookItemQueryHookResult = ReturnType<typeof useGetLogbookItemQuery>;
 export type GetLogbookItemLazyQueryHookResult = ReturnType<typeof useGetLogbookItemLazyQuery>;
 export type GetLogbookItemQueryResult = Apollo.QueryResult<GetLogbookItemQuery, GetLogbookItemQueryVariables>;
@@ -949,13 +949,13 @@ export const GetMaterialTypesDocument = gql`
  * });
  */
 export function useGetMaterialTypesQuery(baseOptions?: Apollo.QueryHookOptions<GetMaterialTypesQuery, GetMaterialTypesQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetMaterialTypesQuery, GetMaterialTypesQueryVariables>(GetMaterialTypesDocument, options);
-      }
+  const options = {...defaultOptions, ...baseOptions};
+  return Apollo.useQuery<GetMaterialTypesQuery, GetMaterialTypesQueryVariables>(GetMaterialTypesDocument, options);
+}
 export function useGetMaterialTypesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetMaterialTypesQuery, GetMaterialTypesQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetMaterialTypesQuery, GetMaterialTypesQueryVariables>(GetMaterialTypesDocument, options);
-        }
+  const options = {...defaultOptions, ...baseOptions};
+  return Apollo.useLazyQuery<GetMaterialTypesQuery, GetMaterialTypesQueryVariables>(GetMaterialTypesDocument, options);
+}
 export type GetMaterialTypesQueryHookResult = ReturnType<typeof useGetMaterialTypesQuery>;
 export type GetMaterialTypesLazyQueryHookResult = ReturnType<typeof useGetMaterialTypesLazyQuery>;
 export type GetMaterialTypesQueryResult = Apollo.QueryResult<GetMaterialTypesQuery, GetMaterialTypesQueryVariables>;
@@ -984,13 +984,13 @@ export const GetTruckDocument = gql`
  * });
  */
 export function useGetTruckQuery(baseOptions: Apollo.QueryHookOptions<GetTruckQuery, GetTruckQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetTruckQuery, GetTruckQueryVariables>(GetTruckDocument, options);
-      }
+  const options = {...defaultOptions, ...baseOptions};
+  return Apollo.useQuery<GetTruckQuery, GetTruckQueryVariables>(GetTruckDocument, options);
+}
 export function useGetTruckLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetTruckQuery, GetTruckQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetTruckQuery, GetTruckQueryVariables>(GetTruckDocument, options);
-        }
+  const options = {...defaultOptions, ...baseOptions};
+  return Apollo.useLazyQuery<GetTruckQuery, GetTruckQueryVariables>(GetTruckDocument, options);
+}
 export type GetTruckQueryHookResult = ReturnType<typeof useGetTruckQuery>;
 export type GetTruckLazyQueryHookResult = ReturnType<typeof useGetTruckLazyQuery>;
 export type GetTruckQueryResult = Apollo.QueryResult<GetTruckQuery, GetTruckQueryVariables>;
@@ -1023,13 +1023,13 @@ export const GetTrucksDocument = gql`
  * });
  */
 export function useGetTrucksQuery(baseOptions?: Apollo.QueryHookOptions<GetTrucksQuery, GetTrucksQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetTrucksQuery, GetTrucksQueryVariables>(GetTrucksDocument, options);
-      }
+  const options = {...defaultOptions, ...baseOptions};
+  return Apollo.useQuery<GetTrucksQuery, GetTrucksQueryVariables>(GetTrucksDocument, options);
+}
 export function useGetTrucksLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetTrucksQuery, GetTrucksQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetTrucksQuery, GetTrucksQueryVariables>(GetTrucksDocument, options);
-        }
+  const options = {...defaultOptions, ...baseOptions};
+  return Apollo.useLazyQuery<GetTrucksQuery, GetTrucksQueryVariables>(GetTrucksDocument, options);
+}
 export type GetTrucksQueryHookResult = ReturnType<typeof useGetTrucksQuery>;
 export type GetTrucksLazyQueryHookResult = ReturnType<typeof useGetTrucksLazyQuery>;
 export type GetTrucksQueryResult = Apollo.QueryResult<GetTrucksQuery, GetTrucksQueryVariables>;

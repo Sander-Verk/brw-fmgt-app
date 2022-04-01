@@ -1,10 +1,10 @@
-import { useMutation } from '@apollo/client';
-import { Button, Form, Input, Modal } from 'antd';
-import * as React from 'react';
-import { useTranslation } from 'react-i18next';
-import ErrorMessage from 'components/errorMessage/errorMessage';
-import './styles.scss';
-import { MUTATION_CREATE_COMPARTMENT } from 'graphql/mutations/createCompartment';
+import { useMutation } from "@apollo/client";
+import { Button, Form, Input, Modal } from "antd";
+import * as React from "react";
+import { useTranslation } from "react-i18next";
+import ErrorMessage from "components/errorMessage/errorMessage";
+import "./styles.scss";
+import { MUTATION_CREATE_COMPARTMENT } from "graphql/mutations/createCompartment";
 
 interface Props {
   truckId: string;
@@ -48,9 +48,9 @@ const AddCompartmentModal: React.FC<Props> = ({ truckId }) => {
   return (
     <>
       <Button type="primary" onClick={showModal}>
-        {t('addCompartmentModal.openBtn')}
+        {t("addCompartmentModal.openBtn")}
       </Button>
-      <Modal title={t('addCompartmentModal.title')} visible={isModalVisible} onOk={form.submit} onCancel={handleReset} cancelText={t('btn.cancel')} okText={t('btn.save')}>
+      <Modal title={t("addCompartmentModal.title")} visible={isModalVisible} onOk={form.submit} onCancel={handleReset} cancelText={t("btn.cancel")} okText={t("btn.save")}>
         { graphqlError && (
           <ErrorMessage message={graphqlError}></ErrorMessage>
         )}
@@ -63,7 +63,7 @@ const AddCompartmentModal: React.FC<Props> = ({ truckId }) => {
           <Form.Item
             label="Code"
             name="code"
-            rules={[{ required: true, message: 'This field is required' }]}
+            rules={[{ required: true, message: "This field is required" }]}
           >
             <Input />
           </Form.Item>
@@ -71,7 +71,7 @@ const AddCompartmentModal: React.FC<Props> = ({ truckId }) => {
           <Form.Item
             label="Name"
             name="name"
-            rules={[{ required: true, message: 'This field is required' }]}
+            rules={[{ required: true, message: "This field is required" }]}
           >
             <Input />
           </Form.Item>

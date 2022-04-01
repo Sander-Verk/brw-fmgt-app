@@ -2,17 +2,17 @@ import { CarOutlined, ToolOutlined, BookOutlined } from "@ant-design/icons";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router-dom";
-import './styles.scss';
+import "./styles.scss";
 
 interface Props {
   onUrlChange: () => void;
-};
+}
 
 const items: { text: string; icon: any; url: string }[] = [
- { text: "navigation.trucks", icon: CarOutlined, url: "/trucks" },
- { text: "navigation.materials", icon: ToolOutlined, url: "/materials" },
- { text: "navigation.logbook", icon: BookOutlined, url: "/logbook" },
-]
+  { text: "navigation.trucks", icon: CarOutlined, url: "/trucks" },
+  { text: "navigation.materials", icon: ToolOutlined, url: "/materials" },
+  { text: "navigation.logbook", icon: BookOutlined, url: "/logbook" },
+];
 
 const SideNavigation: React.FC<Props> = ({ onUrlChange }) => {
   const { t } = useTranslation();
@@ -27,6 +27,6 @@ const SideNavigation: React.FC<Props> = ({ onUrlChange }) => {
       ))}
     </div>
   );
-}
+};
 
 export default SideNavigation;

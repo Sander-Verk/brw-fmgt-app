@@ -1,14 +1,14 @@
-import { useMutation } from '@apollo/client';
-import { Button, Col, Form, Row, Select } from 'antd';
-import * as React from 'react';
-import { useTranslation } from 'react-i18next';
+import { useMutation } from "@apollo/client";
+import { Button, Col, Form, Row, Select } from "antd";
+import * as React from "react";
+import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
-import { GetTrucksQuery, LogBookItemType } from 'graphql/schema';
-import ErrorMessage from '../errorMessage/errorMessage';
-import MaterialCheckForm from './components/materialCheckForm/materialCheckForm';
-import ProblemReportForm from './components/problemReportForm/problemReportForm';
-import './styles.scss';
-import { MUTATION_CREATE_MATERIAL_CHECK } from 'graphql/mutations/createMaterialCheck';
+import { GetTrucksQuery, LogBookItemType } from "graphql/schema";
+import ErrorMessage from "../errorMessage/errorMessage";
+import MaterialCheckForm from "./components/materialCheckForm/materialCheckForm";
+import ProblemReportForm from "./components/problemReportForm/problemReportForm";
+import "./styles.scss";
+import { MUTATION_CREATE_MATERIAL_CHECK } from "graphql/mutations/createMaterialCheck";
 
 const { Option } = Select;
 
@@ -16,7 +16,7 @@ interface Props {
   trucks: GetTrucksQuery;
   type?: string;
 }
-const className = 'AddLogbookItem';
+const className = "AddLogbookItem";
 
 const AddLogbookItem: React.FC<Props> = ({ trucks, type = LogBookItemType.MaterialCheck }) => {
   const { t } = useTranslation();
@@ -47,7 +47,7 @@ const AddLogbookItem: React.FC<Props> = ({ trucks, type = LogBookItemType.Materi
 
   const onChange = (value: string) => {
     setSelectedTruckId(value);
-  }
+  };
 
   return (
     <div className={className}>
@@ -67,10 +67,10 @@ const AddLogbookItem: React.FC<Props> = ({ trucks, type = LogBookItemType.Materi
       >
         <Row gutter={[16, 16]}>
           <Col span={12} offset={6}>
-            <Form.Item name="truckId" rules={[{ required: true, message: 'This field is required' }]}>
+            <Form.Item name="truckId" rules={[{ required: true, message: "This field is required" }]}>
               <Select
                 showSearch
-                style={{ width: '100%' }}
+                style={{ width: "100%" }}
                 placeholder={t("problemReportForm.truck.placeholder")}
                 filterOption={(input: any, option: any) =>
                   option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
@@ -93,10 +93,10 @@ const AddLogbookItem: React.FC<Props> = ({ trucks, type = LogBookItemType.Materi
       </Form>
 
       <Button type="primary" onClick={form.submit}>
-        {t('problemReportForm.save')}
+        {t("problemReportForm.save")}
       </Button>
     </div>
-  )
+  );
 };
 
 export default AddLogbookItem;

@@ -1,12 +1,12 @@
-import { PlusCircleOutlined } from '@ant-design/icons';
-import { useMutation } from '@apollo/client';
-import { DatePicker, Form, Input, Modal, Select } from 'antd';
-import * as React from 'react';
-import { useTranslation } from 'react-i18next';
-import { useGetMaterialTypesQuery } from 'graphql/schema';
-import ErrorMessage from 'components/errorMessage/errorMessage';
-import './styles.scss';
-import { MUTATION_CREATE_MATERIAL_WITH_TRUCK } from 'graphql/mutations/createMaterialWithTruck';
+import { PlusCircleOutlined } from "@ant-design/icons";
+import { useMutation } from "@apollo/client";
+import { DatePicker, Form, Input, Modal, Select } from "antd";
+import * as React from "react";
+import { useTranslation } from "react-i18next";
+import { useGetMaterialTypesQuery } from "graphql/schema";
+import ErrorMessage from "components/errorMessage/errorMessage";
+import "./styles.scss";
+import { MUTATION_CREATE_MATERIAL_WITH_TRUCK } from "graphql/mutations/createMaterialWithTruck";
 
 interface Props {
   truckId: string;
@@ -57,10 +57,10 @@ const AddMaterialModal: React.FC<Props> = ({ truckId, compartmentId, sectionId }
 
   return (
     <>
-      <div onClick={showModal} style={{cursor: 'pointer' }}>
-        <PlusCircleOutlined /> {t('addMaterialModal.openBtn')}
+      <div onClick={showModal} style={{cursor: "pointer" }}>
+        <PlusCircleOutlined /> {t("addMaterialModal.openBtn")}
       </div>
-      <Modal title={t('addMaterialModal.title')} visible={isModalVisible} onOk={form.submit} onCancel={handleReset} cancelText={t('btn.cancel')} okText={t('btn.save')}>
+      <Modal title={t("addMaterialModal.title")} visible={isModalVisible} onOk={form.submit} onCancel={handleReset} cancelText={t("btn.cancel")} okText={t("btn.save")}>
         {graphqlError && (
           <ErrorMessage message={graphqlError}></ErrorMessage>
         )}
@@ -73,7 +73,7 @@ const AddMaterialModal: React.FC<Props> = ({ truckId, compartmentId, sectionId }
           <Form.Item
             label="Material type"
             name="materialTypeId"
-            rules={[{ required: true, message: 'This field is required' }]}>
+            rules={[{ required: true, message: "This field is required" }]}>
             <Select>
               {data && data.materialTypes?.items?.length && data.materialTypes.items.map(m => (
                 <Select.Option value={m.id} key={m.id}>{m.name}</Select.Option>
