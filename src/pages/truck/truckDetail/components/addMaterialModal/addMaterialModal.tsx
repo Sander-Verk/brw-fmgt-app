@@ -3,10 +3,10 @@ import { useMutation } from '@apollo/client';
 import { DatePicker, Form, Input, Modal, Select } from 'antd';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useGetMaterialTypesQuery } from 'generated/graphql';
+import { useGetMaterialTypesQuery } from 'graphql/schema';
 import ErrorMessage from 'components/errorMessage/errorMessage';
-import { MUTATION_CREATE_MATERIAL_WITH_TRUCK } from './mutation';
 import './styles.scss';
+import { MUTATION_CREATE_MATERIAL_WITH_TRUCK } from 'graphql/mutations/createMaterialWithTruck';
 
 interface Props {
   truckId: string;

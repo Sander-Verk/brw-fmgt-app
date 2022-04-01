@@ -326,6 +326,13 @@ export type QueryTruckPdfArgs = {
   id: Scalars['ID'];
 };
 
+
+export type QueryTrucksArgs = {
+  filter?: Maybe<TruckFilterInput>;
+  limit?: Maybe<Scalars['Int']>;
+  skip?: Maybe<Scalars['Int']>;
+};
+
 export type Section = {
   __typename?: 'Section';
   id: Scalars['ID'];
@@ -363,6 +370,10 @@ export type Truck = {
   name: Scalars['String'];
 };
 
+export type TruckFilterInput = {
+  search?: Maybe<Scalars['String']>;
+};
+
 export type TruckResult = {
   __typename?: 'TruckResult';
   count: Scalars['Int'];
@@ -388,13 +399,10 @@ export type User = {
   profilePicture: Scalars['String'];
 };
 
-export type AddLogbookStatusUpdateMutationVariables = Exact<{
-  logbookId: Scalars['ID'];
-  status: HistoryStatus;
-}>;
+export type GetLogbookQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type AddLogbookStatusUpdateMutation = { __typename?: 'Mutation', addLogbookStatusUpdate: { __typename?: 'MaterialCheckReport', id: string, createdAt: any, type: LogBookItemType, truck: { __typename?: 'Truck', id: string, name: string }, user: { __typename?: 'User', id: string, name: string }, statusHistory: Array<{ __typename?: 'StatusHistoryItem', status: HistoryStatus, timestamp: any, user: { __typename?: 'User', id: string, name: string } }>, checks: Array<{ __typename?: 'CompartmentCheck', id: string, code: string, name: string, sections: Array<{ __typename?: 'SectionCheck', id: string, name?: string | null | undefined, materials: Array<{ __typename?: 'MaterialCheck', amount: number, check: boolean, remark?: string | null | undefined, materialType: { __typename?: 'MaterialType', id: string, name: string } }> }> }> } | { __typename?: 'ProblemReport' } };
+export type GetLogbookQuery = { __typename?: 'Query', logbook: { __typename?: 'LogbookResult', count: number, items: Array<{ __typename?: 'MaterialCheckReport', id: string, createdAt: any, type: LogBookItemType, truck: { __typename?: 'Truck', id: string, name: string, code: string }, user: { __typename?: 'User', id: string, name: string } } | { __typename?: 'ProblemReport', id: string, createdAt: any, type: LogBookItemType, truck: { __typename?: 'Truck', id: string, name: string, code: string }, user: { __typename?: 'User', id: string, name: string } }> } };
 
 export type GetLogbookItemQueryVariables = Exact<{
   id: Scalars['ID'];
@@ -403,49 +411,10 @@ export type GetLogbookItemQueryVariables = Exact<{
 
 export type GetLogbookItemQuery = { __typename?: 'Query', logbookItem: { __typename: 'MaterialCheckReport', id: string, createdAt: any, type: LogBookItemType, truck: { __typename?: 'Truck', id: string, name: string }, user: { __typename?: 'User', id: string, name: string }, statusHistory: Array<{ __typename?: 'StatusHistoryItem', status: HistoryStatus, timestamp: any, user: { __typename?: 'User', id: string, name: string } }>, checks: Array<{ __typename?: 'CompartmentCheck', id: string, code: string, name: string, sections: Array<{ __typename?: 'SectionCheck', id: string, name?: string | null | undefined, materials: Array<{ __typename?: 'MaterialCheck', amount: number, check: boolean, remark?: string | null | undefined, materialType: { __typename?: 'MaterialType', id: string, name: string } }> }> }> } | { __typename: 'ProblemReport', id: string, createdAt: any, type: LogBookItemType, truck: { __typename?: 'Truck', id: string, name: string, code: string }, user: { __typename?: 'User', id: string, name: string }, issues: Array<{ __typename?: 'ProblemReportIssue', part: string, description: string }> } };
 
-export type GetLogbookQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetLogbookQuery = { __typename?: 'Query', logbook: { __typename?: 'LogbookResult', count: number, items: Array<{ __typename?: 'MaterialCheckReport', id: string, createdAt: any, type: LogBookItemType, truck: { __typename?: 'Truck', id: string, name: string, code: string }, user: { __typename?: 'User', id: string, name: string } } | { __typename?: 'ProblemReport', id: string, createdAt: any, type: LogBookItemType, truck: { __typename?: 'Truck', id: string, name: string, code: string }, user: { __typename?: 'User', id: string, name: string } }> } };
-
-export type CreateMaterialTypeMutationVariables = Exact<{
-  materialType: CreateMaterialTypeInput;
-}>;
-
-
-export type CreateMaterialTypeMutation = { __typename?: 'Mutation', createMaterialType: { __typename?: 'MaterialType', id: string, code: string, name: string, description: string, codeFiche?: string | null | undefined } };
-
 export type GetMaterialTypesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetMaterialTypesQuery = { __typename?: 'Query', materialTypes: { __typename?: 'MaterialTypeResult', count: number, items: Array<{ __typename?: 'MaterialType', id: string, code: string, name: string, description: string, codeFiche?: string | null | undefined }> } };
-
-export type CreateCompartmentMutationVariables = Exact<{
-  truckId: Scalars['ID'];
-  compartment: CreateCompartmentInput;
-}>;
-
-
-export type CreateCompartmentMutation = { __typename?: 'Mutation', createCompartment: { __typename?: 'Truck', id: string, code: string, name: string, compartments: Array<{ __typename?: 'Compartment', id: string, code: string, name: string, sections: Array<{ __typename?: 'Section', id: string, name?: string | null | undefined, imageUrl?: string | null | undefined, materials: Array<{ __typename?: 'Material', id: string, serial?: string | null | undefined, date?: any | null | undefined, type: { __typename?: 'MaterialType', code: string, name: string, description: string, codeFiche?: string | null | undefined } }> }> }> } };
-
-export type CreateMaterialWithTruckMutationVariables = Exact<{
-  truckId: Scalars['ID'];
-  compartmentId: Scalars['ID'];
-  sectionId: Scalars['ID'];
-  material: CreateMaterialInput;
-}>;
-
-
-export type CreateMaterialWithTruckMutation = { __typename?: 'Mutation', createMaterialWithTruck: { __typename?: 'Truck', id: string, code: string, name: string, compartments: Array<{ __typename?: 'Compartment', id: string, code: string, name: string, sections: Array<{ __typename?: 'Section', id: string, name?: string | null | undefined, imageUrl?: string | null | undefined, materials: Array<{ __typename?: 'Material', id: string, serial?: string | null | undefined, date?: any | null | undefined, type: { __typename?: 'MaterialType', code: string, name: string, description: string, codeFiche?: string | null | undefined } }> }> }> } };
-
-export type CreateSectionMutationVariables = Exact<{
-  truckId: Scalars['ID'];
-  compartmentId: Scalars['ID'];
-  section: CreateSectionInput;
-}>;
-
-
-export type CreateSectionMutation = { __typename?: 'Mutation', createSection: { __typename?: 'Truck', id: string, code: string, name: string, compartments: Array<{ __typename?: 'Compartment', id: string, code: string, name: string, sections: Array<{ __typename?: 'Section', id: string, name?: string | null | undefined, imageUrl?: string | null | undefined, materials: Array<{ __typename?: 'Material', id: string, serial?: string | null | undefined, date?: any | null | undefined, type: { __typename?: 'MaterialType', code: string, name: string, description: string, codeFiche?: string | null | undefined } }> }> }> } };
 
 export type GetTruckQueryVariables = Exact<{
   id: Scalars['ID'];
@@ -460,78 +429,70 @@ export type GetTrucksQueryVariables = Exact<{ [key: string]: never; }>;
 export type GetTrucksQuery = { __typename?: 'Query', trucks: { __typename?: 'TruckResult', count: number, items: Array<{ __typename?: 'Truck', id: string, code: string, name: string }> } };
 
 
-export const AddLogbookStatusUpdateDocument = gql`
-    mutation addLogbookStatusUpdate($logbookId: ID!, $status: HistoryStatus!) {
-  addLogbookStatusUpdate(logbookId: $logbookId, status: $status) {
-    ... on MaterialCheckReport {
-      id
-      truck {
+export const GetLogbookDocument = gql`
+    query getLogbook {
+  logbook(filter: {}) {
+    count
+    items {
+      ... on ProblemReport {
         id
-        name
-      }
-      user {
-        id
-        name
-      }
-      createdAt
-      type
-      statusHistory {
-        status
-        timestamp
+        truck {
+          id
+          name
+          code
+        }
         user {
           id
           name
         }
+        createdAt
+        type
       }
-      checks {
+      ... on MaterialCheckReport {
         id
-        code
-        name
-        sections {
+        truck {
           id
           name
-          materials {
-            materialType {
-              id
-              name
-            }
-            amount
-            check
-            remark
-          }
+          code
         }
+        user {
+          id
+          name
+        }
+        createdAt
+        type
       }
     }
   }
 }
     `;
-export type AddLogbookStatusUpdateMutationFn = Apollo.MutationFunction<AddLogbookStatusUpdateMutation, AddLogbookStatusUpdateMutationVariables>;
 
 /**
- * __useAddLogbookStatusUpdateMutation__
+ * __useGetLogbookQuery__
  *
- * To run a mutation, you first call `useAddLogbookStatusUpdateMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useAddLogbookStatusUpdateMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
+ * To run a query within a React component, call `useGetLogbookQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetLogbookQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
  *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const [addLogbookStatusUpdateMutation, { data, loading, error }] = useAddLogbookStatusUpdateMutation({
+ * const { data, loading, error } = useGetLogbookQuery({
  *   variables: {
- *      logbookId: // value for 'logbookId'
- *      status: // value for 'status'
  *   },
  * });
  */
-export function useAddLogbookStatusUpdateMutation(baseOptions?: Apollo.MutationHookOptions<AddLogbookStatusUpdateMutation, AddLogbookStatusUpdateMutationVariables>) {
+export function useGetLogbookQuery(baseOptions?: Apollo.QueryHookOptions<GetLogbookQuery, GetLogbookQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<AddLogbookStatusUpdateMutation, AddLogbookStatusUpdateMutationVariables>(AddLogbookStatusUpdateDocument, options);
+        return Apollo.useQuery<GetLogbookQuery, GetLogbookQueryVariables>(GetLogbookDocument, options);
       }
-export type AddLogbookStatusUpdateMutationHookResult = ReturnType<typeof useAddLogbookStatusUpdateMutation>;
-export type AddLogbookStatusUpdateMutationResult = Apollo.MutationResult<AddLogbookStatusUpdateMutation>;
-export type AddLogbookStatusUpdateMutationOptions = Apollo.BaseMutationOptions<AddLogbookStatusUpdateMutation, AddLogbookStatusUpdateMutationVariables>;
+export function useGetLogbookLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetLogbookQuery, GetLogbookQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetLogbookQuery, GetLogbookQueryVariables>(GetLogbookDocument, options);
+        }
+export type GetLogbookQueryHookResult = ReturnType<typeof useGetLogbookQuery>;
+export type GetLogbookLazyQueryHookResult = ReturnType<typeof useGetLogbookLazyQuery>;
+export type GetLogbookQueryResult = Apollo.QueryResult<GetLogbookQuery, GetLogbookQueryVariables>;
 export const GetLogbookItemDocument = gql`
     query GetLogbookItem($id: ID!) {
   logbookItem(id: $id) {
@@ -624,107 +585,6 @@ export function useGetLogbookItemLazyQuery(baseOptions?: Apollo.LazyQueryHookOpt
 export type GetLogbookItemQueryHookResult = ReturnType<typeof useGetLogbookItemQuery>;
 export type GetLogbookItemLazyQueryHookResult = ReturnType<typeof useGetLogbookItemLazyQuery>;
 export type GetLogbookItemQueryResult = Apollo.QueryResult<GetLogbookItemQuery, GetLogbookItemQueryVariables>;
-export const GetLogbookDocument = gql`
-    query getLogbook {
-  logbook(filter: {}) {
-    count
-    items {
-      ... on ProblemReport {
-        id
-        truck {
-          id
-          name
-          code
-        }
-        user {
-          id
-          name
-        }
-        createdAt
-        type
-      }
-      ... on MaterialCheckReport {
-        id
-        truck {
-          id
-          name
-          code
-        }
-        user {
-          id
-          name
-        }
-        createdAt
-        type
-      }
-    }
-  }
-}
-    `;
-
-/**
- * __useGetLogbookQuery__
- *
- * To run a query within a React component, call `useGetLogbookQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetLogbookQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetLogbookQuery({
- *   variables: {
- *   },
- * });
- */
-export function useGetLogbookQuery(baseOptions?: Apollo.QueryHookOptions<GetLogbookQuery, GetLogbookQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetLogbookQuery, GetLogbookQueryVariables>(GetLogbookDocument, options);
-      }
-export function useGetLogbookLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetLogbookQuery, GetLogbookQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetLogbookQuery, GetLogbookQueryVariables>(GetLogbookDocument, options);
-        }
-export type GetLogbookQueryHookResult = ReturnType<typeof useGetLogbookQuery>;
-export type GetLogbookLazyQueryHookResult = ReturnType<typeof useGetLogbookLazyQuery>;
-export type GetLogbookQueryResult = Apollo.QueryResult<GetLogbookQuery, GetLogbookQueryVariables>;
-export const CreateMaterialTypeDocument = gql`
-    mutation CreateMaterialType($materialType: CreateMaterialTypeInput!) {
-  createMaterialType(materialType: $materialType) {
-    id
-    code
-    name
-    description
-    codeFiche
-  }
-}
-    `;
-export type CreateMaterialTypeMutationFn = Apollo.MutationFunction<CreateMaterialTypeMutation, CreateMaterialTypeMutationVariables>;
-
-/**
- * __useCreateMaterialTypeMutation__
- *
- * To run a mutation, you first call `useCreateMaterialTypeMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreateMaterialTypeMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [createMaterialTypeMutation, { data, loading, error }] = useCreateMaterialTypeMutation({
- *   variables: {
- *      materialType: // value for 'materialType'
- *   },
- * });
- */
-export function useCreateMaterialTypeMutation(baseOptions?: Apollo.MutationHookOptions<CreateMaterialTypeMutation, CreateMaterialTypeMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreateMaterialTypeMutation, CreateMaterialTypeMutationVariables>(CreateMaterialTypeDocument, options);
-      }
-export type CreateMaterialTypeMutationHookResult = ReturnType<typeof useCreateMaterialTypeMutation>;
-export type CreateMaterialTypeMutationResult = Apollo.MutationResult<CreateMaterialTypeMutation>;
-export type CreateMaterialTypeMutationOptions = Apollo.BaseMutationOptions<CreateMaterialTypeMutation, CreateMaterialTypeMutationVariables>;
 export const GetMaterialTypesDocument = gql`
     query getMaterialTypes {
   materialTypes(filter: {}) {
@@ -766,189 +626,6 @@ export function useGetMaterialTypesLazyQuery(baseOptions?: Apollo.LazyQueryHookO
 export type GetMaterialTypesQueryHookResult = ReturnType<typeof useGetMaterialTypesQuery>;
 export type GetMaterialTypesLazyQueryHookResult = ReturnType<typeof useGetMaterialTypesLazyQuery>;
 export type GetMaterialTypesQueryResult = Apollo.QueryResult<GetMaterialTypesQuery, GetMaterialTypesQueryVariables>;
-export const CreateCompartmentDocument = gql`
-    mutation CreateCompartment($truckId: ID!, $compartment: CreateCompartmentInput!) {
-  createCompartment(truckId: $truckId, compartment: $compartment) {
-    id
-    code
-    name
-    compartments {
-      id
-      code
-      name
-      sections {
-        id
-        name
-        imageUrl
-        materials {
-          id
-          type {
-            code
-            name
-            description
-            codeFiche
-          }
-          serial
-          date
-        }
-      }
-    }
-  }
-}
-    `;
-export type CreateCompartmentMutationFn = Apollo.MutationFunction<CreateCompartmentMutation, CreateCompartmentMutationVariables>;
-
-/**
- * __useCreateCompartmentMutation__
- *
- * To run a mutation, you first call `useCreateCompartmentMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreateCompartmentMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [createCompartmentMutation, { data, loading, error }] = useCreateCompartmentMutation({
- *   variables: {
- *      truckId: // value for 'truckId'
- *      compartment: // value for 'compartment'
- *   },
- * });
- */
-export function useCreateCompartmentMutation(baseOptions?: Apollo.MutationHookOptions<CreateCompartmentMutation, CreateCompartmentMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreateCompartmentMutation, CreateCompartmentMutationVariables>(CreateCompartmentDocument, options);
-      }
-export type CreateCompartmentMutationHookResult = ReturnType<typeof useCreateCompartmentMutation>;
-export type CreateCompartmentMutationResult = Apollo.MutationResult<CreateCompartmentMutation>;
-export type CreateCompartmentMutationOptions = Apollo.BaseMutationOptions<CreateCompartmentMutation, CreateCompartmentMutationVariables>;
-export const CreateMaterialWithTruckDocument = gql`
-    mutation CreateMaterialWithTruck($truckId: ID!, $compartmentId: ID!, $sectionId: ID!, $material: CreateMaterialInput!) {
-  createMaterialWithTruck(
-    truckId: $truckId
-    compartmentId: $compartmentId
-    sectionId: $sectionId
-    material: $material
-  ) {
-    id
-    code
-    name
-    compartments {
-      id
-      code
-      name
-      sections {
-        id
-        name
-        imageUrl
-        materials {
-          id
-          type {
-            code
-            name
-            description
-            codeFiche
-          }
-          serial
-          date
-        }
-      }
-    }
-  }
-}
-    `;
-export type CreateMaterialWithTruckMutationFn = Apollo.MutationFunction<CreateMaterialWithTruckMutation, CreateMaterialWithTruckMutationVariables>;
-
-/**
- * __useCreateMaterialWithTruckMutation__
- *
- * To run a mutation, you first call `useCreateMaterialWithTruckMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreateMaterialWithTruckMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [createMaterialWithTruckMutation, { data, loading, error }] = useCreateMaterialWithTruckMutation({
- *   variables: {
- *      truckId: // value for 'truckId'
- *      compartmentId: // value for 'compartmentId'
- *      sectionId: // value for 'sectionId'
- *      material: // value for 'material'
- *   },
- * });
- */
-export function useCreateMaterialWithTruckMutation(baseOptions?: Apollo.MutationHookOptions<CreateMaterialWithTruckMutation, CreateMaterialWithTruckMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreateMaterialWithTruckMutation, CreateMaterialWithTruckMutationVariables>(CreateMaterialWithTruckDocument, options);
-      }
-export type CreateMaterialWithTruckMutationHookResult = ReturnType<typeof useCreateMaterialWithTruckMutation>;
-export type CreateMaterialWithTruckMutationResult = Apollo.MutationResult<CreateMaterialWithTruckMutation>;
-export type CreateMaterialWithTruckMutationOptions = Apollo.BaseMutationOptions<CreateMaterialWithTruckMutation, CreateMaterialWithTruckMutationVariables>;
-export const CreateSectionDocument = gql`
-    mutation CreateSection($truckId: ID!, $compartmentId: ID!, $section: CreateSectionInput!) {
-  createSection(
-    truckId: $truckId
-    compartmentId: $compartmentId
-    section: $section
-  ) {
-    id
-    code
-    name
-    compartments {
-      id
-      code
-      name
-      sections {
-        id
-        name
-        imageUrl
-        materials {
-          id
-          type {
-            code
-            name
-            description
-            codeFiche
-          }
-          serial
-          date
-        }
-      }
-    }
-  }
-}
-    `;
-export type CreateSectionMutationFn = Apollo.MutationFunction<CreateSectionMutation, CreateSectionMutationVariables>;
-
-/**
- * __useCreateSectionMutation__
- *
- * To run a mutation, you first call `useCreateSectionMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreateSectionMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [createSectionMutation, { data, loading, error }] = useCreateSectionMutation({
- *   variables: {
- *      truckId: // value for 'truckId'
- *      compartmentId: // value for 'compartmentId'
- *      section: // value for 'section'
- *   },
- * });
- */
-export function useCreateSectionMutation(baseOptions?: Apollo.MutationHookOptions<CreateSectionMutation, CreateSectionMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreateSectionMutation, CreateSectionMutationVariables>(CreateSectionDocument, options);
-      }
-export type CreateSectionMutationHookResult = ReturnType<typeof useCreateSectionMutation>;
-export type CreateSectionMutationResult = Apollo.MutationResult<CreateSectionMutation>;
-export type CreateSectionMutationOptions = Apollo.BaseMutationOptions<CreateSectionMutation, CreateSectionMutationVariables>;
 export const GetTruckDocument = gql`
     query GetTruck($id: ID!) {
   truck(id: $id) {

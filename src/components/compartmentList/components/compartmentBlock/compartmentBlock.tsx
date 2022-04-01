@@ -1,6 +1,6 @@
 import { PlusCircleOutlined } from '@ant-design/icons';
 import { Button, Collapse } from 'antd';
-import { Compartment } from 'generated/graphql';
+import { Compartment } from 'graphql/schema';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import SectionBlock from '../sectionBlock/sectionBlock';

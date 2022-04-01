@@ -2,12 +2,12 @@ import { CheckCircleFilled, CloseCircleFilled } from '@ant-design/icons';
 import { Card, Tabs, Timeline, Form, Select, Button, Divider } from 'antd';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { CompartmentCheck, HistoryStatus, MaterialCheck, SectionCheck, StatusHistoryItem } from 'generated/graphql';
+import { CompartmentCheck, HistoryStatus, MaterialCheck, SectionCheck, StatusHistoryItem } from 'graphql/schema';
 import './styles.scss';
 import Moment from 'react-moment';
 import { useMutation } from '@apollo/client';
-import { ADD_MATERIALCHECK_UPDATE } from './mutation';
 import AppTable from 'components/appTable/appTable';
+import { ADD_MATERIALCHECK_UPDATE } from 'graphql/mutations/addLogbookStatusUpdate';
 
 const { TabPane } = Tabs;
 const { Option } = Select;

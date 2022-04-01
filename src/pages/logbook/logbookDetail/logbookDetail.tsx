@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { LogbookItem, LogBookItemType, MaterialCheckReport as MaterialCheckReportType } from 'generated/graphql';
+import { LogbookItem, LogBookItemType, MaterialCheckReport as MaterialCheckReportType } from 'graphql/schema';
 import MaterialCheckReport from './components/materialCheckReport/materialCheckReport';
 import './styles.scss';
 

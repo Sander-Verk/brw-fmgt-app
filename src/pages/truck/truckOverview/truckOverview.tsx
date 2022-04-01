@@ -1,7 +1,7 @@
 import { Col, Row } from 'antd';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { GetTrucksQuery, Truck } from 'generated/graphql';
+import { GetTrucksQuery, Truck } from 'graphql/schema';
 import './styles.scss';
 import TruckCard from 'components/truckCard/truckCard';
 

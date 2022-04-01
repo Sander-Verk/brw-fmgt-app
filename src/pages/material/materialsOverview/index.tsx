@@ -1,4 +1,4 @@
-import { useGetMaterialTypesQuery } from "generated/graphql";
+import { useGetMaterialTypesQuery } from "graphql/schema";
 import ErrorMessage from "components/errorMessage/errorMessage";
 import LoadingContainer from "components/loader";
 import MaterialOverview from "./materialsOverview";

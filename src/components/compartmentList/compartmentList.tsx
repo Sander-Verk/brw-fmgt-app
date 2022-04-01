@@ -1,4 +1,4 @@
-import { Compartment } from 'generated/graphql';
+import { Compartment } from 'graphql/schema';
 import * as React from 'react';
 import CompartmentBlock from './components/compartmentBlock/compartmentBlock';
 import './styles.scss';

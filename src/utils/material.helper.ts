@@ -1,4 +1,4 @@
-import { Material } from "generated/graphql";
+import { Material } from "graphql/schema";
 
 export const countMaterials = (materials: Material[]): { materialName: string; amount: number }[] => {
   const counts: { [key: string]: number } = {};

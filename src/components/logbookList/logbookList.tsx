@@ -4,7 +4,7 @@ import AppTable from 'components/appTable/appTable';
 import ErrorMessage from 'components/errorMessage/errorMessage';
 import LoadingContainer from 'components/loader';
 import Translated from 'components/translated/translated';
-import { LogBookItemType, useGetLogbookQuery } from 'generated/graphql';
+import { LogBookItemType, useGetLogbookQuery } from 'graphql/schema';
 import * as React from 'react';
 import Moment from 'react-moment';
 import './styles.scss';
@@ -60,8 +60,9 @@ const columns: ColumnsType<TableItem> = [
 ];
 
 const LogbookList: React.FC<Props> = ({ filters, onClick }) => {
-  console.log(filters);
-  const { data, error, loading } = useGetLogbookQuery();
+  const { data, error, loading } = useGetLogbookQuery({
+    // variables: { filters }
+  });
 
   const dataSource: any = data?.logbook?.items.map(logbook => ({
     key: logbook.id,

@@ -1,6 +1,6 @@
 import { Row, Col } from 'antd';
 import AppTable from 'components/appTable/appTable';
-import { Section } from 'generated/graphql';
+import { Section } from 'graphql/schema';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { countMaterials } from 'utils/material.helper';

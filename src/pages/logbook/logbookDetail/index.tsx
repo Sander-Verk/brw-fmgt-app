@@ -1,8 +1,8 @@
 import { useParams } from "react-router-dom";
 import ErrorMessage from "components/errorMessage/errorMessage";
 import LoadingContainer from "components/loader";
-import { useGetLogbookItemQuery, LogbookItem } from "generated/graphql";
 import LogbookItemDetail from "./logbookDetail";
+import { LogbookItem, useGetLogbookItemQuery } from "graphql/schema";
 
 const LogbookItemDetailContainer = () => {
   let { id } = useParams<{ id: string }>();

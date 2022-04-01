@@ -1,5 +1,5 @@
 import { Card } from 'antd';
-import { Truck } from 'generated/graphql';
+import { Truck } from 'graphql/schema';
 import * as React from 'react';
 import './styles.scss';
 

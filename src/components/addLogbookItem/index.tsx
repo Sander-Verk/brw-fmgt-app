@@ -1,6 +1,6 @@
+import { useGetTrucksQuery } from "graphql/schema";
 import React from "react";
 import { useLocation } from "react-router-dom";
-import { useGetTrucksQuery } from "generated/graphql";
 import ErrorMessage from "../errorMessage/errorMessage";
 import LoadingContainer from "../loader";
 import AddLogbookItem from "./addLogbookItem";

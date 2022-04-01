@@ -1,6 +1,6 @@
 import { PageHeader, Radio, RadioChangeEvent } from 'antd';
 import * as React from 'react';
-import { GetTruckQuery } from 'generated/graphql';
+import { GetTruckQuery } from 'graphql/schema';
 import AddCompartmentModal from './components/addCompartmentModal/addCompartmentModal';
 import './styles.scss';
 import { useHistory } from 'react-router-dom';
