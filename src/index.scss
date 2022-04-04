@@ -34,5 +34,8 @@ body {
   color: #fff;
   border-color: var(--color-primary);
   background: var(--color-primary);
-  border-radius: 10px;
+}
+
+.ant-picker, .ant-btn-primary, .ant-select-selector, .ant-input {
+  border-radius: 10px !important;
 }

@@ -1,18 +1,14 @@
 import { WarningOutlined, ControlOutlined } from "@ant-design/icons";
 import { ColumnsType } from "antd/lib/table";
 import AppTable from "components/appTable/appTable";
-import ErrorMessage from "components/errorMessage/errorMessage";
-import LoadingContainer from "components/loader";
 import Translated from "components/translated/translated";
-import { LogBookItemType, useGetLogbookQuery } from "graphql/schema";
+import { LogbookItem, LogBookItemType } from "graphql/schema";
 import * as React from "react";
 import Moment from "react-moment";
 import "./styles.scss";
 
 interface Props {
-  filters?: {
-    truckIds?: string[];
-  };
+  data: LogbookItem[],
   onClick: (id: string) => void
 }
 
@@ -50,6 +46,14 @@ const columns: ColumnsType<TableItem> = [
     key: "user",
   },
   {
+    title: <Translated value={"logbookItems.status"} />,
+    dataIndex: "status",
+    key: "status",
+    render: (value) => {
+      return <Translated value={`historyStatus.${value?.toLowerCase()}`} />;
+    }
+  },
+  {
     title: <Translated value={"logbookItems.createdAt"} />,
     dataIndex: "createdAt",
     key: "createdAt",
@@ -59,27 +63,16 @@ const columns: ColumnsType<TableItem> = [
   }
 ];
 
-const LogbookList: React.FC<Props> = ({ onClick }) => {
-  const { data, error, loading } = useGetLogbookQuery({
-    // variables: { filters }
-  });
-
-  const dataSource: any = data?.logbook?.items.map(logbook => ({
+const LogbookList: React.FC<Props> = ({ data, onClick }) => {
+  const dataSource: any = data.map(logbook => ({
     key: logbook.id,
     id: logbook.id,
     type: logbook.type,
     truck: `(${logbook.truck.code}) ${logbook.truck.name}`,
     user: logbook.user.name,
+    status: logbook.status,
     createdAt: logbook.createdAt,
   }) || []);
-
-  if (loading) {
-    return <LoadingContainer></LoadingContainer>;
-  }
-
-  if (error || !data) {
-    return <ErrorMessage message={error?.message}></ErrorMessage>;
-  }
 
   return (
     <AppTable

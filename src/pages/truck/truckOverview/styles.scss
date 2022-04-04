@@ -1,0 +1,14 @@
+@import "../../../styles/colors.scss";
+
+.filter-section {
+  margin-bottom: 24px;
+
+  .search-box {
+    border-radius: 15px;
+    max-width: 400px;
+  }
+
+  .ant-input-prefix, .ant-input {
+    color: var(--color-primary);
+  }
+}

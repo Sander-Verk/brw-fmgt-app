@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const QUERY_GET_LOGBOOK = gql`
-  query getLogbook {
-    logbook(filter: {}) {
+  query getLogbook($filter: LogbookFilterInput, $skip: Int, $limit: Int) {
+    logbook(filter: $filter, skip: $skip, limit: $limit) {
       count
       items {
         ... on ProblemReport {
@@ -11,6 +11,7 @@ export const QUERY_GET_LOGBOOK = gql`
           user { id, name }
           createdAt
           type
+          status
         }
         ... on MaterialCheckReport {
           id
@@ -18,6 +19,7 @@ export const QUERY_GET_LOGBOOK = gql`
           user { id, name }
           createdAt
           type
+          status
         }
       }
     }

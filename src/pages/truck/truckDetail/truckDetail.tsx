@@ -1,6 +1,6 @@
 import { PageHeader, Radio, RadioChangeEvent } from "antd";
 import * as React from "react";
-import { GetTruckQuery } from "graphql/schema";
+import { GetTruckQuery, LogbookItem, useGetLogbookQuery } from "graphql/schema";
 import AddCompartmentModal from "./components/addCompartmentModal/addCompartmentModal";
 import "./styles.scss";
 import { useHistory } from "react-router-dom";
@@ -16,6 +16,9 @@ const className = "TruckDetail";
 
 const TruckDetail: React.FC<Props> = ({ data }) => {
   const history = useHistory();
+  const { data: logbookData } = useGetLogbookQuery({
+    variables: { filter: { truckIds: [data.truck.id] } }
+  });
 
   const [radioValue, setRadioValue] = React.useState<string>("info");
 
@@ -59,7 +62,7 @@ const TruckDetail: React.FC<Props> = ({ data }) => {
           </div>
 
           {radioValue === "compartments" && (<CompartmentList compartments={data.truck.compartments} />)}
-          {radioValue === "logbook" && (<LogbookList filters={{truckIds: [data.truck.id]}} onClick={goToDetail} />)}
+          {radioValue === "logbook" && (<LogbookList data={logbookData?.logbook.items as LogbookItem[] || []} onClick={goToDetail} />)}
         </>
       )}
     </div>

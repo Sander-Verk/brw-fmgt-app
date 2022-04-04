@@ -1,21 +1,22 @@
 
 import ErrorMessage from "components/errorMessage/errorMessage";
-import LoadingContainer from "components/loader";
-import { useGetTrucksQuery } from "graphql/schema";
+import { TruckFilterInput, useGetTrucksQuery } from "graphql/schema";
 import TruckOverview from "./truckOverview";
 
 const TruckOverviewContainer = () => {
-  const { data, error, loading } = useGetTrucksQuery();
+  const { data, error, loading, refetch } = useGetTrucksQuery({
+    variables: { }
+  });
 
-  if (loading) {
-    return <LoadingContainer></LoadingContainer>;
-  }
+  const onFilterChange = (filter: TruckFilterInput) => {
+    refetch({ filter });
+  };
 
   if (error || !data) {
     return <ErrorMessage message={error?.message}></ErrorMessage>;
   }
 
-  return <TruckOverview data={data} />;
+  return <TruckOverview loading={loading} data={data} onFilterChange={onFilterChange} />;
 };
 
 export default TruckOverviewContainer;

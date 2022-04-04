@@ -4,13 +4,17 @@ import "./styles.scss";
 import AddLogbookItemModal from "./components/addLogbookItemModal/addLogbookItemModal";
 import { useHistory } from "react-router-dom";
 import LogbookList from "components/logbookList/logbookList";
+import LogbookFilter from "./components/logbookFilter/logbookFilter";
+import { LogbookFilterInput, LogbookItem } from "graphql/schema";
 
 interface Props {
+  data: LogbookItem[];
+  onFilterChange: (filters: LogbookFilterInput) => void;
 }
 
 const className = "LogbookOverview";
 
-const LogbookOverview: React.FC<Props> = () => {
+const LogbookOverview: React.FC<Props> = ({ data, onFilterChange }) => {
   const { t } = useTranslation();
   const history = useHistory();
 
@@ -25,8 +29,10 @@ const LogbookOverview: React.FC<Props> = () => {
         <AddLogbookItemModal></AddLogbookItemModal>
       </div>
 
+      <LogbookFilter onChange={onFilterChange}></LogbookFilter>
 
       <LogbookList
+        data={data}
         onClick={goToDetail}
       />
     </div>

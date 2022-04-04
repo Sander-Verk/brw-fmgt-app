@@ -11,6 +11,7 @@
     "browser": true,
     "es2021": true
   },
+  "ignorePatterns": ["schema.tsx"],
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
@@ -29,6 +30,7 @@
     "react/react-in-jsx-scope": "off",
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-empty-interface": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
     "indent": ["error", 2],
     "linebreak-style": ["error", "unix"],
     "quotes": ["error", "double"],

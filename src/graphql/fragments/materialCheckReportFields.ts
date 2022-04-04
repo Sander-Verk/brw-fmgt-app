@@ -13,6 +13,7 @@ export const MATERIAL_CHECK_REPORT_FIELDS = gql`
     }
     createdAt
     type
+    status
     statusHistory {
       status
       timestamp

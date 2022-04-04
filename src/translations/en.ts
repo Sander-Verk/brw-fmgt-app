@@ -2,6 +2,7 @@ export const en = {
   authentication: {
     login: "Login",
   },
+  search: "Search",
   landingPage: {
     title: "Firefighter Tool Manager",
     description: "Please login",
@@ -51,11 +52,16 @@ export const en = {
   },
   logbookOverview: {
     title: "Logbook",
+    period: "Created at",
+    truck: "Truck",
+    status: "Status",
+    types: "Types"
   },
   logbookItems: {
     type: "Type",
     truck: "Truck",
     user: "User",
+    status: "Status",
     createdAt: "Created at",
   },
   logbookItemType: {
@@ -82,6 +88,12 @@ export const en = {
   addLogbookItemModal: {
     openBtn: "Add logbook item",
     title: "Add logbook item",
+  },
+  historyStatus: {
+    created: "Created",
+    reviewed: "Reviewed",
+    finished: "Finished",
+    unknown: "Unknown"
   },
   problemReportForm: {
     save: "Save",
