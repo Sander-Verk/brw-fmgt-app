@@ -1,7 +1,8 @@
 {
   "name": "brw-fmgt-app",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
+  "homepage": "https://sander-verk.github.io/brw-fmgt-app/",
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
     "@apollo/client": "^3.4.16",
@@ -37,7 +38,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "lint": "npx eslint src/**/*.{ts,tsx}",
-    "codegen": "graphql-codegen --config codegen.yml"
+    "codegen": "graphql-codegen --config codegen.yml",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -56,7 +59,8 @@
     "@typescript-eslint/eslint-plugin": "^5.17.0",
     "@typescript-eslint/parser": "^5.17.0",
     "eslint": "^7.32.0",
-    "eslint-plugin-react": "^7.29.4"
+    "eslint-plugin-react": "^7.29.4",
+    "gh-pages": "^3.2.3"
   },
   "browserslist": {
     "production": [

@@ -61,7 +61,7 @@ const TruckDetail: React.FC<Props> = ({ data }) => {
             {radioValue === "compartments" && <AddCompartmentModal truckId={data.truck.id}></AddCompartmentModal>}
           </div>
 
-          {radioValue === "compartments" && (<CompartmentList compartments={data.truck.compartments} />)}
+          {radioValue === "compartments" && (<CompartmentList truckId={data.truck.id} compartments={data.truck.compartments} />)}
           {radioValue === "logbook" && (<LogbookList data={logbookData?.logbook.items as LogbookItem[] || []} onClick={goToDetail} />)}
         </>
       )}

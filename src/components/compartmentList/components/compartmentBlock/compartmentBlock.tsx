@@ -1,19 +1,18 @@
-import { PlusCircleOutlined } from "@ant-design/icons";
-import { Button, Collapse } from "antd";
+import { Collapse } from "antd";
 import { Compartment } from "graphql/schema";
 import * as React from "react";
-import { useTranslation } from "react-i18next";
+import AddSectionModal from "../addSectionModal/addSectionModal";
 import SectionBlock from "../sectionBlock/sectionBlock";
 import "./styles.scss";
 
 const { Panel } = Collapse;
 
 interface Props {
+  truckId: string;
   compartment: Compartment;
 }
 
-const CompartmentBlock: React.FC<Props> = ({ compartment }) => {
-  const { t } = useTranslation();
+const CompartmentBlock: React.FC<Props> = ({ truckId, compartment }) => {
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
 
   const callback = (keys: string | string[]) => {
@@ -21,16 +20,7 @@ const CompartmentBlock: React.FC<Props> = ({ compartment }) => {
   };
   const renderAddBtn = () => (
     isOpen &&
-    <Button
-      ghost
-      className='addSection-btn'
-      onClick={event => {
-        event.stopPropagation();
-      }}
-    >
-      <PlusCircleOutlined />
-      {t("addSectionModal.openBtn")}
-    </Button>
+    <AddSectionModal truckId={truckId} compartmentId={compartment.id} />
   );
 
   return (

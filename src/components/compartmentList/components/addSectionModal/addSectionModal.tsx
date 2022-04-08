@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import ErrorMessage from "components/errorMessage/errorMessage";
 import "./styles.scss";
 import { MUTATION_CREATE_SECTION } from "graphql/mutations/createSection";
+import { PlusCircleOutlined } from "@ant-design/icons";
 
 interface Props {
   truckId: string;
@@ -52,7 +53,15 @@ const AddSectionModal: React.FC<Props> = ({ truckId, compartmentId }) => {
   return (
     <>
       <div>
-        <Button type="primary" onClick={showModal} className="addSectionBtn">
+        <Button
+          ghost
+          className='addSection-btn'
+          onClick={event => {
+            event.stopPropagation();
+            showModal();
+          }}
+        >
+          <PlusCircleOutlined />
           {t("addSectionModal.openBtn")}
         </Button>
       </div>

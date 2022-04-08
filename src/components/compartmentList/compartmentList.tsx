@@ -4,10 +4,11 @@ import CompartmentBlock from "./components/compartmentBlock/compartmentBlock";
 import "./styles.scss";
 
 interface Props {
+  truckId: string;
   compartments: Compartment[];
 }
 
-const CompartmentList: React.FC<Props> = ({ compartments }) => {
+const CompartmentList: React.FC<Props> = ({ truckId, compartments }) => {
   const sort = (array: any[]): any[] => {
     return [...array].sort((a, b) => a.code > b.code ? 1 : -1);
   };
@@ -16,7 +17,7 @@ const CompartmentList: React.FC<Props> = ({ compartments }) => {
     <>
       {sort(compartments).map((compartment) => (
         <div className='compartment-block' key={compartment.code}>
-          <CompartmentBlock compartment={compartment} />
+          <CompartmentBlock truckId={truckId} compartment={compartment} />
         </div>
       ))}
     </>
