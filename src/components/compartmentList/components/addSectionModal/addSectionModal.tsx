@@ -10,9 +10,10 @@ import { PlusCircleOutlined } from "@ant-design/icons";
 interface Props {
   truckId: string;
   compartmentId: string;
+  onChange: (isOpen: boolean) => void
 }
 
-const AddSectionModal: React.FC<Props> = ({ truckId, compartmentId }) => {
+const AddSectionModal: React.FC<Props> = ({ truckId, compartmentId, onChange }) => {
   const { t } = useTranslation();
   const [isModalVisible, setIsModalVisible] = React.useState(false);
   const [graphqlError, setGraphqlError] = React.useState<string>();
@@ -21,6 +22,7 @@ const AddSectionModal: React.FC<Props> = ({ truckId, compartmentId }) => {
 
   const showModal = () => {
     setIsModalVisible(true);
+    onChange(true);
   };
 
   const onFinish = async (values: any) => {
@@ -48,25 +50,31 @@ const AddSectionModal: React.FC<Props> = ({ truckId, compartmentId }) => {
     form.resetFields();
     setGraphqlError(undefined);
     setIsModalVisible(false);
+    onChange(false);
   };
 
   return (
     <>
-      <div>
-        <Button
-          ghost
-          className='addSection-btn'
-          onClick={event => {
-            event.stopPropagation();
-            showModal();
-          }}
-        >
-          <PlusCircleOutlined />
-          {t("addSectionModal.openBtn")}
-        </Button>
-      </div>
-      <Modal title={t("addSectionModal.title")} visible={isModalVisible} onOk={form.submit} onCancel={handleReset} cancelText={t("btn.cancel")} okText={t("btn.save")}>
-        {graphqlError && (
+      <Button
+        ghost
+        className='addSection-btn'
+        onClick={event => {
+          showModal();
+          event.stopPropagation();
+        }}
+      >
+        <PlusCircleOutlined />
+        {t("addSectionModal.openBtn")}
+      </Button>
+      <Modal
+        title={t("addSectionModal.title")}
+        visible={isModalVisible}
+        onOk={form.submit}
+        onCancel={handleReset}
+        cancelText={t("btn.cancel")}
+        okText={t("btn.save")}
+        maskClosable={false}>
+        { graphqlError && (
           <ErrorMessage message={graphqlError}></ErrorMessage>
         )}
         <Form

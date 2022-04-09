@@ -1,4 +1,3 @@
-import React from "react";
 import ReactDOM from "react-dom";
 import "./index.scss";
 import reportWebVitals from "./reportWebVitals";
@@ -48,11 +47,11 @@ i18n
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <React.StrictMode>
-      <FronteggProvider contextOptions={contextOptions}>
-        <App />
-      </FronteggProvider>
-    </React.StrictMode>
+    
+    <FronteggProvider contextOptions={contextOptions}>
+      <App />
+    </FronteggProvider>
+      
   </ApolloProvider>,
   document.getElementById("root")
 );
