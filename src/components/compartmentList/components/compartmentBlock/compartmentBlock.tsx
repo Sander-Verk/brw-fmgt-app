@@ -28,7 +28,7 @@ const CompartmentBlock: React.FC<Props> = ({ truckId, compartment }) => {
   return (
     <Collapse expandIconPosition="right" collapsible={isModalOpen ? "disabled" : undefined} onChange={callback}>
       <Panel header={compartment.name} key={compartment.id} extra={renderAddBtn()} forceRender={true}>
-        { compartment.sections.map((section) => (<SectionBlock key={section.id} section={section} />))}
+        { compartment.sections.map((section) => (<SectionBlock key={section.id} truckId={truckId} compartmentId={compartment.id} section={section} />))}
       </Panel>
     </Collapse>
   );

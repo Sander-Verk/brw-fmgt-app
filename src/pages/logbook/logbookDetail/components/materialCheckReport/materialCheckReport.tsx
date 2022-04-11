@@ -52,7 +52,7 @@ const MaterialCheckReport: React.FC<Props> = ({ id, materialChecks, history }) =
 
   const renderCompartment = (compartment: CompartmentCheck) => (compartment && compartment.id &&
     <Card key={"comparment_" + compartment.id} className="compartment">
-      <h2>{compartment.name}</h2>
+      <h2>{compartment?.name}</h2>
 
       {compartment.sections && compartment.sections.length ?
         compartment.sections.map((section) => renderSection(section)) :

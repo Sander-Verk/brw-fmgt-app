@@ -4,10 +4,13 @@ import { Section } from "graphql/schema";
 import * as React from "react";
 import { useTranslation } from "react-i18next";
 import { countMaterials } from "utils/material.helper";
+import AddMaterialModal from "../addMaterialModal/addMaterialModal";
 import "./styles.scss";
 
 
 interface Props {
+  truckId: string;
+  compartmentId: string;
   section: Section;
 }
 
@@ -24,12 +27,12 @@ const columns = [
   },
 ];
 
-const SectionBlock: React.FC<Props> = ({ section }) => {
+const SectionBlock: React.FC<Props> = ({ truckId, compartmentId, section }) => {
   const { t } = useTranslation();
 
-  // const renderTableFooter = (truckId: string, compartmentId: string, sectionId: string) => (
-  //   <AddMaterialModal truckId={truckId} compartmentId={compartmentId} sectionId={sectionId}></AddMaterialModal>
-  // )
+  const renderTableFooter = (truckId: string, compartmentId: string, sectionId: string) => (
+    <AddMaterialModal truckId={truckId} compartmentId={compartmentId} sectionId={sectionId}></AddMaterialModal>
+  );
 
   return (
     <div className='section-block'>
@@ -41,7 +44,12 @@ const SectionBlock: React.FC<Props> = ({ section }) => {
             <p>{t("truckDetail.noImage")}</p>}
         </Col>
         <Col span={16}>
-          <AppTable dataSource={countMaterials(section.materials || [])} columns={columns} pagination={false}></AppTable>
+          <AppTable
+            dataSource={countMaterials(section.materials || [])}
+            columns={columns}
+            pagination={false}
+            footer={() => renderTableFooter(truckId, compartmentId, section.id)}
+          />
         </Col>
       </Row>
     </div>

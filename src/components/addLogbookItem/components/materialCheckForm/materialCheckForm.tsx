@@ -57,6 +57,7 @@ const MaterialCheckForm: React.FC<Props> = ({ truckId }) => {
 
   const renderCompartment = (field: FormListFieldData, comparmentForm: CompartmentCheckInput) => {
     return (
+      comparmentForm &&
       <Card key={field.fieldKey} className="compartment">
         <h1>{comparmentForm.name}</h1>
 

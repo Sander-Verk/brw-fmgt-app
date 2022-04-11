@@ -8,9 +8,10 @@ interface Props {
   pagination: boolean;
   showHeader?: boolean;
   onRow?: any;
+  footer?: any;
 }
 
-const AppTable: React.FC<Props> = ({ dataSource, columns, pagination, showHeader,  onRow }) => {
+const AppTable: React.FC<Props> = ({ dataSource, columns, pagination, showHeader,  onRow, footer }) => {
   return (
     <Table
       dataSource={dataSource}
@@ -18,6 +19,7 @@ const AppTable: React.FC<Props> = ({ dataSource, columns, pagination, showHeader
       pagination={pagination ? { position: ["bottomRight"] } : false}
       showHeader={showHeader}
       onRow={onRow}
+      footer={footer}
     />
   );
 };
