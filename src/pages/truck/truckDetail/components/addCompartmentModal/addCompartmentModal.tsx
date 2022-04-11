@@ -1,10 +1,11 @@
 import { useMutation } from "@apollo/client";
-import { Button, Form, Input, Modal } from "antd";
+import { Form, Input, Modal } from "antd";
 import * as React from "react";
 import { useTranslation } from "react-i18next";
 import ErrorMessage from "components/errorMessage/errorMessage";
 import "./styles.scss";
 import { MUTATION_CREATE_COMPARTMENT } from "graphql/mutations/createCompartment";
+import AppButton from "components/appButton/appButton";
 
 interface Props {
   truckId: string;
@@ -47,9 +48,7 @@ const AddCompartmentModal: React.FC<Props> = ({ truckId }) => {
 
   return (
     <>
-      <Button type="primary" onClick={showModal}>
-        {t("addCompartmentModal.openBtn")}
-      </Button>
+      <AppButton text="addCompartmentModal.openBtn" onClick={showModal} />
       <Modal
         title={t("addCompartmentModal.title")}
         visible={isModalVisible}

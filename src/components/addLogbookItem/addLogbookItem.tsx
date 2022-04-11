@@ -1,5 +1,5 @@
 import { useMutation } from "@apollo/client";
-import { Button, Col, Form, Row, Select } from "antd";
+import { Col, Form, Row, Select } from "antd";
 import * as React from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
@@ -9,6 +9,7 @@ import MaterialCheckForm from "./components/materialCheckForm/materialCheckForm"
 import ProblemReportForm from "./components/problemReportForm/problemReportForm";
 import "./styles.scss";
 import { MUTATION_CREATE_MATERIAL_CHECK } from "graphql/mutations/createMaterialCheck";
+import AppButton from "components/appButton/appButton";
 
 const { Option } = Select;
 
@@ -92,9 +93,7 @@ const AddLogbookItem: React.FC<Props> = ({ trucks, type = LogBookItemType.Materi
         )}
       </Form>
 
-      <Button type="primary" onClick={form.submit}>
-        {t("problemReportForm.save")}
-      </Button>
+      <AppButton text="problemReportForm.save" onClick={form.submit} />
     </div>
   );
 };

@@ -1,6 +1,17 @@
+@import "../../../../styles/colors.scss";
+
 .addSection-btn {
-  height: 22px;
-  font-size: 12px;
-  display: flex;
-  align-items: center;
+  .ant-btn-ghost {
+    height: 22px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    color: white;
+
+    &:hover {
+      background-color: white;
+      border-color: white;
+      color: var(--color-primary);
+    }
+  }
 }

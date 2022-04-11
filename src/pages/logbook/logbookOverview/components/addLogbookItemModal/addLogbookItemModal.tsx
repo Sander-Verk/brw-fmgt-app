@@ -1,11 +1,12 @@
 import { ControlOutlined, WarningOutlined } from "@ant-design/icons";
-import { Button, Card, Col, Modal, Row } from "antd";
+import { Card, Col, Modal, Row } from "antd";
 import * as React from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { LogBookItemType } from "graphql/schema";
 import Translated from "components/translated/translated";
 import "./styles.scss";
+import AppButton from "components/appButton/appButton";
 
 interface Props {
 }
@@ -25,9 +26,7 @@ const AddLogbookItemModal: React.FC<Props> = () => {
 
   return (
     <>
-      <Button type="primary" onClick={showModal}>
-        {t("addLogbookItemModal.openBtn")}
-      </Button>
+      <AppButton text="addLogbookItemModal.openBtn" onClick={showModal} />
       <Modal title={t("addLogbookItemModal.title")} visible={isModalVisible} onCancel={hideModal} cancelText={t("btn.cancel")} okButtonProps={{ hidden: true }}>
         <Row>
           <Col span={12}>

@@ -1,5 +1,5 @@
 import { CheckCircleFilled, CloseCircleFilled } from "@ant-design/icons";
-import { Card, Tabs, Timeline, Form, Select, Button, Divider } from "antd";
+import { Card, Tabs, Timeline, Form, Select, Divider } from "antd";
 import * as React from "react";
 import { useTranslation } from "react-i18next";
 import { CompartmentCheck, HistoryStatus, MaterialCheck, SectionCheck, StatusHistoryItem } from "graphql/schema";
@@ -8,6 +8,7 @@ import Moment from "react-moment";
 import { useMutation } from "@apollo/client";
 import AppTable from "components/appTable/appTable";
 import { ADD_MATERIALCHECK_UPDATE } from "graphql/mutations/addLogbookStatusUpdate";
+import AppButton from "components/appButton/appButton";
 
 const { TabPane } = Tabs;
 const { Option } = Select;
@@ -143,9 +144,7 @@ const MaterialCheckReport: React.FC<Props> = ({ id, materialChecks, history }) =
                     {Object.keys(HistoryStatus).map((status) => <Option value={status.toUpperCase()} key={status}>{status}</Option>)}
                   </Select>
                 </Form.Item>
-                <Button type="primary" onClick={form.submit}>
-                  {t("problemReportForm.save")}
-                </Button>
+                <AppButton text="problemReportForm.save" onClick={form.submit} />
               </div>
             </Form>
           </Timeline.Item>

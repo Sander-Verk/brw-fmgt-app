@@ -30,12 +30,21 @@ body {
   color: var(--text-primary)
 }
 
+.ant-btn {
+  border-radius: 10px !important;
+}
+
 .ant-btn-primary {
   color: #fff;
   border-color: var(--color-primary);
   background: var(--color-primary);
+
+  &:focus, &:hover {
+    border-color: var(--color-primary--faded);
+    background: var(--color-primary--faded);
+  }
 }
 
-.ant-picker, .ant-btn-primary, .ant-select-selector, .ant-input {
+.ant-picker, .ant-select-selector, .ant-input {
   border-radius: 10px !important;
 }

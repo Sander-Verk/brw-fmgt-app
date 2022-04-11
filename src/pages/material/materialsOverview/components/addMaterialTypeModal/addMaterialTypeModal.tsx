@@ -1,10 +1,11 @@
 import { useMutation } from "@apollo/client";
-import { Button, Form, Input, Modal } from "antd";
+import { Form, Input, Modal } from "antd";
 import * as React from "react";
 import { useTranslation } from "react-i18next";
 import ErrorMessage from "components/errorMessage/errorMessage";
 import "./styles.scss";
 import { MUTATION_CREATE_MATERIALTYPE } from "graphql/mutations/createMaterialType";
+import AppButton from "components/appButton/appButton";
 
 interface Props {
 }
@@ -47,9 +48,7 @@ const AddMaterialTypeModal: React.FC<Props> = () => {
 
   return (
     <>
-      <Button type="primary" onClick={showModal}>
-        {t("addMaterialTypeModal.openBtn")}
-      </Button>
+      <AppButton text="addMaterialTypeModal.openBtn" onClick={showModal} />
       <Modal title={t("addMaterialTypeModal.title")} visible={isModalVisible} onOk={form.submit} onCancel={handleReset} cancelText={t("btn.cancel")} okText={t("btn.save")}>
         { graphqlError && (
           <ErrorMessage message={graphqlError}></ErrorMessage>

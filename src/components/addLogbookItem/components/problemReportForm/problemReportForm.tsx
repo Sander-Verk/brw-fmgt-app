@@ -1,15 +1,13 @@
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
-import { Button, Col, Form, Input, Row, Space } from "antd";
+import { Col, Form, Input, Row, Space } from "antd";
+import AppButton from "components/appButton/appButton";
 import * as React from "react";
-import { useTranslation } from "react-i18next";
 import "./styles.scss";
 
 interface Props {
 }
 
 const ProblemReportForm: React.FC<Props> = () => {
-  const { t } = useTranslation();
-
   return (
     <Row>
       <Form.List name="issues">
@@ -45,9 +43,7 @@ const ProblemReportForm: React.FC<Props> = () => {
 
             <Col span={12} offset={6}>
               <Form.Item>
-                <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
-                  { t("problemReportForm.addProblem")}
-                </Button>
+                <AppButton text="problemReportForm.addProblem" type="dashed" onClick={add} block icon={<PlusOutlined />} />
               </Form.Item>
             </Col>
           </>

@@ -1,11 +1,12 @@
 import { useMutation } from "@apollo/client";
-import { Button, Form, Input, Modal } from "antd";
+import { Form, Input, Modal } from "antd";
 import * as React from "react";
 import { useTranslation } from "react-i18next";
 import ErrorMessage from "components/errorMessage/errorMessage";
 import "./styles.scss";
 import { MUTATION_CREATE_SECTION } from "graphql/mutations/createSection";
 import { PlusCircleOutlined } from "@ant-design/icons";
+import AppButton from "components/appButton/appButton";
 
 interface Props {
   truckId: string;
@@ -55,17 +56,18 @@ const AddSectionModal: React.FC<Props> = ({ truckId, compartmentId, onChange }) 
 
   return (
     <>
-      <Button
-        ghost
-        className='addSection-btn'
-        onClick={event => {
-          showModal();
-          event.stopPropagation();
-        }}
-      >
-        <PlusCircleOutlined />
-        {t("addSectionModal.openBtn")}
-      </Button>
+      <div className="addSection-btn">
+        <AppButton
+          type="ghost"
+          text="addSectionModal.openBtn"
+          icon={<PlusCircleOutlined />}
+          onClick={event => {
+            showModal();
+            event.stopPropagation();
+          }}
+        />
+      </div>
+
       <Modal
         title={t("addSectionModal.title")}
         visible={isModalVisible}
@@ -74,7 +76,7 @@ const AddSectionModal: React.FC<Props> = ({ truckId, compartmentId, onChange }) 
         cancelText={t("btn.cancel")}
         okText={t("btn.save")}
         maskClosable={false}>
-        { graphqlError && (
+        {graphqlError && (
           <ErrorMessage message={graphqlError}></ErrorMessage>
         )}
         <Form
