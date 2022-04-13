@@ -1,5 +1,7 @@
 import { Row, Col } from "antd";
 import AppTable from "components/appTable/appTable";
+import { Role } from "components/rolesGuard/roles.enum";
+import RoleGuard from "components/rolesGuard/rolesGuard";
 import { Section } from "graphql/schema";
 import * as React from "react";
 import { useTranslation } from "react-i18next";
@@ -31,7 +33,9 @@ const SectionBlock: React.FC<Props> = ({ truckId, compartmentId, section }) => {
   const { t } = useTranslation();
 
   const renderTableFooter = (truckId: string, compartmentId: string, sectionId: string) => (
-    <AddMaterialModal truckId={truckId} compartmentId={compartmentId} sectionId={sectionId}></AddMaterialModal>
+    <RoleGuard minumumRole={Role.Manager}>
+      <AddMaterialModal truckId={truckId} compartmentId={compartmentId} sectionId={sectionId}></AddMaterialModal>
+    </RoleGuard>
   );
 
   return (

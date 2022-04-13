@@ -4,6 +4,8 @@ import { GetMaterialTypesQuery } from "graphql/schema";
 import AddMaterialTypeModal from "./components/addMaterialTypeModal/addMaterialTypeModal";
 import "./styles.scss";
 import AppTable from "components/appTable/appTable";
+import RoleGuard from "components/rolesGuard/rolesGuard";
+import { Role } from "components/rolesGuard/roles.enum";
 
 interface Props {
   data: GetMaterialTypesQuery;
@@ -48,7 +50,9 @@ const MaterialOverview: React.FC<Props> = ({ data }) => {
     <div className={className}>
       <div className="page-header">
         <h1>{t("materialsOverview.title")}</h1>
-        <AddMaterialTypeModal></AddMaterialTypeModal>
+        <RoleGuard minumumRole={Role.Manager}>
+          <AddMaterialTypeModal></AddMaterialTypeModal>
+        </RoleGuard>
       </div>
       
 

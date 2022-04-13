@@ -6,6 +6,8 @@ import { useHistory } from "react-router-dom";
 import LogbookList from "components/logbookList/logbookList";
 import LogbookFilter from "./components/logbookFilter/logbookFilter";
 import { LogbookFilterInput, LogbookItem } from "graphql/schema";
+import RoleGuard from "components/rolesGuard/rolesGuard";
+import { Role } from "components/rolesGuard/roles.enum";
 
 interface Props {
   data: LogbookItem[];
@@ -26,7 +28,9 @@ const LogbookOverview: React.FC<Props> = ({ data, onFilterChange }) => {
     <div className={className}>
       <div className="page-header">
         <h1>{t("logbookOverview.title")}</h1>
-        <AddLogbookItemModal></AddLogbookItemModal>
+        <RoleGuard minumumRole={Role.Manager}>
+          <AddLogbookItemModal></AddLogbookItemModal>
+        </RoleGuard>
       </div>
 
       <LogbookFilter onChange={onFilterChange}></LogbookFilter>

@@ -6,6 +6,8 @@ import "./styles.scss";
 import { useHistory } from "react-router-dom";
 import CompartmentList from "components/compartmentList/compartmentList";
 import LogbookList from "components/logbookList/logbookList";
+import RoleGuard from "components/rolesGuard/rolesGuard";
+import { Role } from "components/rolesGuard/roles.enum";
 
 
 interface Props {
@@ -58,7 +60,7 @@ const TruckDetail: React.FC<Props> = ({ data }) => {
               buttonStyle="solid"
             />
 
-            {radioValue === "compartments" && <AddCompartmentModal truckId={data.truck.id}></AddCompartmentModal>}
+            {radioValue === "compartments" && <RoleGuard minumumRole={Role.Manager}><AddCompartmentModal truckId={data.truck.id}></AddCompartmentModal></RoleGuard>}
           </div>
 
           {radioValue === "compartments" && (<CompartmentList truckId={data.truck.id} compartments={data.truck.compartments} />)}

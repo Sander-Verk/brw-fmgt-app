@@ -1,4 +1,6 @@
 import { Collapse } from "antd";
+import { Role } from "components/rolesGuard/roles.enum";
+import RoleGuard from "components/rolesGuard/rolesGuard";
 import { Compartment } from "graphql/schema";
 import * as React from "react";
 import AddSectionModal from "../addSectionModal/addSectionModal";
@@ -22,7 +24,9 @@ const CompartmentBlock: React.FC<Props> = ({ truckId, compartment }) => {
 
   const renderAddBtn = () => (
     isSectionOpen &&
-    <AddSectionModal truckId={truckId} compartmentId={compartment.id} onChange={setIsModalOpen}></AddSectionModal>
+    <RoleGuard minumumRole={Role.Manager}>
+      <AddSectionModal truckId={truckId} compartmentId={compartment.id} onChange={setIsModalOpen}></AddSectionModal>
+    </RoleGuard>
   );
 
   return (
