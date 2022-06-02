@@ -1,13 +1,14 @@
 import { PageHeader, Radio, RadioChangeEvent } from "antd";
 import * as React from "react";
-import { GetTruckQuery, LogbookItem, useGetLogbookQuery } from "graphql/schema";
+import { GetTruckQuery, LogbookItem, LogBookItemType, useGetLogbookQuery } from "graphql/schema";
 import AddCompartmentModal from "./components/addCompartmentModal/addCompartmentModal";
 import "./styles.scss";
 import { useHistory } from "react-router-dom";
 import CompartmentList from "components/compartmentList/compartmentList";
 import LogbookList from "components/logbookList/logbookList";
-import RoleGuard from "components/rolesGuard/rolesGuard";
+import RoleGuard, { RoleGuardType } from "components/rolesGuard/rolesGuard";
 import { Role } from "components/rolesGuard/roles.enum";
+import AppButton from "components/appButton/appButton";
 
 
 interface Props {
@@ -36,6 +37,10 @@ const TruckDetail: React.FC<Props> = ({ data }) => {
     setRadioValue(event.target.value);
   };
 
+  const addMaterialCheck = () => {
+    history.push(`/logbook/new?type=${LogBookItemType.MaterialCheck}&truckId=${data.truck.id}`);
+  };
+
   return (
     <div className={className}>
       {data && data.truck && (
@@ -60,7 +65,10 @@ const TruckDetail: React.FC<Props> = ({ data }) => {
               buttonStyle="solid"
             />
 
-            {radioValue === "compartments" && <RoleGuard minumumRole={Role.Manager}><AddCompartmentModal truckId={data.truck.id}></AddCompartmentModal></RoleGuard>}
+            <div className="action-group">
+              <AppButton text="truckDetail.addMaterialCheck" onClick={addMaterialCheck}/>  
+              {radioValue === "compartments" && <RoleGuard role={Role.Manager}><AddCompartmentModal truckId={data.truck.id}></AddCompartmentModal></RoleGuard>}
+            </div>
           </div>
 
           {radioValue === "compartments" && (<CompartmentList truckId={data.truck.id} compartments={data.truck.compartments} />)}

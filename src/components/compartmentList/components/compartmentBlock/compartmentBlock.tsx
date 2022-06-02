@@ -24,7 +24,7 @@ const CompartmentBlock: React.FC<Props> = ({ truckId, compartment }) => {
 
   const renderAddBtn = () => (
     isSectionOpen &&
-    <RoleGuard minumumRole={Role.Manager}>
+    <RoleGuard role={Role.Manager}>
       <AddSectionModal truckId={truckId} compartmentId={compartment.id} onChange={setIsModalOpen}></AddSectionModal>
     </RoleGuard>
   );

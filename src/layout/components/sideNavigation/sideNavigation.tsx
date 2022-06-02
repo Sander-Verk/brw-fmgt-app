@@ -29,7 +29,7 @@ const SideNavigation: React.FC<Props> = ({ onUrlChange }) => {
   return (
     <div className="sideNavigation">
       {items.map((item, i) => (
-        <RoleGuard minumumRole={item.role} key={i}>
+        <RoleGuard role={item.role} key={i}>
           <NavLink to={item.url} activeClassName="navigationElement__active" className="navigationElement" onClick={onUrlChange}>
             {React.createElement(item.icon)}
             {t(item.text)}

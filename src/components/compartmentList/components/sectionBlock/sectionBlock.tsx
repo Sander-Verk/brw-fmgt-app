@@ -33,7 +33,7 @@ const SectionBlock: React.FC<Props> = ({ truckId, compartmentId, section }) => {
   const { t } = useTranslation();
 
   const renderTableFooter = (truckId: string, compartmentId: string, sectionId: string) => (
-    <RoleGuard minumumRole={Role.Manager}>
+    <RoleGuard role={Role.Manager}>
       <AddMaterialModal truckId={truckId} compartmentId={compartmentId} sectionId={sectionId}></AddMaterialModal>
     </RoleGuard>
   );

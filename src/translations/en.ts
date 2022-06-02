@@ -25,7 +25,8 @@ export const en = {
   truckDetail: {
     noImage: "No image",
     noSection: "No section",
-    printList: "Print list"
+    printList: "Print list",
+    addMaterialCheck: "Add material check",
   },
   addCompartmentModal: {
     openBtn: "Create compartment",
@@ -101,5 +102,8 @@ export const en = {
       placeholder: "Choose truck"
     },
     addProblem: "Add problem"
+  },
+  truckselector: {
+    placeholder: "Choose truck"
   }
 };

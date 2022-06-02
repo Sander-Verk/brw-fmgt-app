@@ -3,6 +3,10 @@
 .btn-header {
   display: flex;
   justify-content: space-between;
+
+  .action-group > * {
+    margin-left: 10px;
+  }
 }
 
 .radio-group {

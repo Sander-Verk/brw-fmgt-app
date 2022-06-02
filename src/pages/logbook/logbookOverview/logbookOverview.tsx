@@ -28,7 +28,7 @@ const LogbookOverview: React.FC<Props> = ({ data, onFilterChange }) => {
     <div className={className}>
       <div className="page-header">
         <h1>{t("logbookOverview.title")}</h1>
-        <RoleGuard minumumRole={Role.Manager}>
+        <RoleGuard role={Role.Manager}>
           <AddLogbookItemModal></AddLogbookItemModal>
         </RoleGuard>
       </div>

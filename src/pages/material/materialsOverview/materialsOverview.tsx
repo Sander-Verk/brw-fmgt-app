@@ -50,7 +50,7 @@ const MaterialOverview: React.FC<Props> = ({ data }) => {
     <div className={className}>
       <div className="page-header">
         <h1>{t("materialsOverview.title")}</h1>
-        <RoleGuard minumumRole={Role.Manager}>
+        <RoleGuard role={Role.Manager}>
           <AddMaterialTypeModal></AddMaterialTypeModal>
         </RoleGuard>
       </div>
