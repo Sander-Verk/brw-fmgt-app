@@ -6,7 +6,7 @@ import "./styles.scss";
 import { useHistory } from "react-router-dom";
 import CompartmentList from "components/compartmentList/compartmentList";
 import LogbookList from "components/logbookList/logbookList";
-import RoleGuard, { RoleGuardType } from "components/rolesGuard/rolesGuard";
+import RoleGuard from "components/rolesGuard/rolesGuard";
 import { Role } from "components/rolesGuard/roles.enum";
 import AppButton from "components/appButton/appButton";
 

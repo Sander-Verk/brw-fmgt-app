@@ -6,9 +6,11 @@ import "./styles.scss";
 import AppTable from "components/appTable/appTable";
 import RoleGuard from "components/rolesGuard/rolesGuard";
 import { Role } from "components/rolesGuard/roles.enum";
+import { TablePaginationConfig } from "antd";
 
 interface Props {
   data: GetMaterialTypesQuery;
+  refetchData: (skip: number, limit: number) => void;
 }
 
 interface TableItem {
@@ -31,20 +33,26 @@ const columns = [
     key: "name",
   },
   {
-    title: "Code Fiche",
-    dataIndex: "codeFiche",
-    key: "codeFiche",
+    title: "Description",
+    dataIndex: "description",
+    key: "description",
   }
 ];
 
-const MaterialOverview: React.FC<Props> = ({ data }) => {
+const MaterialOverview: React.FC<Props> = ({ data, refetchData }) => {
   const { t } = useTranslation();
   const dataSource: TableItem[] = data?.materialTypes?.items.map(material => ({
     code: material.code,
     name: material.name,
-    codeFiche: material.codeFiche,
+    description: material.description,
     key: material.code
   }) || []);
+
+  const handlePageChange = (pagination: TablePaginationConfig) => {
+    console.log(pagination);
+    const skip = ((pagination.current || 1) * (pagination.pageSize || 0)) - (pagination.pageSize || 0);
+    refetchData(skip, pagination.pageSize || 10);
+  };
 
   return (
     <div className={className}>
@@ -56,7 +64,12 @@ const MaterialOverview: React.FC<Props> = ({ data }) => {
       </div>
       
 
-      <AppTable dataSource={dataSource} columns={columns} pagination={true}/>
+      <AppTable
+        dataSource={dataSource}
+        columns={columns}
+        pagination={{ total: data.materialTypes.count }}
+        onChange={(pagination) => { handlePageChange(pagination); }}
+      />
     </div>
   );
 };

@@ -3,7 +3,7 @@ import { useMutation } from "@apollo/client";
 import { DatePicker, Form, Input, Modal, Select } from "antd";
 import * as React from "react";
 import { useTranslation } from "react-i18next";
-import { useGetMaterialTypesQuery } from "graphql/schema";
+import { MaterialType, useGetMaterialTypesQuery } from "graphql/schema";
 import ErrorMessage from "components/errorMessage/errorMessage";
 import "./styles.scss";
 import { MUTATION_CREATE_MATERIAL_WITH_TRUCK } from "graphql/mutations/createMaterialWithTruck";
@@ -19,7 +19,7 @@ const AddMaterialModal: React.FC<Props> = ({ truckId, compartmentId, sectionId }
   const [isModalVisible, setIsModalVisible] = React.useState(false);
   const [graphqlError, setGraphqlError] = React.useState<string>();
   const [form] = Form.useForm();
-  const { data } = useGetMaterialTypesQuery();
+  const { data, loading, refetch } = useGetMaterialTypesQuery();
   const [createMaterial] = useMutation(MUTATION_CREATE_MATERIAL_WITH_TRUCK);
 
   const showModal = () => {
@@ -49,10 +49,21 @@ const AddMaterialModal: React.FC<Props> = ({ truckId, compartmentId, sectionId }
     }
   };
 
+  const handleSearch = (newValue: string) => {
+    console.log("SEARCH", newValue);
+    if (newValue) {
+      refetch({ filter: { search: newValue }});
+    }
+  };
+
   const handleReset = () => {
     form.resetFields();
     setGraphqlError(undefined);
     setIsModalVisible(false);
+  };
+  
+  const renderSelectOption = (materialType: MaterialType): string => {
+    return materialType.name + (materialType.description && ` (${materialType.description})`);
   };
 
   return (
@@ -74,9 +85,14 @@ const AddMaterialModal: React.FC<Props> = ({ truckId, compartmentId, sectionId }
             label="Material type"
             name="materialTypeId"
             rules={[{ required: true, message: "This field is required" }]}>
-            <Select>
-              {data && data.materialTypes?.items?.length && data.materialTypes.items.map(m => (
-                <Select.Option value={m.id} key={m.id}>{m.name}</Select.Option>
+            <Select
+              showSearch
+              onSearch={handleSearch}
+              filterOption={false}
+              loading={loading}
+            >
+              { data?.materialTypes?.items?.length && data.materialTypes.items.map(m => (
+                <Select.Option value={m.id} key={m.id}>{renderSelectOption(m)}</Select.Option>
               ))}
             </Select>
           </Form.Item>

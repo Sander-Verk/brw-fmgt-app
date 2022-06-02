@@ -96,7 +96,6 @@ const AddSectionModal: React.FC<Props> = ({ truckId, compartmentId, onChange }) 
           <Form.Item
             label="Image URL"
             name="imageUrl"
-            rules={[{ required: true, message: "This field is required" }]}
           >
             <Input />
           </Form.Item>

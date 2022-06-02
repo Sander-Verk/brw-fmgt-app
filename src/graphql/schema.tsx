@@ -57,7 +57,7 @@ export type CreateMaterialTypeInput = {
 };
 
 export type CreateSectionInput = {
-  imageUrl: Scalars['String'];
+  imageUrl?: Maybe<Scalars['String']>;
   name: Scalars['String'];
 };
 
@@ -473,7 +473,11 @@ export type GetLogbookItemQueryVariables = Exact<{
 
 export type GetLogbookItemQuery = { __typename?: 'Query', logbookItem: { __typename: 'MaterialCheckReport', id: string, createdAt: any, type: LogBookItemType, status: HistoryStatus, truck: { __typename?: 'Truck', id: string, name: string }, user: { __typename?: 'User', id: string, name: string }, statusHistory: Array<{ __typename?: 'StatusHistoryItem', status: HistoryStatus, timestamp: any, user: { __typename?: 'User', id: string, name: string } }>, checks: Array<{ __typename?: 'CompartmentCheck', id: string, code: string, name: string, sections: Array<{ __typename?: 'SectionCheck', id: string, name?: string | null | undefined, materials: Array<{ __typename?: 'MaterialCheck', amount: number, check: boolean, remark?: string | null | undefined, materialType: { __typename?: 'MaterialType', id: string, name: string } }> }> }> } | { __typename: 'ProblemReport', id: string, createdAt: any, type: LogBookItemType, truck: { __typename?: 'Truck', id: string, name: string, code: string }, user: { __typename?: 'User', id: string, name: string }, issues: Array<{ __typename?: 'ProblemReportIssue', part: string, description: string }> } };
 
-export type GetMaterialTypesQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetMaterialTypesQueryVariables = Exact<{
+  filter?: Maybe<MaterialTypeFilterInput>;
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+}>;
 
 
 export type GetMaterialTypesQuery = { __typename?: 'Query', materialTypes: { __typename?: 'MaterialTypeResult', count: number, items: Array<{ __typename?: 'MaterialType', id: string, code: string, name: string, description: string, codeFiche?: string | null | undefined }> } };
@@ -936,8 +940,8 @@ export type GetLogbookItemQueryHookResult = ReturnType<typeof useGetLogbookItemQ
 export type GetLogbookItemLazyQueryHookResult = ReturnType<typeof useGetLogbookItemLazyQuery>;
 export type GetLogbookItemQueryResult = Apollo.QueryResult<GetLogbookItemQuery, GetLogbookItemQueryVariables>;
 export const GetMaterialTypesDocument = gql`
-    query getMaterialTypes {
-  materialTypes(filter: {}) {
+    query getMaterialTypes($filter: MaterialTypeFilterInput, $skip: Int, $limit: Int) {
+  materialTypes(filter: $filter, skip: $skip, limit: $limit) {
     count
     items {
       id
@@ -962,6 +966,9 @@ export const GetMaterialTypesDocument = gql`
  * @example
  * const { data, loading, error } = useGetMaterialTypesQuery({
  *   variables: {
+ *      filter: // value for 'filter'
+ *      skip: // value for 'skip'
+ *      limit: // value for 'limit'
  *   },
  * });
  */
